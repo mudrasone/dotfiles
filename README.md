@@ -1,6 +1,6 @@
 # Dotfiles
 
-![Screenshot](https://raw.githubusercontent.com/a1017/osx-setup/master/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/civiclabsconsulting/dotfiles/master/screenshot.png)
 
 ## Keyboard
 
