@@ -12,20 +12,21 @@ set clipboard+=unnamedplus
 set linebreak
 
 " Formatting
-set autoindent                  " Indent at the same level of the previous line
-set shiftwidth=4                " Use indents of 4 spaces
-set expandtab                   " Tabs are spaces, not tabs
-set tabstop=4                   " An indentation every four columns
-set softtabstop=4               " Let backspace delete indent
-set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
-set splitright                  " Puts new vsplit windows to the right of the current
+set autoindent      " Indent at the same level of the previous line
+set shiftwidth=4    " Use indents of 4 spaces
+set expandtab       " Tabs are spaces, not tabs
+set tabstop=4       " An indentation every four columns
+set softtabstop=4   " Let backspace delete indent
+set nojoinspaces    " Prevents inserting two spaces after punctuation on a join
+set splitright      " Puts new vsplit windows to the right of the current
 set splitbelow
+set hidden
+set number
 
 " Normalize tabs
 filetype plugin indent on
-set number
 
-" Spellcheck
+" SpellCheck
 set spell! spelllang=en_us
 
 " Infinite undo
@@ -33,7 +34,6 @@ if has('persistent_undo')
     set undofile
     set undodir=$HOME/.nvim/undo
 endif
-set hidden
 
 " Convenience helper functions
 nmap <silent><leader>q :Errors<cr>                           " Quickfix
@@ -42,7 +42,7 @@ nmap <silent><leader>ec :edit ~/.config/nvim/init.vim<cr>    " Edit configuratio
 nmap <silent><leader>sp :setlocal spell! spelllang=en_us<cr> " Spellcheck
 nmap <silent><leader>c :noh<cr>                              " Remove highlights
 nmap <silent><leader>sw :StripWhitespace<cr>                 " Remove highlights
-nnoremap <silent><leader>w :w<cr><esc>                       " Write
+nmap <silent><leader>w :w<cr><esc>                           " Write
 
 " Delete helper functions
 nnoremap <leader>d "_d      " Delete line but do not save to register
@@ -50,7 +50,7 @@ vnoremap <leader>d "_d      " Delete line but do not save to register
 vnoremap <leader>p "_dP     " Paste line but do not save to register
 " }
 
-" Hardmode {
+" HardMode {
 nnoremap <leader>h<esc>:call ToggleHardMode()<cr>      " Hardmode
 " }
 
@@ -89,6 +89,9 @@ Plug 'godlygeek/tabular'
 Plug 'myusuf3/numbers.vim'
 Plug 'easymotion/vim-easymotion'
 
+" Writing
+Plug 'dbmrq/vim-ditto'
+
 " Python folding
 Plug 'tmhedberg/SimpylFold'
 
@@ -109,6 +112,11 @@ Plug 'eagletmt/neco-ghc'
 Plug 'wikitopian/hardmode'
 
 call plug#end()
+" }
+
+" Ditto {
+au FileType markdown,text,tex DittoOn  " Turn on Ditto's autocmds
+map <leader>di :ToggleDitto<cr>
 " }
 
 " Haskell {
@@ -138,8 +146,8 @@ vmap <leader>a, :Tabularize /,<cr>
 nmap <leader>a,, :Tabularize /,\zs<cr>
 vmap <leader>a,, :Tabularize /,\zNext s<cr>
 nmap <leader>a< :Tabularize /<<cr>
-nmap <leader>a<bar> :Tabularize /<Bar><cr>
-vmap <leader>a<bar> :Tabularize /<Bar><cr>
+nmap <leader>a<bar> :Tabularize /<bar><cr>
+vmap <leader>a<bar> :Tabularize /<bar><cr>
 " }
 
 " Tagbar {
@@ -147,8 +155,9 @@ nmap <C-t> :TagbarToggle<cr>
 " }
 
 " Numbers {
-nnoremap <leader>nt :NumbersToggle<CR>
-nnoremap <leader>no :NumbersOnOff<CR>
+nnoremap <leader>nt :NumbersToggle<cr>
+nnoremap <leader>no :NumbersOnOff<cr>
+
 let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'unite',
     \ 'startify', 'vimshell', 'w3m']
 " }
@@ -260,9 +269,9 @@ syntax on
 
 let hour = strftime("%H")
 if 6 <= hour && hour < 18
-  set background=light
+    set background=light
 else
-  set background=dark
+    set background=dark
 endif
 
 colorscheme solarized
@@ -276,8 +285,8 @@ let g:solarized_bold = 0
 
 " Cursor {
 augroup CursorLine
-au!
-au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-au WinLeave * setlocal nocursorline
+    au!
+    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
 augroup END
 " }
