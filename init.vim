@@ -186,6 +186,8 @@ nnoremap <leader>/ :<C-u>Unite -no-split -silent -buffer-name=ag grep<cr>
 " NERDTree {
 map <C-n> :NERDTreeToggle<cr>
 
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 let NERDTreeIgnore     = ['\.pyc$']
 let NERDTreeShowHidden = 1
 " }
