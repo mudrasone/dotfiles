@@ -1,2 +1,2 @@
 update:
-	@cp ~/.tmux.conf ~/.config/nvim/init.vim .
+	@cp ~/.tmux.conf ~/.config/nvim/init.vim ~/.bash_profile ~/.bashrc .

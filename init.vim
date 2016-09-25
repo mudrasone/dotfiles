@@ -11,8 +11,6 @@ syntax on
 set clipboard=unnamed
 set clipboard+=unnamedplus
 
-set spell! spelllang=en_us
-
 filetype plugin indent on
 
 " Infinite undo
@@ -25,7 +23,7 @@ endif
 nmap <silent><leader>sc :so ~/.config/nvim/init.vim<cr>      " Source conf
 nmap <silent><leader>ec :edit ~/.config/nvim/init.vim<cr>    " Edit conf
 nmap <silent><leader>sp :setlocal spell! spelllang=en_us<cr> " Toggle spellcheck
-nmap <silent><leader>c :noh<cr>                              " Remove highlights
+nmap <silent><leader>c :noh<cr>:lclose<cr>                              " Remove highlights
 nmap <silent><leader>sw :StripWhitespace<cr>                 " Strip whitespaces
 nmap <silent><leader>w :w<cr><esc>                           " Write file
 
@@ -39,18 +37,14 @@ vnoremap <leader>p "_dP     " Visual paste line but do not save to register
 " Plugins {
 call plug#begin('~/.nvim/plugged')
 
-" Utils
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-
 " Tools
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'neomake/neomake'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-sleuth'
-Plug 'Chiel92/vim-autoformat'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'itchyny/lightline.vim'
 Plug 'vimwiki/vimwiki'
@@ -63,15 +57,16 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'jiangmiao/auto-pairs'
 Plug 'godlygeek/tabular'
 Plug 'mhinz/vim-startify'
-Plug 'tmhedberg/SimpylFold'
-Plug 'Chiel92/vim-autoformat'
 
 " Meta
 Plug 'wikitopian/hardmode'
 
 " Syntax
+Plug 'tmhedberg/SimpylFold'
+Plug 'Chiel92/vim-autoformat'
 Plug 'daveyarwood/vim-alda'
 Plug 'fatih/vim-nginx'
+Plug 'reedes/vim-pencil'
 
 " Themes
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
@@ -81,18 +76,17 @@ Plug 'jacoborus/tender.vim'
 Plug 'pbrisbin/vim-syntax-shakespeare'
 Plug 'raichoo/haskell-vim'
 Plug 'itchyny/vim-haskell-indent'
-Plug 'Twinside/vim-hoogle'
-Plug 'eagletmt/ghcmod-vim'
-Plug 'eagletmt/neco-ghc'
+"Plug 'Twinside/vim-hoogle'
+"Plug 'bitc/vim-hdevtools'
 
 call plug#end()
 " }
 
 " Haskell {
-map <silent> tw :GhcModTypeInsert<cr>
-map <silent> ts :GhcModSplitFunCase<cr>
-map <silent> tq :GhcModType<cr>
-map <silent> te :GhcModTypeClear<cr>
+au FileType haskell nnoremap <buffer>ht :HdevtoolsType<CR>
+au FileType haskell nnoremap <buffer><silent>hc :HdevtoolsClear<CR>
+
+let g:hdevtools_options = '-g-isrc -g-Wall'
 " }
 
 " Tabularize {
@@ -113,8 +107,12 @@ nnoremap <leader>n :set nonumber!<CR>
 " }
 
 " Autoformat {
-noremap <leader>= :Autoformat redraw<cr>
-let g:formatters_python = ["/usr/local/bin/autopep8"]
+noremap <leader>= :Autoformat <cr>:redraw<cr>
+
+let g:autoformat_verbosemode            = 1
+let g:autoformat_autoindent             = 0
+let g:autoformat_retab                  = 0
+let g:autoformat_remove_trailing_spaces = 0
 " }
 
 " Neomake {
@@ -211,6 +209,12 @@ augroup END
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " }
 
-" Column {
-au BufEnter *.py setlocal colorcolumn=81
+" Pencil {
+let g:pencil#wrapModeDefault = 'soft' 
+
+augroup pencil
+    autocmd!
+    autocmd FileType markdown,mkd call pencil#init()
+    autocmd FileType text         call pencil#init()
+augroup END
 " }
