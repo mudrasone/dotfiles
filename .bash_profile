@@ -13,11 +13,7 @@ export TERM='xterm-256color'
 export PROJECT_HOME=$PWD/.virtualenv
 export WORKON_HOME=$PWD/.virtualenv
 export NVIMRC=~/.config/nvim/init.vim
-export VIMRC=~/.vimrc
 export NVM_DIR="/Users/brandon/.nvm"
-export DOCKER_HOST=tcp://192.168.99.100:2376
-export DOCKER_CERT_PATH=/Users/brandon/.docker/machine/machines/default
-export DOCKER_TLS_VERIFY=1
 
 source /usr/local/bin/virtualenvwrapper.sh
 
@@ -35,7 +31,7 @@ function lazygit () {
     git push
 }
 
-function rmdsstore () {
+function rmdss () {
     find . -name '*.DS_Store' -type f -delete
 }
 
