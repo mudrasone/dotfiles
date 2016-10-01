@@ -30,6 +30,9 @@ nmap <silent><leader>c :noh \| lclose<cr>                    " Remove highlights
 nmap <silent><leader>sw :StripWhitespace<cr>                 " Strip whitespaces
 nmap <silent><leader>w :w<cr><esc>                           " Write file
 nmap <silent><leader>n :set nonumber!<cr>
+nmap <silent><leader>m :messages<cr>
+
+"let g:gutentags_ctags_executable = '/usr/local/bin/ctags'
 
 " Clipboard convenience functions
 nnoremap <leader>d "_d      " Normal delete line but do not save to register
@@ -56,7 +59,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'airblade/vim-gitgutter'
 Plug 'gioele/vim-autoswap'
 Plug 'jiangmiao/auto-pairs'
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'fntlnz/atags.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'reedes/vim-pencil'
@@ -77,6 +80,15 @@ Plug 'fatih/vim-nginx'
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 
 call plug#end()
+" }
+
+" Atags {
+autocmd BufWritePost * call atags#generate()
+let g:atags_build_commands_list = [
+            \ 'ag -g "" | ctags -L - --fields=+l -f tags.tmp',
+            \ 'awk "length($0) < 400" tags.tmp > tags',
+            \ 'rm tags.tmp'
+            \ ]
 " }
 
 " Autoformat {
@@ -121,11 +133,6 @@ let NERDTreeShowHidden = 1
 
 " Airline {
 let g:lightline = {'colorscheme': 'solarized'}
-" }
-
-" Gutentag {
-let g:gutentags_ctags_executable = '/usr/local/bin/ctags'
-let g:gutentags_exclude          = []
 " }
 
 " Vimwiki {
