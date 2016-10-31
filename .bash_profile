@@ -8,6 +8,7 @@ export PATH=/usr/local/pgsql/bin:$PATH
 export PATH=$HOME/Library/Haskell/bin:$PATH
 export PATH=$HOME/.cabal:$PATH
 export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.rvm/bin:$PATH
 
 export HTML_TIDY=~/.tidyrc
 export TERM='xterm-256color'
@@ -16,8 +17,13 @@ export WORKON_HOME=$PWD/.virtualenv
 export NVIMRC=~/.config/nvim/init.vim
 export NVM_DIR="/Users/brandon/.nvm"
 
-source /usr/local/bin/virtualenvwrapper.sh
+# OPAM configuration
+. /Users/brandon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
+source /usr/local/bin/virtualenvwrapper.sh
+source /Users/brandon/.rvm/scripts/rvm
+
+alias emacs=/usr/local/bin/emacs
 alias dcp='docker-compose'
 alias dm='/usr/local/bin/docker-machine'
 alias tmux='tmux -2'
