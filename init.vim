@@ -18,6 +18,10 @@ set clipboard+=unnamedplus
 syntax on
 filetype plugin indent on
 
+if has('termguicolors')
+  set termguicolors
+endif
+
 " Infinite undo
 if has('persistent_undo')
     set undofile
@@ -65,8 +69,6 @@ Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Chiel92/vim-autoformat'
-
-" Org
 Plug 'reedes/vim-pencil'
 Plug 'mhinz/vim-startify'
 Plug 'vimwiki/vimwiki'
@@ -83,8 +85,8 @@ Plug 'daveyarwood/vim-alda'
 Plug 'pbrisbin/vim-syntax-shakespeare'
 Plug 'fatih/vim-nginx'
 
-" Themes
-Plug 'frankier/neovim-colors-solarized-truecolor-only'
+" Theme
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 " }
@@ -108,6 +110,7 @@ noremap <leader>e :EasyAlign<cr>
 
 " Neomake {
 autocmd! BufWritePost * Neomake
+
 let g:neomake_open_list   = 2
 let g:neomake_place_signs = 0
 " }
@@ -137,7 +140,7 @@ let NERDTreeShowHidden = 1
 
 " Airline {
 let g:lightline = {
-            \ 'colorscheme': 'solarized',
+            \ 'colorscheme': 'gruvbox',
             \ 'active': {
             \     'left': [['mode', 'paste'], ['fugitive'], ['filename']]
             \ },
@@ -209,14 +212,9 @@ nmap <leader>wp :VimwikiDiaryPrevDay<cr>
 " }
 
 " Color {
-let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+"let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 
-colorscheme solarized
-
-let g:solarized_termtrans  = 1
-let g:solarized_termcolors = 256
-let g:solarized_degrade    = 0
-let g:solarized_bold       = 0
+colorscheme gruvbox
 
 set background=dark
 " }
@@ -246,17 +244,4 @@ endfunction
 " Signify {
 let g:signify_sign_show_count = 1
 let g:signify_sign_show_text  = 1
-" }
-
-" Solarized {
-let g:solarized_termcolors = 256
-let g:solarized_termtrans  = 1
-let g:solarized_degrade    = 0
-let g:solarized_bold       = 0
-let g:solarized_underline  = 0
-let g:solarized_italic     = 1
-let g:solarized_contrast   = "normal"
-let g:solarized_visibility = "normal"
-let g:solarized_hitrail    = 1
-let g:solarized_menu       = 1
 " }
