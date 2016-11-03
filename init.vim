@@ -39,7 +39,7 @@ nmap <silent><leader>n :set nonumber!<cr>                    " Toggle line numbe
 nmap <silent><leader>m :messages<cr>                         " Show messages
 nmap <silent><leader>pc :PlugClean<cr>                       " Plugin clean
 nmap <silent><leader>pi :PlugInstall<cr>                     " Plugin install
-nmap <silent><leader>t :terminal<cr>                         " Terminal
+nmap <silent><leader>t :terminal<cr>
 
 nnoremap <silent><leader>sw :let _s=@/ <bar> :%s/\s\+$//e <bar> :let @/=_s <bar> :nohl <bar> :unlet _s <cr>
 
@@ -72,6 +72,7 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'reedes/vim-pencil'
 Plug 'mhinz/vim-startify'
 Plug 'vimwiki/vimwiki'
+Plug 'vim-scripts/restore_view.vim'
 
 " Meta
 Plug 'wikitopian/hardmode'
@@ -81,8 +82,8 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'Twinside/vim-haskellFold'
 
 " Syntax
-Plug 'daveyarwood/vim-alda'
 Plug 'pbrisbin/vim-syntax-shakespeare'
+Plug 'daveyarwood/vim-alda'
 Plug 'fatih/vim-nginx'
 
 " Theme
@@ -138,12 +139,13 @@ let NERDTreeIgnore     = ['\.pyc$']
 let NERDTreeShowHidden = 1
 " }
 
-" Airline {
+" Lightline {
 let g:lightline = {
             \ 'colorscheme': 'gruvbox',
             \ 'active': {
             \     'left': [['mode', 'paste'], ['fugitive'], ['filename']]
             \ },
+            \ 'subseparator': { 'left': "•", 'right': "•" },
             \ 'component_function': {
             \     'fugitive': 'LLFugitive',
             \     'readonly': 'LLReadonly',
@@ -192,6 +194,9 @@ function! LLFugitive()
 endfunction
 
 function! LLFilename()
+    if &filetype == "fzf"
+        return ""
+    endif
     return ('' != LLReadonly() ? LLReadonly() . ' ' : '') .
                 \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
                 \ ('' != LLModified() ? ' ' . LLModified() : '')
@@ -212,10 +217,7 @@ nmap <leader>wp :VimwikiDiaryPrevDay<cr>
 " }
 
 " Color {
-"let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-
 colorscheme gruvbox
-
 set background=dark
 " }
 
