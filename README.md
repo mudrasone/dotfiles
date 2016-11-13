@@ -14,15 +14,15 @@ iTerm is great, a bit more robust than OSX's default terminal, Terminal.app. iTe
 
 ### Notes
 
-To get `solarized` colors working properly it's necessary to install a modified version of `tmux` with 24-bit color support.
+To get `tmux` working properly with 24-bit color support, the following patched libary is needed: `choppsv1/term24`.
 
 ```
 brew tap choppsv1/term24
 brew install choppsv1/term24/tmux
 ```
 
-* See .tmux.conf for full configuration details
 * Prefix is ^a
+* See .tmux.conf for full configuration details
 
 ## Neovim
 
