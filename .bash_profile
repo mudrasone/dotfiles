@@ -38,8 +38,28 @@ function lazygit () {
     git push
 }
 
-function rmdss () {
+function rmdss {
     find . -name '*.DS_Store' -type f -delete
+}
+
+function rmpyc {
+    find . -name '*.pyc' -type f -delete
+}
+
+function has-session {
+    tmux has-session -t "$1" 2>/dev/null
+}
+
+function tinit {
+    if has-session ; then
+        echo "Session already exists"
+    else
+        cd ~/Code/"$1"
+        tmux -2 new-session -d -s "$1"
+        tmux -2 split-window -h -p 40 htop
+        tmux -2 split-window -v 
+        tmux -2 attach-session -d -t "$1"
+    fi
 }
 
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

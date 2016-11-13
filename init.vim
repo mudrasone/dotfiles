@@ -1,11 +1,11 @@
 " vim: set ft=vim foldmarker={,} foldmethod=marker spell:
 
 " System {
+set nocompatible
+
 let g:python_host_prog = '/usr/local/bin/python3'
 
 let mapleader = "\<Space>"
-
-set nocompatible
 
 set hidden
 set expandtab
@@ -15,12 +15,12 @@ set shiftwidth=4
 set clipboard=unnamed
 set clipboard+=unnamedplus
 
-syntax on
-filetype plugin indent on
-
 if has('termguicolors')
   set termguicolors
 endif
+
+syntax on
+filetype plugin indent on
 
 " Infinite undo
 if has('persistent_undo')
@@ -30,23 +30,34 @@ endif
 " }
 
 " Convenience mappings {
-nmap <silent><leader>sc :so ~/.config/nvim/init.vim<cr>      " Source conf
-nmap <silent><leader>ec :edit ~/.config/nvim/init.vim<cr>    " Edit conf
-nmap <silent><leader>sp :setlocal spell! spelllang=en_us<cr> " Toggle spellcheck
-nmap <silent><leader>c :noh \| lclose<cr>                    " Remove highlights and closes QuickFix window
-nmap <silent><leader>w :w<cr><esc>                           " Write file
-nmap <silent><leader>n :set nonumber!<cr>                    " Toggle line numbers
-nmap <silent><leader>m :messages<cr>                         " Show messages
-nmap <silent><leader>pc :PlugClean<cr>                       " Plugin clean
-nmap <silent><leader>pi :PlugInstall<cr>                     " Plugin install
-nmap <silent><leader>t :terminal<cr>
+nmap <silent><Leader>sc :so ~/.config/nvim/init.vim<CR>      " Source conf
+nmap <silent><Leader>ec :edit ~/.config/nvim/init.vim<CR>    " Edit conf
+nmap <silent><Leader>sp :setlocal spell! spelllang=en_us<CR> " Toggle spellcheck
+nmap <silent><Leader>c :noh<CR>                              " Remove highlights
+nmap <silent><Leader>q :lclose<CR>                           " Close QuickFix
+nmap <silent><Leader>w :w<CR><Esc>                           " Write file
+nmap <silent><Leader>n :set nonumber!<CR>                    " Toggle line numbers
+nmap <silent><Leader>m :messages<CR>                         " Show messages
+nmap <silent><Leader>pc :PlugClean<CR>                       " Plugin clean
+nmap <silent><Leader>pi :PlugInstall<CR>                     " Plugin install
+nmap <silent><Leader>m :call ToggleBackground()<CR>          " Toggle background
+nmap <silent><Leader>t :terminal<CR>
 
-nnoremap <silent><leader>sw :let _s=@/ <bar> :%s/\s\+$//e <bar> :let @/=_s <bar> :nohl <bar> :unlet _s <cr>
+function! ToggleBackground()
+    let &background = (&background == "dark" ? "light" : "dark")
+    let g:lightline.colorscheme = 'gruvbox-light'
+endfunction
 
-nnoremap <leader>d "_d      " Normal delete line but do not save to register
-vnoremap <leader>d "_d      " Visual delete line but do not save to register
-nnoremap <leader>p "_dP     " Normal paste line but do not save to register
-vnoremap <leader>p "_dP     " Visual paste line but do not save to register
+" Automatically change working directory to buffer file
+autocmd BufEnter * silent! :lcd%:p:h
+
+nnoremap <Silent><Leader>sw :let _s=@/ <Bar> :%s/\s\+$//e <Bar>
+            \ :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+
+nnoremap <Leader>d "_d      " Normal delete line but do not save to register
+vnoremap <Leader>d "_d      " Visual delete line but do not save to register
+nnoremap <Leader>p "_dP     " Normal paste line but do not save to register
+vnoremap <Leader>p "_dP     " Visual paste line but do not save to register
 " }
 
 " Plugins {
@@ -78,8 +89,7 @@ Plug 'vim-scripts/restore_view.vim'
 Plug 'wikitopian/hardmode'
 
 " Haskell
-Plug 'neovimhaskell/haskell-vim'
-Plug 'Twinside/vim-haskellFold'
+Plug 'parsonsmatt/intero-neovim'
 
 " Syntax
 Plug 'pbrisbin/vim-syntax-shakespeare'
@@ -97,7 +107,7 @@ let g:easytags_cmd = '/usr/local/bin/ctags'
 " }
 
 " Autoformat {
-noremap <leader>= :Autoformat \| :SignifyRefresh<cr>
+noremap <Leader>= :Autoformat \| :SignifyRefresh<CR>
 
 let g:autoformat_verbosemode            = 0
 let g:autoformat_autoindent             = 1
@@ -105,8 +115,33 @@ let g:autoformat_retab                  = 1
 let g:autoformat_remove_trailing_spaces = 1
 " }
 
+" Intero {
+
+" Process management
+nnoremap <Leader>hio :InteroOpen<CR>
+nnoremap <Leader>hik :InteroKill<CR>
+nnoremap <Leader>hic :InteroHide<CR>
+nnoremap <Leader>hil :InteroLoadCurrentModule<CR>
+
+" REPL commands
+nnoremap <Leader>hie :InteroEval<CR>
+nnoremap <Leader>hit :InteroGenericType<CR>
+nnoremap <Leader>hiT :InteroType<CR>
+nnoremap <Leader>hii :InteroInfo<CR>
+nnoremap <Leader>hiI :InteroTypeInsert<CR>
+
+" Go to definition
+nnoremap <Leader>hid :InteroGoToDef<CR>
+
+" Highlight uses of identifier:
+nnoremap <Leader>hiu :InteroUses<CR>
+
+" Reload the file in Intero after saving
+autocmd! BufWritePost *.hs InteroReload
+" }
+
 " EasyAlign {
-noremap <leader>e :EasyAlign<cr>
+noremap <Leader>e :EasyAlign<CR>
 " }
 
 " Neomake {
@@ -121,19 +156,20 @@ let g:deoplete#enable_at_startup = 1
 " }
 
 " FZF {
-nnoremap <leader>h :History<cr>
-nnoremap <leader>b :Buffers<cr>
-nnoremap <leader>g :GFiles<cr>
-nnoremap <leader>f :Files<cr>
-nnoremap <leader>/ :Ag<cr>
+nnoremap <Leader>h :History<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>g :GFiles<CR>
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>/ :Ag<CR>
 
 let g:fzf_history_dir = '~/.fzf-history'
 " }
 
 " NERDTree {
-map <C-n> :NERDTreeToggle<cr>
+map <C-n> :NERDTreeToggle<CR>
 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&
+            \ b:NERDTree.isTabTree()) | q | endif
 
 let NERDTreeIgnore     = ['\.pyc$']
 let NERDTreeShowHidden = 1
@@ -170,6 +206,8 @@ endfunction
 function! LLModified()
     if &filetype == "help"
         return ""
+    elseif &filetype == "nerdtree"
+        return ""
     elseif &modified
         return "+"
     elseif &modifiable
@@ -182,6 +220,8 @@ endfunction
 function! LLReadonly()
     if &filetype == "help"
         return ""
+    elseif &filetype == "nerdtree"
+        return ""
     elseif &readonly
         return "!"
     else
@@ -190,15 +230,34 @@ function! LLReadonly()
 endfunction
 
 function! LLFugitive()
-    return exists('*fugitive#head') ? fugitive#head() : ''
+    try
+        if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && 
+                    \ exists('*fugitive#head')
+            let mark = ''  " edit here for cool mark
+            let branch = fugitive#head()
+            return branch !=# '' ? mark.branch : ''
+        endif
+    catch
+    endtry
+    return ''
 endfunction
 
 function! LLFilename()
-    if &filetype == "fzf"
+    if &filetype == "nerdtree"
+        return "NER"
+    elseif &filetype == "fzf"
         return ""
     endif
-    return ('' != LLReadonly() ? LLReadonly() . ' ' : '') .
-                \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+    let fname = expand('%:t')
+    return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ?
+                \ g:lightline.ctrlp_item :
+                \ fname == '__Tagbar__' ? g:lightline.fname :
+                \ fname =~ '__Gundo\|NERD_tree\|nerdtree' ? '' :
+                \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+                \ &ft == 'unite' ? unite#get_status_string() :
+                \ &ft == 'vimshell' ? vimshell#get_status_string() :
+                \ ('' != LLReadonly() ? LLReadonly() . ' ' : '') .
+                \ ('' != fname ? fname : '[No Name]') .
                 \ ('' != LLModified() ? ' ' . LLModified() : '')
 endfunction
 " }
@@ -212,18 +271,15 @@ let g:vimwiki_list = [{"syntax": "markdown",
             \ "path_html"        : "/Users/brandon/Dropbox (Personal)/vimwiki/html/",
             \ "path"             : "/Users/brandon/Dropbox (Personal)/vimwiki/"}]
 
-nmap <leader>wn :VimwikiDiaryNextDay<cr>
-nmap <leader>wp :VimwikiDiaryPrevDay<cr>
+nmap <Leader>wn :VimwikiDiaryNextDay<CR>
+nmap <Leader>wp :VimwikiDiaryPrevDay<CR>
 " }
 
 " Color {
+let NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 colorscheme gruvbox
 set background=dark
-" }
-
-" Syntax overrides {
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-autocmd BufNewFile,BufReadPost *.yml set filetype=yaml
 " }
 
 " Pencil {
@@ -236,14 +292,12 @@ augroup pencil
 augroup END
 " }
 
-" QF {
-au FileType qf call AdjustWindowHeight(3, 5)
-function! AdjustWindowHeight(minheight, maxheight)
-    exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
-endfunction
-" }
-
 " Signify {
 let g:signify_sign_show_count = 1
 let g:signify_sign_show_text  = 1
+" }
+
+" Restore View {
+set viewoptions=cursor,folds,slash,unix
+let g:skipview_files = ['Startify', 'nerdtree']
 " }
