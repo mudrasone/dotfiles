@@ -11,7 +11,7 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.rvm/bin:$PATH
 
 export HTML_TIDY=~/.tidyrc
-export TERM='xterm-256color'
+export TERM='screen-256color'
 export PROJECT_HOME=$PWD/.virtualenv
 export WORKON_HOME=$PWD/.virtualenv
 export NVIMRC=~/.config/nvim/init.vim
@@ -51,15 +51,11 @@ function has-session {
 }
 
 function tinit {
-    if has-session ; then
-        echo "Session already exists"
-    else
-        cd ~/Code/"$1"
-        tmux -2 new-session -d -s "$1"
-        tmux -2 split-window -h -p 40 htop
-        tmux -2 split-window -v 
-        tmux -2 attach-session -d -t "$1"
-    fi
+    cd ~/Code/"$1"
+    tmux -2 new-session -d -s "$1"
+    tmux -2 split-window -h -p 40 htop
+    tmux -2 split-window -v 
+    tmux -2 attach-session -d -t "$1"
 }
 
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
