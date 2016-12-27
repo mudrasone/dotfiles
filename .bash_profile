@@ -1,3 +1,12 @@
+export NIXLINK=$HOME/.nix-profile
+export HTML_TIDY=~/.tidyrc
+export TERM='screen-256color'
+export PROJECT_HOME=$PWD/.virtualenv
+export WORKON_HOME=$PWD/.virtualenv
+export NVIMRC=~/.config/nvim/init.vim
+export NVM_DIR="/Users/brandon/.nvm"
+export MANPATH=$NIX_LINK/share/man:$MANPATH
+
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin
 export PATH=/Library/Frameworks/UnixImageIO.framework/Programs:$PATH
 export PATH=/Library/Frameworks/PROJ.framework/Programs:$PATH
@@ -9,13 +18,7 @@ export PATH=$HOME/Library/Haskell/bin:$PATH
 export PATH=$HOME/.cabal:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.rvm/bin:$PATH
-
-export HTML_TIDY=~/.tidyrc
-export TERM='screen-256color'
-export PROJECT_HOME=$PWD/.virtualenv
-export WORKON_HOME=$PWD/.virtualenv
-export NVIMRC=~/.config/nvim/init.vim
-export NVM_DIR="/Users/brandon/.nvm"
+export PATH=$NIX_LINK/bin:$NIX_LINK/sbin:$PATH
 
 # OPAM configuration
 . /Users/brandon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
@@ -54,7 +57,7 @@ function tinit {
     cd ~/Code/"$1"
     tmux -2 new-session -d -s "$1"
     tmux -2 split-window -h -p 40 htop
-    tmux -2 split-window -v 
+    tmux -2 split-window -v
     tmux -2 attach-session -d -t "$1"
 }
 
