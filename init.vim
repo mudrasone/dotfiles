@@ -4,7 +4,7 @@
 set nocompatible
 
 let g:python3_host_prog = '/usr/local/bin/python3'
-let g:python_host_prog = '/usr/bin/python'
+let g:python_host_prog  = '/usr/bin/python'
 
 let mapleader = "\<Space>"
 
@@ -21,6 +21,9 @@ endif
 syntax on
 filetype plugin indent on
 
+set spelllang=en_us
+set spellfile=$HOME/.nvim/spell/en.utf-8.add
+
 " Infinite undo
 if has('persistent_undo')
     set undofile
@@ -29,49 +32,71 @@ endif
 " }
 
 " Convenience mappings {
-nmap <silent><Leader>sc :so ~/.config/nvim/init.vim<CR>      " Source config
-nmap <silent><Leader>ec :edit ~/.config/nvim/init.vim<CR>    " Edit config
-nmap <silent><Leader>sp :setlocal spell! spelllang=en_us<CR> " Toggle spellcheck
-nmap <silent><Leader>c :noh<CR>                              " Remove highlights
-nmap <silent><Leader>q :lclose<CR>                           " Close QuickFix
-nmap <silent><Leader>w :w<CR><Esc>                           " Write file
-nmap <silent><Leader>n :set nonumber!<CR>                    " Toggle line numbers
-nmap <silent><Leader>pc :PlugClean<CR>                       " Plugin clean
-nmap <silent><Leader>pi :PlugInstall<CR>                     " Plugin install
+nmap <silent><Leader>pc :PlugClean<CR>
+nmap <silent><Leader>pi :PlugInstall<CR>
 nmap <silent><Leader>t :terminal<CR>
-
+" Source neovim config
+nmap <silent><Leader>sc :so ~/.config/nvim/init.vim<CR>
+" Edit neovim config
+nmap <silent><Leader>ec :edit ~/.config/nvim/init.vim<CR>
+" Toggle spellcheck
+nmap <silent><Leader>sp :setlocal spell! spelllang=en_us<CR>
+" Remove highlights
+nmap <silent><Leader>c :noh<CR>
+" Close QuickFix
+nmap <silent><Leader>q :lclose<CR>
+nmap <silent><Leader>w :w<CR><Esc>
+" Toggle line numbers
+nmap <silent><Leader>n :set nonumber!<CR>
+" Update spellfile
+nmap <silent><Leader>ms :mkspell! ~/.nvim/spell/en.utf-8.add<CR>
+" Edit spellfile
+nmap <silent><Leader>es :edit ~/.nvim/spell/en.utf-8.add<CR>
 " Strip whitespace
 nnoremap <silent><Leader>sw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<Bar>:unlet _s<CR>
 
-" Override copy and paste
-nnoremap <Leader>d "_d      " Normal delete line but do not save to register
-vnoremap <Leader>d "_d      " Visual delete line but do not save to register
-nnoremap <Leader>p "_dP     " Normal paste line but do not save to register
-vnoremap <Leader>p "_dP     " Visual paste line but do not save to register
+" Normal delete line but do not save to register
+nnoremap <Leader>d "_d
+" Visual delete line but do not save to register
+vnoremap <Leader>d "_d
+" Normal paste line but do not save to register
+nnoremap <Leader>p "_dP
+" Visual paste line but do not save to register
+vnoremap <Leader>p "_dP
 " }
 
 " Plugins {
 call plug#begin('~/.nvim/plugged')
 
 " Tools
-Plug 'tpope/vim-surround'
+Plug 'neomake/neomake'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'neomake/neomake'
-Plug 'vim-airline/vim-airline'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 Plug 'gioele/vim-autoswap'
 Plug 'Raimondi/delimitMate'
 Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
-Plug 'Shougo/deoplete.nvim'
 Plug 'Chiel92/vim-autoformat'
+Plug 'airblade/vim-rooter'
 Plug 'reedes/vim-pencil'
+
+" UI
+Plug 'vim-airline/vim-airline'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'Shougo/deoplete.nvim'
+Plug 'Junegunn/goyo.vim'
+
+" FP
 Plug 'eagletmt/neco-ghc'
 Plug 'neovimhaskell/haskell-vim'
+Plug 'let-def/vimbufsync', { 'on': 'CoqLaunch' }
+Plug 'civiclabsconsulting/coquille', { 'branch': 'pathogen-bundle',
+            \ 'on': 'CoqLaunch' }
 
 " Meta
 Plug 'vimwiki/vimwiki'
@@ -173,8 +198,6 @@ nmap <Leader>wp :VimwikiDiaryPrevDay<CR>
 
 " Airline {
 let g:airline_theme                           = 'solarized'
-let g:airline#extensions#tabline#left_sep     = ' '
-let g:airline#extensions#tabline#left_alt_sep = ' '
 let g:airline_left_alt_sep                    = '-'
 let g:airline_right_alt_sep                   = '-'
 let g:airline_left_sep                        = ''
@@ -192,8 +215,9 @@ set background=dark
 let g:pencil#wrapModeDefault = 'soft'
 
 augroup pencil
+    setlocal spell
     autocmd!
-    autocmd FileType md,markdown,mkd call pencil#init()
+    autocmd FileType markdown,mkd call pencil#init()
     autocmd FileType text call pencil#init()
 augroup END
 " }
@@ -202,3 +226,23 @@ augroup END
 let g:signify_sign_show_count = 1
 let g:signify_sign_show_text  = 1
 " }
+
+" Coq {
+au FileType coq call coquille#CoqideMapping()
+nmap <Leader>cl :CoqLaunch<CR>
+nmap <Leader>cn :CoqNext<CR>
+nmap <Leader>cp :CoqPrevious<CR>
+" }
+
+" Obsession {
+nmap <Leader>s :source Session.vim<CR>
+" }
+
+" Vim-rooter {
+let g:rooter_patterns = ['*.stack', '*.cabal', '.git', '.git/']
+" }
+
+" Goyu {
+nmap <Leader>g :Goyo<CR>
+" }
+
