@@ -8,9 +8,6 @@ let g:python_host_prog  = '/usr/bin/python'
 
 let mapleader = "\<Space>"
 
-set hidden expandtab
-set tabstop=4
-set shiftwidth=4
 set clipboard=unnamed
 set clipboard+=unnamedplus
 
@@ -125,9 +122,10 @@ let g:easytags_cmd = '/usr/local/bin/ctags'
 " }
 
 " Haskell {
-let g:haskellmode_completion_ghc = 0
-let g:necoghc_enable_detailed_browse = 1
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+let g:haskellmode_completion_ghc     = 0
+let g:necoghc_enable_detailed_browse = 1
 " }
 
 " AutoFormat {
@@ -204,11 +202,11 @@ nmap <Leader>wp :VimwikiDiaryPrevDay<CR>
 " }
 
 " Airline {
-let g:airline_theme                           = 'solarized'
-let g:airline_left_alt_sep                    = '-'
-let g:airline_right_alt_sep                   = '-'
-let g:airline_left_sep                        = ''
-let g:airline_right_sep                       = ''
+let g:airline_theme         = 'solarized'
+let g:airline_left_alt_sep  = '-'
+let g:airline_right_alt_sep = '-'
+let g:airline_left_sep      = ''
+let g:airline_right_sep     = ''
 " }
 
 " Color {
@@ -236,6 +234,7 @@ let g:signify_sign_show_text  = 1
 
 " Coq {
 au FileType coq call coquille#CoqideMapping()
+
 nmap <Leader>cl :CoqLaunch<CR>
 nmap <Leader>cn :CoqNext<CR>
 nmap <Leader>cp :CoqPrevious<CR>
@@ -258,7 +257,8 @@ endfunction
 
 " Vim-Rooter {
 let g:rooter_change_directory_for_non_project_files = 'current'
-let g:rooter_patterns = ['stack.yaml', '.git', '.git/']
+let g:rooter_patterns                               = ['stack.yaml', '.git', '.git/', '.projectfile']
+let g:rooter_silent_chdir                           = 1
 " }
 
 " Goyu {
