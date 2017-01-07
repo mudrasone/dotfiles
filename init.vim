@@ -23,6 +23,8 @@ filetype plugin indent on
 
 set spelllang=en_us
 set spellfile=$HOME/.nvim/spell/en.utf-8.add
+set complete+=kspell
+autocmd BufRead,BufNewFile *.md setlocal spell
 
 " Infinite undo
 if has('persistent_undo')
@@ -95,8 +97,7 @@ Plug 'Junegunn/goyo.vim'
 Plug 'eagletmt/neco-ghc'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'let-def/vimbufsync', { 'on': 'CoqLaunch' }
-Plug 'civiclabsconsulting/coquille', { 'branch': 'pathogen-bundle',
-            \ 'on': 'CoqLaunch' }
+Plug 'the-lambda-church/coquille', { 'branch': 'pathogen-bundle', 'on': 'CoqLaunch' }
 
 " Meta
 Plug 'vimwiki/vimwiki'
@@ -104,6 +105,8 @@ Plug 'mhinz/vim-startify'
 
 " Syntax
 Plug 'LnL7/vim-nix'
+Plug 'tpope/vim-markdown'
+Plug 'jvoorhis/coq.vim'
 Plug 'alx741/vim-yesod'
 Plug 'pbrisbin/vim-syntax-shakespeare'
 Plug 'daveyarwood/vim-alda'
@@ -121,6 +124,12 @@ au BufWritePost *.hs silent !init-tags %
 au BufWritePost *.hsc silent !init-tags %
 
 let g:easytags_cmd = '/usr/local/bin/ctags'
+" }
+
+" Haskell {
+let g:haskellmode_completion_ghc = 0
+let g:necoghc_enable_detailed_browse = 1
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 " }
 
 " AutoFormat {
@@ -230,19 +239,34 @@ let g:signify_sign_show_text  = 1
 " Coq {
 au FileType coq call coquille#CoqideMapping()
 nmap <Leader>cl :CoqLaunch<CR>
-nmap <Leader>cn :CoqNext<CR>
+map <Leader>cn :CoqNext<CR>
 nmap <Leader>cp :CoqPrevious<CR>
 " }
 
 " Obsession {
-nmap <Leader>s :source Session.vim<CR>
+nmap <Leader>s :call ToggleObsess()<CR>
+
+function! ToggleObsess()
+    let d=FindRootDirectory()."/.session.vim"
+    if !empty(glob(d))
+        echo "Loading previous session..."
+        source d
+    else
+        echo "Creating new session..."
+        Obsess d
+    endif
+endfunction
 " }
 
 " Vim-rooter {
-let g:rooter_patterns = ['*.stack', '*.cabal', '.git', '.git/']
+let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_patterns = ['stack.yaml', '*.cabal', '.git', '.git/']
 " }
 
 " Goyu {
-nmap <Leader>g :Goyo<CR>
+nmap <Leader>yo :Goyo<CR>
 " }
 
+" Markdown {
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'coq']
+" }
