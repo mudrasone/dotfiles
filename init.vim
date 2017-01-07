@@ -105,8 +105,6 @@ Plug 'mhinz/vim-startify'
 
 " Syntax
 Plug 'LnL7/vim-nix'
-Plug 'tpope/vim-markdown'
-Plug 'jvoorhis/coq.vim'
 Plug 'alx741/vim-yesod'
 Plug 'pbrisbin/vim-syntax-shakespeare'
 Plug 'daveyarwood/vim-alda'
@@ -239,7 +237,7 @@ let g:signify_sign_show_text  = 1
 " Coq {
 au FileType coq call coquille#CoqideMapping()
 nmap <Leader>cl :CoqLaunch<CR>
-map <Leader>cn :CoqNext<CR>
+nmap <Leader>cn :CoqNext<CR>
 nmap <Leader>cp :CoqPrevious<CR>
 " }
 
@@ -258,15 +256,11 @@ function! ToggleObsess()
 endfunction
 " }
 
-" Vim-rooter {
+" Vim-Rooter {
 let g:rooter_change_directory_for_non_project_files = 'current'
-let g:rooter_patterns = ['stack.yaml', '*.cabal', '.git', '.git/']
+let g:rooter_patterns = ['stack.yaml', '.git', '.git/']
 " }
 
 " Goyu {
 nmap <Leader>yo :Goyo<CR>
-" }
-
-" Markdown {
-let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'coq']
 " }
