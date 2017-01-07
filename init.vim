@@ -8,8 +8,7 @@ let g:python_host_prog  = '/usr/bin/python'
 
 let mapleader = "\<Space>"
 
-set clipboard=unnamed
-set clipboard+=unnamedplus
+set clipboard=unnamed,unnamedplus
 
 if has('termguicolors')
     set termguicolors
@@ -21,7 +20,6 @@ filetype plugin indent on
 set spelllang=en_us
 set spellfile=$HOME/.nvim/spell/en.utf-8.add
 set complete+=kspell
-autocmd BufRead,BufNewFile *.md setlocal spell
 
 " Infinite undo
 if has('persistent_undo')
@@ -33,7 +31,6 @@ endif
 " Convenience mappings {
 nmap <silent><Leader>pc :PlugClean<CR>
 nmap <silent><Leader>pi :PlugInstall<CR>
-nmap <silent><Leader>t :terminal<CR>
 " Source neovim config
 nmap <silent><Leader>sc :so ~/.config/nvim/init.vim<CR>
 " Edit neovim config
@@ -82,13 +79,11 @@ Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 Plug 'Chiel92/vim-autoformat'
 Plug 'airblade/vim-rooter'
-Plug 'reedes/vim-pencil'
 
 " UI
 Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'Shougo/deoplete.nvim'
-Plug 'Junegunn/goyo.vim'
 
 " FP
 Plug 'eagletmt/neco-ghc'
@@ -96,9 +91,11 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'let-def/vimbufsync', { 'on': 'CoqLaunch' }
 Plug 'the-lambda-church/coquille', { 'branch': 'pathogen-bundle', 'on': 'CoqLaunch' }
 
-" Meta
+" Writing
 Plug 'vimwiki/vimwiki'
 Plug 'mhinz/vim-startify'
+Plug 'reedes/vim-pencil'
+Plug 'Junegunn/goyo.vim'
 
 " Syntax
 Plug 'LnL7/vim-nix'
@@ -115,26 +112,26 @@ call plug#end()
 " }
 
 " Tags {
+let g:easytags_cmd = '/usr/local/bin/ctags'
+
 au BufWritePost *.hs silent !init-tags %
 au BufWritePost *.hsc silent !init-tags %
-
-let g:easytags_cmd = '/usr/local/bin/ctags'
 " }
 
 " Haskell {
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
 let g:haskellmode_completion_ghc     = 0
 let g:necoghc_enable_detailed_browse = 1
+
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 " }
 
 " AutoFormat {
-noremap <Leader>= :Autoformat \| :SignifyRefresh<CR>
-
 let g:autoformat_verbosemode            = 0
 let g:autoformat_autoindent             = 1
 let g:autoformat_retab                  = 1
 let g:autoformat_remove_trailing_spaces = 1
+
+noremap <Leader>= :Autoformat \| :SignifyRefresh<CR>
 " }
 
 " EasyAlign {
@@ -142,12 +139,6 @@ noremap <Leader>e :EasyAlign<CR>
 " }
 
 " FZF {
-nnoremap <Leader>h :History<CR>
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>g :GFiles<CR>
-nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>/ :Ag<CR>
-
 let g:fzf_history_dir = '~/.fzf-history'
 let g:fzf_colors = {
             \ 'fg':      ['fg', 'Normal'],
@@ -163,13 +154,19 @@ let g:fzf_colors = {
             \ 'spinner': ['fg', 'Label'],
             \ 'header':  ['fg', 'Normal']
             \ }
+
+nnoremap <Leader>h :History<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>g :GFiles<CR>
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>/ :Ag<CR>
 " }
 
 " Neomake {
-autocmd! BufWritePost * Neomake
-
 let g:neomake_open_list   = 2
 let g:neomake_place_signs = 0
+
+autocmd! BufWritePost * Neomake
 " }
 
 " Deoplete {
@@ -177,13 +174,13 @@ let g:deoplete#enable_at_startup = 1
 " }
 
 " NERDTree {
+let NERDTreeIgnore     = ['\.pyc$']
+let NERDTreeShowHidden = 1
+
 noremap <C-n> :NERDTreeToggle<CR>
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&
             \ b:NERDTree.isTabTree()) | q | endif
-
-let NERDTreeIgnore     = ['\.pyc$']
-let NERDTreeShowHidden = 1
 " }
 
 " Vimwiki {
@@ -199,6 +196,10 @@ let g:vimwiki_list = [{
 
 nmap <Leader>wn :VimwikiDiaryNextDay<CR>
 nmap <Leader>wp :VimwikiDiaryPrevDay<CR>
+" }
+
+" Markdown {
+autocmd BufRead,BufNewFile *.md setlocal spell
 " }
 
 " Airline {
@@ -241,8 +242,6 @@ nmap <Leader>cp :CoqPrevious<CR>
 " }
 
 " Obsession {
-nmap <Leader>s :call ToggleObsess()<CR>
-
 function! ToggleObsess()
     let d=FindRootDirectory()."/.session.vim"
     if !empty(glob(d))
@@ -253,6 +252,8 @@ function! ToggleObsess()
         Obsess d
     endif
 endfunction
+
+nmap <Leader>s :call ToggleObsess()<CR>
 " }
 
 " Vim-Rooter {
