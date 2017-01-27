@@ -1,6 +1,20 @@
-# Dotfiles
+# dotfiles
 
 ![Screenshot](https://raw.githubusercontent.com/civiclabsconsulting/dotfiles/master/screenshot.png)
+
+**An opinionated terminal-based software development toolset and workflow**
+
+### Setup
+
+*Requirements*
+
+* Curl
+
+Warning: Make sure you read what the install script does first before installing so as not to ruin your current setup.
+
+```
+curl https://github.com/civiclabsconsulting/dotfiles/install | sh
+```
 
 ## Keyboard
 
