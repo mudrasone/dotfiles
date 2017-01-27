@@ -13,7 +13,7 @@
 Warning: Make sure you read what the install script does first before installing so as not to ruin your current setup.
 
 ```
-curl https://github.com/civiclabsconsulting/dotfiles/blob/master/install | sh
+curl https://civiclabsconsulting.github.io/dotfiles/install | sh
 ```
 
 ## Keyboard
