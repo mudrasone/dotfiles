@@ -1,4 +1,3 @@
-export NIXLINK=$HOME/.nix-profile
 export HTML_TIDY=~/.tidyrc
 export TERM='screen-256color'
 export PROJECT_HOME=$PWD/.virtualenv
@@ -7,7 +6,7 @@ export NVIMRC=~/.config/nvim/init.vim
 export NVM_DIR="/Users/brandon/.nvm"
 export MANPATH=$NIX_LINK/share/man:$MANPATH
 
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin
+export PATH=/bin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin/usr/local/sbin:$PATH
 export PATH=/Library/Frameworks/UnixImageIO.framework/Programs:$PATH
 export PATH=/Library/Frameworks/PROJ.framework/Programs:$PATH
 export PATH=/Library/Frameworks/SQLite3.framework/Programs:$PATH
@@ -17,23 +16,21 @@ export PATH=/usr/local/pgsql/bin:$PATH
 export PATH=$HOME/Library/Haskell/bin:$PATH
 export PATH=$HOME/.cabal:$PATH
 export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/.rvm/bin:$PATH
 export PATH=$NIX_LINK/bin:$NIX_LINK/sbin:$PATH
+export PATH=/Library/TeX/texbin:$PATH
 
 # OPAM configuration
 . /Users/brandon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
-source /usr/local/bin/virtualenvwrapper.sh
-source /Users/brandon/.rvm/scripts/rvm
-
 alias emacs=/usr/local/bin/emacs
 alias dcp='docker-compose'
 alias dm='/usr/local/bin/docker-machine'
-alias tmux='tmux -2'
 alias vim='nvim'
 alias vi='nvim'
 alias ctags="`brew --prefix`/bin/ctags"
 alias bfg="git filter-branch --tree-filter 'rm -rf $@' HEAD"
+alias tmux="TERM=screen-256color tmux -2"
+alias ls="/bin/ls -G"
 
 function lazygit () {
     git add .
@@ -49,10 +46,6 @@ function rmpyc {
     find . -name '*.pyc' -type f -delete
 }
 
-function has-session {
-    tmux has-session -t "$1" 2>/dev/null
-}
-
 function tinit {
     cd ~/Code/"$1"
     tmux -2 new-session -d -s "$1"
@@ -61,6 +54,43 @@ function tinit {
     tmux -2 attach-session -d -t "$1"
 }
 
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+function flushdns {
+    sudo dscacheutil -flushcache;
+    sudo killall -HUP mDNSResponder;
+}
+
+function cleandocker {
+    screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
+
+    # Next login as root
+
+    dd if=/dev/zero of=/var/tempfile
+
+    rm /var/tempfile
+
+    # logout of the VM
+    # Quit the Docker client entirely
+    # Now we can recompress the disk:
+
+    # > pwd
+    # /Users/nick/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux
+
+    mv Docker.qcow2 Docker.qcow2.original
+    du -hs Docker.qcow2.original
+    qemu-img convert -O qcow2 Docker.qcow2.original Docker.qcow2
+    rm Docker.qcow2.original
+    du -hs Docker.qcow2
+}
+
+function cleandockerf {
+    docker rm $(docker ps -a -q)
+    docker rmi $(docker images -q)
+    docker volume rm $(docker volume ls |awk '{print $2}')
+    rm -rf ~/Library/Containers/com.docker.docker/Data/*
+}
+
+source /usr/local/bin/virtualenvwrapper.sh
+source $HOME/.profile
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 if [ -e /Users/brandon/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/brandon/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

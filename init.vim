@@ -10,12 +10,15 @@ let mapleader = "\<Space>"
 
 set clipboard=unnamed,unnamedplus
 
-if has('termguicolors')
-    set termguicolors
-endif
+set termguicolors
 
 syntax on
 filetype plugin indent on
+
+" Tabs
+set tabstop=4
+set shiftwidth=4
+set expandtab
 
 set spelllang=en_us
 set spellfile=$HOME/.nvim/spell/en.utf-8.add
@@ -88,8 +91,9 @@ Plug 'Shougo/deoplete.nvim'
 " FP
 Plug 'eagletmt/neco-ghc'
 Plug 'neovimhaskell/haskell-vim'
-Plug 'let-def/vimbufsync', { 'on': 'CoqLaunch' }
-Plug 'the-lambda-church/coquille', { 'branch': 'pathogen-bundle', 'on': 'CoqLaunch' }
+Plug 'let-def/vimbufsync'
+Plug 'jvoorhis/coq.vim'
+Plug 'the-lambda-church/coquille', { 'branch': 'pathogen-bundle' } " , 'on': 'CoqLaunch' }
 
 " Writing
 Plug 'vimwiki/vimwiki'
@@ -103,6 +107,7 @@ Plug 'alx741/vim-yesod'
 Plug 'pbrisbin/vim-syntax-shakespeare'
 Plug 'daveyarwood/vim-alda'
 Plug 'fatih/vim-nginx'
+Plug 'kchmck/vim-coffee-script'
 
 " Theme
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
@@ -140,20 +145,6 @@ noremap <Leader>e :EasyAlign<CR>
 
 " FZF {
 let g:fzf_history_dir = '~/.fzf-history'
-let g:fzf_colors = {
-            \ 'fg':      ['fg', 'Normal'],
-            \ 'hl':      ['fg', 'Normal'],
-            \ 'fg+':     ['fg', 'Normal'],
-            \ 'bg':      ['bg', 'Normal'],
-            \ 'bg+':     ['bg', 'Normal', 'Label'],
-            \ 'hl+':     ['fg', 'Normal'],
-            \ 'info':    ['fg', 'PreProc'],
-            \ 'prompt':  ['fg', 'Conditional'],
-            \ 'pointer': ['fg', 'Normal'],
-            \ 'marker':  ['fg', 'Keyword'],
-            \ 'spinner': ['fg', 'Label'],
-            \ 'header':  ['fg', 'Normal']
-            \ }
 
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>b :Buffers<CR>
@@ -213,8 +204,12 @@ let g:airline_right_sep     = ''
 " Color {
 colorscheme solarized
 
-let g:solarized_contrast = 'medium'
-set background=dark
+let g:solarized_contrast = 'high'
+
+nmap <Leader>sl :set background=light<CR>
+nmap <Leader>sd :set background=dark<CR>
+
+set background=light
 " }
 
 " Pencil {
@@ -238,18 +233,27 @@ au FileType coq call coquille#CoqideMapping()
 
 nmap <Leader>cl :CoqLaunch<CR>
 nmap <Leader>cn :CoqNext<CR>
-nmap <Leader>cp :CoqPrevious<CR>
+nmap <Leader>ck :CoqKill<CR>
+nmap <Leader>cu :CoqUndo<CR>
+nmap <Leader>cc :CoqToCursor<CR>
 " }
 
 " Obsession {
 function! ToggleObsess()
-    let d=FindRootDirectory()."/.session.vim"
-    if !empty(glob(d))
+    let root=FindRootDirectory()
+    if !empty(root)
+        let session=root."/.session.vim"
+    else
+        let cwd=getcwd()
+        let session=cwd."/.session.vim"
+    endif
+
+    if !empty(glob(session))
         echo "Loading previous session..."
-        source d
+        source session
     else
         echo "Creating new session..."
-        Obsess d
+        exe 'Obsess ' . session
     endif
 endfunction
 
@@ -263,5 +267,14 @@ let g:rooter_silent_chdir                           = 1
 " }
 
 " Goyu {
-nmap <Leader>yo :Goyo<CR>
+nmap <Leader>yo :Goyo <bar> highlight StatusLineNC ctermfg=white<CR>
+" }
+
+" HTML {
+let g:syntastic_html_tidy_ignore_errors = ["missing <!DOCTYPE> declaration",
+            \ "plain text isn't allowed in <head> elements",
+            \ "Info: <head> previously mentioned",
+            \ "inserting implicit <body>",
+            \ "inserting missing 'title' element",
+            \ "trimming empty <i>"]
 " }
