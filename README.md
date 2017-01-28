@@ -8,7 +8,9 @@
 
 *Requirements*
 
-* Curl
+* Vagrant
+* Mosh
+* [vagrant-mosh](https://github.com/p0deje/vagrant-mosh)
 
 Warning: Make sure you read what the install script does first before installing so as not to ruin your current setup.
 
