@@ -6,16 +6,21 @@
 
 ### Setup
 
-*Requirements*
+#### Requirements
+
+*General*
+
+* Mosh
+
+*Using Vagrant*
 
 * Vagrant
-* Mosh
 * [vagrant-mosh](https://github.com/p0deje/vagrant-mosh)
 
 Warning: Make sure you read what the install script does first before installing so as not to ruin your current setup.
 
 ```
-curl https://civiclabsconsulting.github.io/dotfiles/install | sh
+sudo curl https://civiclabsconsulting.github.io/dotfiles/install | sh
 ```
 
 ## Keyboard
@@ -39,9 +44,5 @@ brew install choppsv1/term24/tmux
 
 * Prefix is `control` + `a`
 * See `tmux.conf` for full configuration details
-
-## Neovim
-
-Currently using Neovim which can be installed via pip3, `pip3 install neovim`. A great tutorial for learning Vim can be found [here](http://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/).
 
 This setup requires ctags, which can be installed with `brew install ctags`.
