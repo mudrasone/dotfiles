@@ -16,7 +16,7 @@ sudo curl -o /usr/local/bin/docker-compose -L "https://github.com/docker/compose
 chmod +x /usr/local/bin/docker-compose
 chown -R $U /usr/local/bin/docker-compose
 mkdir /opt/code
-chown -r $U /opt/code
+chown -R $U /opt/code
 exit 0
 SCRIPT
 
