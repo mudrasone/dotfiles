@@ -5,12 +5,13 @@ U=vagrant
 # OS package management
 sudo apt-get install -y software-properties-common && \
     sudo add-apt-repository -y ppa:neovim-ppa/unstable && \
+    sudo add-apt-repository -y ppa:aacebedo/fasd && \
     sudo apt-get -y update
 
 # OS dependencies
 sudo apt-get install -y python-software-properties python-dev python-pip \
     python3-dev python3-pip mosh exuberant-ctags build-essential ruby \
-    neovim ruby-dev tmux
+    neovim ruby-dev tmux fasd
 
 # Nvim config
 curl https://civiclabsconsulting.github.io/dotfiles/init.vim -o init.vim && \
@@ -30,10 +31,14 @@ sudo curl -fLo /home/$U/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # Bootstrap
-sudo nvim "+set nomore" \
+nvim "+set nomore" \
     "+PlugInstall" \
     "+qall"
 
-sudo nvim "+set nomore" \
+nvim "+set nomore" \
     "+UpdateRemotePlugins" \
     "+qall"
+
+git config --global user.name "Brandon Stiles"
+git config --global user.email stilesbr1@gmail.com
+git config --global core.editor nvim
