@@ -28,6 +28,7 @@ Vagrant.configure(2) do |config|
     config.vm.provider :virtualbox do |vb|
         vb.customize ["modifyvm", :id, "--usb", "off"]
         vb.customize ["modifyvm", :id, "--usbehci", "off"]
+        vb.customize ['modifyvm', :id, '--clipboard', 'bidirectional']         
         vb.name = $project + ".vagrant"
         vb.memory = 4096
         vb.cpus = 2
