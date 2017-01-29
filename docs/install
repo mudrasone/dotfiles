@@ -14,7 +14,7 @@ sudo apt-get install -y python-software-properties python-dev python-pip \
 
 # Nvim config
 curl https://civiclabsconsulting.github.io/dotfiles/init.vim -o init.vim && \
-    mkdir -p /home/$1/.config/nvim && mv init.vim /home/$U/.config/nvim
+    mkdir -p /home/$U/.config/nvim && mv init.vim /home/$U/.config/nvim
 
 # Required Nvim Python modules
 sudo pip2 install --upgrade neovim && \
