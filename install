@@ -28,7 +28,6 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 nvim -u ~/.config/nvim/init.vim "+set nomore" \
     "+PlugInstall" \
     "+qall"
-
 nvim -u ~/.config/nvim/init.vim "+set nomore" \
     "+UpdateRemotePlugins" \
     "+qall"
