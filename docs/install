@@ -8,11 +8,11 @@ apt-get install -y python-software-properties python-dev python-pip \
 curl https://civiclabsconsulting.github.io/dotfiles/init.vim -o init.vim
 mkdir -p ~/.config/nvim
 mv init.vim ~/.config/nvim
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 pip install --upgrade neovim
 pip2 install neovim
 pip3 install neovim
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 nvim -u ~/.config/nvim/init.vim "+set nomore" \
     "+PlugInstall!" \
     "+qall"
