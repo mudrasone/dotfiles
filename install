@@ -13,7 +13,6 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 pip install --upgrade neovim
 pip2 install neovim
 pip3 install neovim
-nvim -c ":PlugInstall | :UpdateRemotePlugins"
 nvim -u ~/.config/nvim/init.vim "+set nomore" \
     "+PlugInstall!" \
     "+qall"
