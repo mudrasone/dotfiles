@@ -13,9 +13,12 @@ sudo apt-get install -y python-software-properties python-dev python-pip \
 curl https://civiclabsconsulting.github.io/dotfiles/init.vim -o init.vim && \
     mkdir -p ~/.config/nvim && mv init.vim ~/.config/nvim
 
-# Required Nvim modules
+# Required Nvim Python modules
 sudo pip2 install --upgrade neovim && \
     sudo pip3 install --upgrade neovim
+
+# Required Nvim Ruby modules
+sudo gem install neovim
 
 # Nvim package management
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
@@ -23,6 +26,9 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 
 # Bootstrap
 nvim -u ~/.config/nvim/init.vim "+set nomore" \
-    "+PlugInstall!" \
-    "+UpdateRemotePlugins!" \
+    "+PlugInstall" \
+    "+qall"
+
+nvim -u ~/.config/nvim/init.vim "+set nomore" \
+    "+UpdateRemotePlugins" \
     "+qall"

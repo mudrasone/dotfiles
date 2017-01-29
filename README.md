@@ -2,17 +2,11 @@
 
 ![Screenshot](https://raw.githubusercontent.com/civiclabsconsulting/dotfiles/master/screenshot.png)
 
-**An opinionated terminal-based software development toolset and workflow**
+**An opinionated OSX/Ubuntu terminal-based software development toolset and workflow**
 
 ### Setup
 
 #### Requirements
-
-*General*
-
-* Mosh
-
-*Using Vagrant*
 
 * Vagrant
 
