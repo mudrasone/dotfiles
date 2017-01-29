@@ -209,16 +209,12 @@ let g:airline_right_sep     = ''
 " }
 
 " Color {
-function! has#colorscheme(name)
-    pat = 'colors/'.a:name.'.vim'
-    return !empty(globpath(&rtp, pat))
-endfunction
-
-" .vimrc
-if has#colorscheme('solarized')
+try
     colorscheme solarized
     let g:solarized_contrast = 'high'
-endif
+catch /^Vim\%((\a\+)\)\=:E185/
+    " deal with it
+endtry
 
 nmap <Leader>sl :set background=light<CR>
 nmap <Leader>sd :set background=dark<CR>
