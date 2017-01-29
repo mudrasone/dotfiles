@@ -23,7 +23,10 @@ sudo pip2 install --upgrade neovim && \
 # Required Nvim Ruby modules
 sudo gem install neovim
 
+
 # Nvim package management
+sudo mkdir -p /home/$U/.local/share/nvim/site/autoload/ && \
+    chown $U -R /home/$U
 sudo -u $U curl -fLo /home/$U/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
