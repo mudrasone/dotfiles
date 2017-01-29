@@ -4,7 +4,7 @@
 
 **An opinionated OSX/Ubuntu terminal-based software development toolset and workflow**
 
-### Setup
+## Setup
 
 *Requirements*
 
@@ -35,3 +35,7 @@ iTerm is great, a bit more robust than OSX's default terminal, Terminal.app. iTe
 Terminal multiplexer. See `tmux.conf` for full configuration details.
 
 * Prefix is `<Control>` + `<a>`
+
+## z
+
+Use `z` to `cd` into commonly used directories.
