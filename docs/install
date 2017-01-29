@@ -1,5 +1,7 @@
 #!/bin/bash
 
+U=vagrant
+
 # OS package management
 sudo apt-get install -y software-properties-common && \
     sudo add-apt-repository -y ppa:neovim-ppa/unstable && \
@@ -12,7 +14,7 @@ sudo apt-get install -y python-software-properties python-dev python-pip \
 
 # Nvim config
 curl https://civiclabsconsulting.github.io/dotfiles/init.vim -o init.vim && \
-    mkdir -p /home/$1/.config/nvim && mv init.vim /home/$1/.config/nvim
+    mkdir -p /home/$1/.config/nvim && mv init.vim /home/$U/.config/nvim
 
 # Required Nvim Python modules
 sudo pip2 install --upgrade neovim && \
@@ -26,9 +28,9 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # Bootstrap
-nvim -u /home/$1/.config/nvim/init.vim "+set nomore" \
+nvim -u /home/$U/.config/nvim/init.vim "+set nomore" \
     "+PlugInstall" \
     "+qall"
-nvim -u /home/$1/.config/nvim/init.vim "+set nomore" \
+nvim -u /home/$U/.config/nvim/init.vim "+set nomore" \
     "+UpdateRemotePlugins" \
     "+qall"
