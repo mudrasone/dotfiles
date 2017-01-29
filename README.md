@@ -9,6 +9,7 @@
 *Requirements*
 
 * Vagrant
+* iTerm
 
 To get started on OSX, simply run:
 
@@ -22,20 +23,22 @@ If you are currently running Ubuntu or a similar Debian distribution, run:
 sudo curl https://civiclabsconsulting.github.io/dotfiles/install | sh
 ```
 
-## Keyboard
+### Keyboard
 
 * Switch `<Control>` and `<Caps Lock>` keys for easier keyboard ergonomics with Vim.
 
-## Terminal
+## Tools
 
-iTerm is great, a bit more robust than OSX's default terminal, Terminal.app. iTerm 3.0 supports ligatures which can be useful.
-
-## Tmux
+### Tmux
 
 Terminal multiplexer. See `tmux.conf` for full configuration details.
 
 * Prefix is `<Control>` + `<a>`
 
-## z
+### z
 
 Use `z` to `cd` into commonly used directories.
+
+### Neovim
+
+Like Vim but with better asynchronous support and default configurations.
