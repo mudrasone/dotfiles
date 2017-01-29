@@ -1,5 +1,4 @@
 #!/bin/bash
-make update
 make all
 git add -A
 git commit -m "$1"

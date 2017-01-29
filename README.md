@@ -6,11 +6,17 @@
 
 ### Setup
 
-#### Requirements
+*Requirements*
 
 * Vagrant
 
-Warning: Make sure you read what the install script does first before installing so as not to ruin your current setup.
+To get started on OSX, simply run:
+
+```
+vagrant up
+```
+
+If you are currently running Ubuntu or a similar Debian distribution, run:
 
 ```
 sudo curl https://civiclabsconsulting.github.io/dotfiles/install | sh
@@ -18,7 +24,7 @@ sudo curl https://civiclabsconsulting.github.io/dotfiles/install | sh
 
 ## Keyboard
 
-* Switch `control` and `caps lock` keys for easier keyboard ergonomics with Vim.
+* Switch `<Control>` and `<Caps Lock>` keys for easier keyboard ergonomics with Vim.
 
 ## Terminal
 
@@ -26,16 +32,6 @@ iTerm is great, a bit more robust than OSX's default terminal, Terminal.app. iTe
 
 ## Tmux
 
-### Notes
+Terminal multiplexer. See `tmux.conf` for full configuration details.
 
-To get `tmux` working properly with 24-bit color support, the following patched libary is needed: `choppsv1/term24`.
-
-```
-brew tap choppsv1/term24
-brew install choppsv1/term24/tmux
-```
-
-* Prefix is `control` + `a`
-* See `tmux.conf` for full configuration details
-
-This setup requires ctags, which can be installed with `brew install ctags`.
+* Prefix is `<Control>` + `<a>`
