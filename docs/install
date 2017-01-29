@@ -14,8 +14,8 @@ curl https://civiclabsconsulting.github.io/dotfiles/init.vim -o init.vim && \
     mkdir -p ~/.config/nvim && mv init.vim ~/.config/nvim
 
 # Required Nvim modules
-pip2 install --upgrade neovim
-pip3 install --upgrade neovim
+sudo pip2 install --upgrade neovim && \
+    sudo pip3 install --upgrade neovim
 
 # Nvim package management
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
