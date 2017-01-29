@@ -1,23 +1,21 @@
 #!/bin/bash
 
 # OS package management
-apt-get install -y software-properties-common
-add-apt-repository -y ppa:neovim-ppa/unstable
-apt-get -y update
+sudo apt-get install -y software-properties-common && \
+    add-apt-repository -y ppa:neovim-ppa/unstable && \
+    sudo apt-get -y update
 
 # OS dependencies
-apt-get install -y python-software-properties python-dev python-pip \
+sudo apt-get install -y python-software-properties python-dev python-pip \
     python3-dev python3-pip mosh exuberant-ctags ruby neovim
 
 # Nvim config
-curl https://civiclabsconsulting.github.io/dotfiles/init.vim -o init.vim
-mkdir -p ~/.config/nvim
-mv init.vim ~/.config/nvim
+curl https://civiclabsconsulting.github.io/dotfiles/init.vim -o init.vim && \
+    mkdir -p ~/.config/nvim && mv init.vim ~/.config/nvim
 
 # Required Nvim modules
-pip install --upgrade neovim
-pip2 install neovim
-pip3 install neovim
+pip2 install --upgrade neovim
+pip3 install --upgrade neovim
 
 # Nvim package management
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
