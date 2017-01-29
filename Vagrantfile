@@ -1,8 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby:
 
-$project = "dotfiles"
-
 $script = <<SCRIPT
 U=vagrant
 apt-get update -y
@@ -22,14 +20,15 @@ SCRIPT
 
 Vagrant.configure(2) do |config|
     config.vm.box = "minimal/trusty64"
-    config.vm.hostname = "qdusers.vagrant"
+    config.vm.hostname = "dev"
     config.vm.network "private_network", ip: "192.168.50.76"
     config.vm.provision "shell", inline: $script
+    config.vm.synced_folder "~/Code", "/opt/code", type: 'nfs'
     config.vm.provider :virtualbox do |vb|
         vb.customize ["modifyvm", :id, "--usb", "off"]
         vb.customize ["modifyvm", :id, "--usbehci", "off"]
-        vb.customize ['modifyvm', :id, '--clipboard', 'bidirectional']         
-        vb.name = $project + ".vagrant"
+        vb.customize ['modifyvm', :id, '--clipboard', 'bidirectional']
+        vb.name = "dev.vagrant"
         vb.memory = 4096
         vb.cpus = 2
     end
