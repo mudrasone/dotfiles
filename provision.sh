@@ -14,5 +14,5 @@ chmod +x /usr/local/bin/docker-compose
 chown -R $U /usr/local/bin/docker-compose
 mkdir -p /opt/code
 chown -R $U /opt/code
-curl https://civiclabsconsulting.github.io/dotfiles/install | sh
+bash -c "curl https://civiclabsconsulting.github.io/dotfiles/install | sh"
 exit 0
