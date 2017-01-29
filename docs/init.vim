@@ -9,7 +9,7 @@ if system('uname -s') == "Darwin\n"
   let g:python3_host_prog = '/usr/local/bin/python3'
 else
   " Linux
-  let g:python3_host_prog = '/usr/local/bin/python3'
+  let g:python3_host_prog = '/usr/bin/python3'
   set clipboard=unnamedplus
 endif
 
