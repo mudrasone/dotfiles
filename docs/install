@@ -32,5 +32,8 @@ sudo curl -fLo /home/$U/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 # Bootstrap
 sudo nvim "+set nomore" \
     "+PlugInstall" \
+    "+qall"
+
+sudo nvim "+set nomore" \
     "+UpdateRemotePlugins" \
     "+qall"
