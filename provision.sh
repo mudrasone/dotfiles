@@ -9,7 +9,7 @@ sudo apt-cache policy docker-engine
 sudo apt-get install -y docker-engine
 sudo service docker start
 sudo gpasswd -a $U docker
-sudo sudo curl -o /usr/local/bin/docker-compose -L "https://github.com/docker/compose/releases/download/1.9.0/docker-compose-$(uname -s)-$(uname -m)"
+sudo sudo curl -o /usr/local/bin/docker-compose -L "https://github.com/docker/compose/releases/download/1.10.0/docker-compose-$(uname -s)-$(uname -m)"
 sudo chmod +x /usr/local/bin/docker-compose
 sudo chown -R $U /usr/local/bin/docker-compose
 sudo mkdir -p /opt/code

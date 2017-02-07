@@ -3,7 +3,7 @@
 
 Vagrant.configure(2) do |config|
     config.vm.box = "minimal/trusty64"
-    config.vm.hostname = "dev"
+    config.vm.hostname = "dev.vagrant"
     config.vm.network "private_network", ip: "192.168.50.76"
     config.vm.provision "shell", path: "./provision.sh", privileged: false
     config.vm.provider :virtualbox do |vb|
