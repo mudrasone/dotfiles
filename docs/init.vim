@@ -4,13 +4,11 @@
 set nocompatible
 
 if system('uname -s') == "Darwin\n"
-  " OSX
-  set clipboard=unnamed
-  let g:python3_host_prog = '/usr/local/bin/python3'
+    set clipboard=unnamed,unnamedplus
+    let g:python3_host_prog = '/usr/local/bin/python3'
 else
-  " Linux
-  let g:python3_host_prog = '/usr/bin/python3'
-  set clipboard=unnamedplus
+    let g:python3_host_prog = '/usr/bin/python3'
+    set clipboard=unnamedplus
 endif
 
 let g:python_host_prog  = '/usr/bin/python'
@@ -80,7 +78,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 Plug 'gioele/vim-autoswap'
@@ -89,6 +86,7 @@ Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 Plug 'Chiel92/vim-autoformat'
 Plug 'airblade/vim-rooter'
+Plug 'tpope/vim-surround'
 
 " UI
 Plug 'vim-airline/vim-airline'
@@ -96,11 +94,12 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'Shougo/deoplete.nvim'
 
 " FP
-Plug 'eagletmt/neco-ghc'
-Plug 'neovimhaskell/haskell-vim'
+Plug 'dag/vim2hs'
+Plug 'bitc/vim-hdevtools'
 Plug 'let-def/vimbufsync'
 Plug 'jvoorhis/coq.vim'
-Plug 'the-lambda-church/coquille', { 'branch': 'pathogen-bundle' } " , 'on': 'CoqLaunch' }
+Plug 'the-lambda-church/coquille', { 'branch': 'pathogen-bundle','on': 'CoqLaunch' }
+Plug 'neovimhaskell/haskell-vim'
 
 " Writing
 Plug 'vimwiki/vimwiki'
@@ -114,7 +113,6 @@ Plug 'alx741/vim-yesod'
 Plug 'pbrisbin/vim-syntax-shakespeare'
 Plug 'daveyarwood/vim-alda'
 Plug 'fatih/vim-nginx'
-Plug 'kchmck/vim-coffee-script'
 
 " Theme
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
@@ -131,10 +129,19 @@ au BufWritePost *.hsc silent !init-tags %
 " }
 
 " Haskell {
-let g:haskellmode_completion_ghc     = 0
-let g:necoghc_enable_detailed_browse = 1
+au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
+au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
 
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+let g:hdevtools_options              = '-g-isrc -g-Wall'
+let g:neomake_haskell_enabled_makers = ['hlint']
+" }
+
+" HTML {
+let g:neomake_html_maker = {
+    \ 'exe': 'tidy',
+    \ 'args': ['--no-color', '--preset', 'airbnb', '--reporter', 'inline', '--esnext'],
+    \ 'errorformat': '%f: line %l\, col %c\, %m',
+    \ }
 " }
 
 " AutoFormat {
@@ -152,6 +159,19 @@ noremap <Leader>e :EasyAlign<CR>
 
 " FZF {
 let g:fzf_history_dir = '~/.fzf-history'
+
+let g:fzf_colors = { 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
 
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>b :Buffers<CR>
@@ -209,17 +229,9 @@ let g:airline_right_sep     = ''
 " }
 
 " Color {
-try
-    colorscheme solarized
-    let g:solarized_contrast = 'high'
-catch /^Vim\%((\a\+)\)\=:E185/
-    " deal with it
-endtry
+silent colorscheme solarized
 
-nmap <Leader>sl :set background=light<CR>
-nmap <Leader>sd :set background=dark<CR>
-
-set background=light
+set background=dark
 " }
 
 " Pencil {
@@ -249,42 +261,15 @@ nmap <Leader>cc :CoqToCursor<CR>
 " }
 
 " Obsession {
-function! ToggleObsess()
-    let root=FindRootDirectory()
-    if !empty(root)
-        let session=root."/.session.vim"
-    else
-        let cwd=getcwd()
-        let session=cwd."/.session.vim"
-    endif
-
-    if !empty(glob(session))
-        echo "Loading previous session..."
-        source session
-    else
-        echo "Creating new session..."
-        exe 'Obsess ' . session
-    endif
-endfunction
-
-nmap <Leader>s :call ToggleObsess()<CR>
+nmap <Leader>s :Obsess<CR>
 " }
 
 " Vim-Rooter {
 let g:rooter_change_directory_for_non_project_files = 'current'
-let g:rooter_patterns                               = ['stack.yaml', '.git', '.git/', '.projectfile']
+let g:rooter_patterns                               = ['.git', '.git/', 'stack.yaml', '.projectfile']
 let g:rooter_silent_chdir                           = 1
 " }
 
 " Goyu {
 nmap <Leader>yo :Goyo <bar> highlight StatusLineNC ctermfg=white<CR>
-" }
-
-" HTML {
-let g:syntastic_html_tidy_ignore_errors = ["missing <!DOCTYPE> declaration",
-            \ "plain text isn't allowed in <head> elements",
-            \ "Info: <head> previously mentioned",
-            \ "inserting implicit <body>",
-            \ "inserting missing 'title' element",
-            \ "trimming empty <i>"]
 " }

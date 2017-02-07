@@ -93,4 +93,48 @@ source /usr/local/bin/virtualenvwrapper.sh
 source $HOME/.profile
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-if [ -e /Users/brandon/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/brandon/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+if [ -e /Users/brandon/.nix-profile/etc/profile.d/nix.sh ]; then
+    . /Users/brandon/.nix-profile/etc/profile.d/nix.sh;
+fi # added by Nix installer
+
+# This is one of many color schemes for fzf. Check the fzf wiki for more
+gen_fzf_default_opts() {
+  local base03="234"
+  local base02="235"
+  local base01="240"
+  local base00="241"
+  local base0="244"
+  local base1="245"
+  local base2="254"
+  local base3="230"
+  local yellow="136"
+  local orange="166"
+  local red="160"
+  local magenta="125"
+  local violet="61"
+  local blue="33"
+  local cyan="37"
+  local green="64"
+
+  # fzf uses ncurses for it's UI. ncurses doesn't support 24-bit color, and
+  # last time I tried, I couldn't get the ANSI 16 colors to play nicely.
+
+  # Solarized Dark color scheme for fzf
+  export FZF_DEFAULT_OPTS_DARK="
+    --color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:-1,hl+:$blue
+    --color info:$yellow,prompt:$yellow,pointer:$base3,marker:$base3,spinner:$yellow
+  "
+  # Solarized Light color scheme for fzf
+  export FZF_DEFAULT_OPTS_LIGHT="
+    --color fg:-1,bg:-1,hl:$blue,fg+:$base02,bg+:-1,hl+:$blue
+    --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
+  "
+
+  if [ "$SOLARIZED" = "dark" ]; then
+    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS_DARK"
+  elif [ "$SOLARIZED" = "light" ]; then
+    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS_LIGHT"
+  else
+    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS_LIGHT"
+  fi
+}
