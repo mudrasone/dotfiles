@@ -1,6 +1,6 @@
 #!/bin/bash
 
-U=vagrant
+U=$(whoami)
 
 # OS package management
 apt-get install -y software-properties-common && \
