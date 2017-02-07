@@ -41,5 +41,12 @@ RUN git config --global user.name "Brandon Stiles" && \
 # Tmux
 ADD ./docs/.tmux.conf /home/$ME/.tmux.conf
 
-# Terminal
-CMD /bin/bash
+# Zsh
+RUN apt-get install -y zsh wget
+ENV TERM dumb
+RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
+RUN ln -s /root/.oh-my-zsh /home/$ME/.oh-my-zsh && \
+    ln -s  /root/.zshrc /home/$ME/.zshrc
+
+# Command
+CMD tail -f /dev/null
