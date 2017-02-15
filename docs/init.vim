@@ -1,15 +1,8 @@
 " vim: set ft=vim foldmarker={,} foldmethod=marker spell:
 
 " System {
-set nocompatible
-
-if system('uname -s') == "Darwin\n"
-    set clipboard=unnamed,unnamedplus
-    let g:python3_host_prog = '/usr/local/bin/python3'
-else
-    let g:python3_host_prog = '/usr/bin/python3'
-    set clipboard=unnamedplus
-endif
+let g:python3_host_prog = '/usr/bin/python3'
+set clipboard=unnamedplus
 
 let g:python_host_prog  = '/usr/bin/python'
 
@@ -17,7 +10,10 @@ let mapleader = "\<Space>"
 
 set termguicolors
 
-syntax on
+if has('syntax') && !exists('g:syntax_on')
+  syntax enable
+endif
+
 filetype plugin indent on
 
 " Tabs
@@ -70,7 +66,7 @@ vnoremap <Leader>p "_dP
 " }
 
 " Plugins {
-call plug#begin('~/.nvim/plugged')
+call plug#begin("~/.config/nvim/plugged")
 
 " Tools
 Plug 'neomake/neomake'
@@ -229,7 +225,7 @@ let g:airline_right_sep     = ''
 " }
 
 " Color {
-silent colorscheme solarized
+"silent! colorscheme solarized
 
 set background=dark
 " }

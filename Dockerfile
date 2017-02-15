@@ -1,21 +1,33 @@
 FROM ubuntu:17.04
+MAINTAINER https://www.civiclabs.com
+ENV REFRESHED_AT 2017-02-07
 
 # Docker
 RUN apt-get update -y && apt-get install -y curl docker docker-compose
 
 # Neovim
-RUN apt-get install -y software-properties-common && \
+RUN apt-get install -y --no-install-recommends software-properties-common && \
     add-apt-repository -y ppa:neovim-ppa/unstable && \
     apt-get -y update
 
 # Ruby, Python and Tmux
-RUN apt-get install -y python-software-properties python-dev python-pip \
-    python3-dev python3-pip mosh exuberant-ctags build-essential ruby \
-    neovim ruby-dev tmux
+RUN apt-get install -y --no-install-recommends \
+    python-software-properties python-dev python-pip neovim ruby-dev tmux \
+    apt-transport-https git python-dev python3-dev python3-pip mosh \
+    exuberant-ctags build-essential ruby zsh wget python-setuptools \
+    python3-setuptools
 
 # Neovim dependencies
-RUN pip2 install --upgrade neovim && pip3 install --upgrade neovim && \
-    gem install neovim
+RUN pip3 install neovim
+RUN gem install neovim
+
+# OS
+RUN update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60 && \
+    update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60 && \
+    update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+
+# Cleanup
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # User
 ENV ME robot
@@ -23,15 +35,18 @@ RUN adduser $ME
 RUN gpasswd -a $ME docker
 
 # Neovim plugin manager
-RUN mkdir -p /home/$ME/.local/share/nvim/site/autoload/ && \
-    chown $ME -R /home/$ME
-RUN curl -fLo /home/$ME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+ENV HOME /work
+WORKDIR ${HOME}
+ENV CONFIG_DIR ${HOME}/.config/nvim
+RUN mkdir -p ${CONFIG_DIR}/autoload/
+ADD docs/init.vim ${CONFIG_DIR}/
+
+# Neovim Plugin Manager
+RUN curl -o ${CONFIG_DIR}/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # Neovim config
-RUN curl https://civiclabsconsulting.github.io/dotfiles/init.vim -o init.vim && \
-    mkdir -p /home/$ME/.config/nvim && mv init.vim /home/$ME/.config/nvim
-RUN nvim +PlugInstall +UpdateRemotePlugins +qall
+RUN nvim -c "PlugInstall!"
+RUN nvim -c "UpdateRemotePlugins!"
 
 # GitHub
 RUN git config --global user.name "Brandon Stiles" && \
@@ -42,7 +57,6 @@ RUN git config --global user.name "Brandon Stiles" && \
 ADD ./docs/.tmux.conf /home/$ME/.tmux.conf
 
 # Zsh
-RUN apt-get install -y zsh wget
 ENV TERM dumb
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
 RUN ln -s /root/.oh-my-zsh /home/$ME/.oh-my-zsh && \
