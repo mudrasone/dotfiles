@@ -1,8 +1,15 @@
 " vim: set ft=vim foldmarker={,} foldmethod=marker spell:
 
 " System {
-let g:python3_host_prog = '/usr/bin/python3'
-set clipboard=unnamedplus
+set nocompatible
+
+if system('uname -s') == "Darwin\n"
+    set clipboard=unnamed,unnamedplus
+    let g:python3_host_prog = '/usr/local/bin/python3'
+else
+    let g:python3_host_prog = '/usr/bin/python3'
+    set clipboard=unnamedplus
+endif
 
 let g:python_host_prog  = '/usr/bin/python'
 
@@ -10,10 +17,7 @@ let mapleader = "\<Space>"
 
 set termguicolors
 
-if has('syntax') && !exists('g:syntax_on')
-  syntax enable
-endif
-
+syntax on
 filetype plugin indent on
 
 " Tabs
@@ -35,38 +39,50 @@ endif
 " Convenience mappings {
 nmap <silent><Leader>pc :PlugClean<CR>
 nmap <silent><Leader>pi :PlugInstall<CR>
+
 " Source neovim config
 nmap <silent><Leader>sc :so ~/.config/nvim/init.vim<CR>
+
 " Edit neovim config
 nmap <silent><Leader>ec :edit ~/.config/nvim/init.vim<CR>
+
 " Toggle spellcheck
 nmap <silent><Leader>sp :setlocal spell! spelllang=en_us<CR>
+
 " Remove highlights
 nmap <silent><Leader>c :noh<CR>
+
 " Close QuickFix
 nmap <silent><Leader>q :lclose<CR>
 nmap <silent><Leader>w :w<CR><Esc>
+
 " Toggle line numbers
 nmap <silent><Leader>n :set nonumber!<CR>
+
 " Update spellfile
 nmap <silent><Leader>ms :mkspell! ~/.nvim/spell/en.utf-8.add<CR>
+
 " Edit spellfile
 nmap <silent><Leader>es :edit ~/.nvim/spell/en.utf-8.add<CR>
+
 " Strip whitespace
 nnoremap <silent><Leader>sw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<Bar>:unlet _s<CR>
 
 " Normal delete line but do not save to register
 nnoremap <Leader>d "_d
+
 " Visual delete line but do not save to register
 vnoremap <Leader>d "_d
+
 " Normal paste line but do not save to register
 nnoremap <Leader>p "_dP
+
 " Visual paste line but do not save to register
 vnoremap <Leader>p "_dP
 " }
 
 " Plugins {
-call plug#begin("~/.config/nvim/plugged")
+call plug#begin('~/.nvim/plugged')
 
 " Tools
 Plug 'neomake/neomake'
@@ -81,7 +97,6 @@ Plug 'Raimondi/delimitMate'
 Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 Plug 'Chiel92/vim-autoformat'
-Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-surround'
 
 " UI
@@ -94,7 +109,7 @@ Plug 'dag/vim2hs'
 Plug 'bitc/vim-hdevtools'
 Plug 'let-def/vimbufsync'
 Plug 'jvoorhis/coq.vim'
-Plug 'the-lambda-church/coquille', { 'branch': 'pathogen-bundle','on': 'CoqLaunch' }
+Plug '~/Code/coquille', { 'branch': 'pathogen-bundle' }
 Plug 'neovimhaskell/haskell-vim'
 
 " Writing
@@ -102,6 +117,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'mhinz/vim-startify'
 Plug 'reedes/vim-pencil'
 Plug 'Junegunn/goyo.vim'
+Plug 'jamessan/vim-gnupg'
 
 " Syntax
 Plug 'LnL7/vim-nix'
@@ -155,7 +171,6 @@ noremap <Leader>e :EasyAlign<CR>
 
 " FZF {
 let g:fzf_history_dir = '~/.fzf-history'
-
 let g:fzf_colors = { 'fg':      ['fg', 'Normal'],
             \ 'bg':      ['bg', 'Normal'],
             \ 'hl':      ['fg', 'Comment'],
@@ -192,28 +207,17 @@ let NERDTreeIgnore     = ['\.pyc$']
 let NERDTreeShowHidden = 1
 
 noremap <C-n> :NERDTreeToggle<CR>
-
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&
-            \ b:NERDTree.isTabTree()) | q | endif
 " }
 
 " Vimwiki {
 let g:vimwiki_list = [{
             \ "syntax":           "markdown",
-            \ "ext":              ".md",
-            \ "template_default": "default",
-            \ "template_path":    "/Users/brandon/Dropbox (Personal)/vimwiki/templates/",
-            \ "custom_wiki2html": "vimwiki_markdown",
-            \ "path_html":        "/Users/brandon/Dropbox (Personal)/vimwiki/html/",
+            \ "ext":              ".gpg",
             \ "path":             "/Users/brandon/Dropbox (Personal)/vimwiki/"
             \ }]
 
 nmap <Leader>wn :VimwikiDiaryNextDay<CR>
 nmap <Leader>wp :VimwikiDiaryPrevDay<CR>
-" }
-
-" Markdown {
-autocmd BufRead,BufNewFile *.md setlocal spell
 " }
 
 " Airline {
@@ -225,20 +229,16 @@ let g:airline_right_sep     = ''
 " }
 
 " Color {
-"silent! colorscheme solarized
+silent colorscheme solarized
 
-set background=dark
+set background=light
 " }
 
 " Pencil {
 let g:pencil#wrapModeDefault = 'soft'
 
-augroup pencil
-    setlocal spell
-    autocmd!
-    autocmd FileType markdown,mkd call pencil#init()
-    autocmd FileType text call pencil#init()
-augroup END
+autocmd BufRead,BufNewFile,BufEnter *.md,*.gpg setlocal spell
+autocmd BufRead,BufNewFile,BufEnter *.md,*.gpg call pencil#init()
 " }
 
 " Signify {
@@ -268,4 +268,15 @@ let g:rooter_silent_chdir                           = 1
 
 " Goyu {
 nmap <Leader>yo :Goyo <bar> highlight StatusLineNC ctermfg=white<CR>
+" }
+"
+" Rooster {
+autocmd BufRead,BufNewFile *.rooster set ft=coq
+" }
+
+" GPG {
+let g:GPGUseAgent        = 1
+let g:GPGPreferSymmetric = 1
+let g:GPGPreferArmor     = 1
+let g:GPGUsePipes        = 1
 " }
