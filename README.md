@@ -1,31 +1,44 @@
-# Dotfiles
+# dotfiles
 
 ![Screenshot](https://raw.githubusercontent.com/civiclabsconsulting/dotfiles/master/screenshot.png)
 
-## Keyboard
+**An opinionated OSX/Ubuntu terminal-based software development toolset and workflow**
 
-* Switch `control` and `caps lock` keys for easier keyboard ergonomics with Vim.
+## Setup
 
-## Terminal
+*Requirements*
 
-iTerm is great, a bit more robust than OSX's default terminal, Terminal.app. iTerm 3.0 supports ligatures which can be useful.
+* Vagrant
+* iTerm
 
-## Tmux
-
-### Notes
-
-To get `tmux` working properly with 24-bit color support, the following patched libary is needed: `choppsv1/term24`.
+To get started on OSX, simply run:
 
 ```
-brew tap choppsv1/term24
-brew install choppsv1/term24/tmux
+vagrant up
 ```
 
-* Prefix is `control` + `a`
-* See `tmux.conf` for full configuration details
+If you are currently running Ubuntu or a similar Debian distribution, run:
 
-## Neovim
+```
+sudo curl https://civiclabsconsulting.github.io/dotfiles/install | sh
+```
 
-Currently using Neovim which can be installed via pip3, `pip3 install neovim`. A great tutorial for learning Vim can be found [here](http://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/).
+### Keyboard
 
-This setup requires ctags, which can be installed with `brew install ctags`.
+* Switch `<Control>` and `<Caps Lock>` keys for easier keyboard ergonomics with Vim.
+
+## Tools
+
+### Tmux
+
+Terminal multiplexer. See `tmux.conf` for full configuration details.
+
+* Prefix is `<Control>` + `<a>`
+
+### z
+
+Use `z` to `cd` into commonly used directories.
+
+### Neovim
+
+Like Vim but with better asynchronous support and default configurations.
