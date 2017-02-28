@@ -1,13 +1,16 @@
 # terminal and namespace
-set-option -g default-terminal "xterm-256color"
+set-option -g default-terminal "screen-256color"
 set-option -g default-command "reattach-to-user-namespace -l zsh"
 
 # default status bar colors
 set-option -g status-bg default
 set-option -g status-fg yellow
 set-option -g status-attr default
+set-option -g status-bg default
+set-option -g status-fg yellow
+set-option -g status-attr default
 
-set -g status-left '#[fg=default]#H#[fg=default]:#[fg=default]#S #[fg=default]#[default]'
+SET -g status-left '#[fg=default]#H#[fg=default]:#[fg=default]#S #[fg=default]#[default]'
 set-option -g status-left-length 80
 set-option -g status-justify left
 

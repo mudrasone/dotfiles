@@ -89,7 +89,6 @@ Plug 'neomake/neomake'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 Plug 'gioele/vim-autoswap'
@@ -107,8 +106,8 @@ Plug 'Shougo/deoplete.nvim'
 " FP
 Plug 'dag/vim2hs'
 Plug 'bitc/vim-hdevtools'
-Plug 'let-def/vimbufsync'
-Plug 'jvoorhis/coq.vim'
+Plug 'let-def/vimbufsync', { 'on': 'StartCoq' }
+Plug 'jvoorhis/coq.vim', { 'on': 'StartCoq' }
 Plug '~/Code/coquille', { 'branch': 'pathogen-bundle' }
 Plug 'neovimhaskell/haskell-vim'
 
@@ -125,6 +124,7 @@ Plug 'alx741/vim-yesod'
 Plug 'pbrisbin/vim-syntax-shakespeare'
 Plug 'daveyarwood/vim-alda'
 Plug 'fatih/vim-nginx'
+Plug 'nowk/genericdc'
 
 " Theme
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
@@ -138,6 +138,7 @@ let g:easytags_cmd = '/usr/local/bin/ctags'
 
 au BufWritePost *.hs silent !init-tags %
 au BufWritePost *.hsc silent !init-tags %
+au BufWritePost *.lhs silent !init-tags %
 " }
 
 " Haskell {
@@ -171,18 +172,12 @@ noremap <Leader>e :EasyAlign<CR>
 
 " FZF {
 let g:fzf_history_dir = '~/.fzf-history'
-let g:fzf_colors = { 'fg':      ['fg', 'Normal'],
-            \ 'bg':      ['bg', 'Normal'],
-            \ 'hl':      ['fg', 'Comment'],
-            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-            \ 'hl+':     ['fg', 'Statement'],
-            \ 'info':    ['fg', 'PreProc'],
-            \ 'prompt':  ['fg', 'Conditional'],
-            \ 'pointer': ['fg', 'Exception'],
-            \ 'marker':  ['fg', 'Keyword'],
-            \ 'spinner': ['fg', 'Label'],
-            \ 'header':  ['fg', 'Comment'] }
+let g:rg_command = '
+            \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+            \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+            \ -g "!{.git,node_modules,vendor,docs}/*" '
+
+command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>b :Buffers<CR>
@@ -203,7 +198,6 @@ let g:deoplete#enable_at_startup = 1
 " }
 
 " NERDTree {
-let NERDTreeIgnore     = ['\.pyc$']
 let NERDTreeShowHidden = 1
 
 noremap <C-n> :NERDTreeToggle<CR>
@@ -231,14 +225,14 @@ let g:airline_right_sep     = ''
 " Color {
 silent colorscheme solarized
 
-set background=light
+set background=dark
 " }
 
 " Pencil {
 let g:pencil#wrapModeDefault = 'soft'
 
-autocmd BufRead,BufNewFile,BufEnter *.md,*.gpg setlocal spell
-autocmd BufRead,BufNewFile,BufEnter *.md,*.gpg call pencil#init()
+autocmd BufRead,BufNewFile,BufEnter *.markdown,*.md,*.gpg setlocal spell
+autocmd BufRead,BufNewFile,BufEnter *.markdown,*.md,*.gpg call pencil#init()
 " }
 
 " Signify {
@@ -247,23 +241,16 @@ let g:signify_sign_show_text  = 1
 " }
 
 " Coq {
-au FileType coq call coquille#CoqideMapping()
+function! StartCoq()
+  :call coquille#CoqideMapping()
+endfunction
 
-nmap <Leader>cl :CoqLaunch<CR>
+noremap <C-c> :call StartCoq()<CR>
+
 nmap <Leader>cn :CoqNext<CR>
 nmap <Leader>ck :CoqKill<CR>
 nmap <Leader>cu :CoqUndo<CR>
 nmap <Leader>cc :CoqToCursor<CR>
-" }
-
-" Obsession {
-nmap <Leader>s :Obsess<CR>
-" }
-
-" Vim-Rooter {
-let g:rooter_change_directory_for_non_project_files = 'current'
-let g:rooter_patterns                               = ['.git', '.git/', 'stack.yaml', '.projectfile']
-let g:rooter_silent_chdir                           = 1
 " }
 
 " Goyu {
@@ -279,4 +266,3 @@ let g:GPGUseAgent        = 1
 let g:GPGPreferSymmetric = 1
 let g:GPGPreferArmor     = 1
 let g:GPGUsePipes        = 1
-" }
