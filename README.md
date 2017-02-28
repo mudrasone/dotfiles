@@ -1,6 +1,6 @@
 # dotfiles
 
-![Screenshot](https://raw.githubusercontent.com/civiclabsconsulting/dotfiles/master/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/stilesb/dotfiles/master/screenshot.png)
 
 **An opinionated OSX/Ubuntu terminal-based software development toolset and workflow**
 
