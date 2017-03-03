@@ -32,7 +32,7 @@ alias vim='nvim'
 alias vi='nvim'
 alias ctags="`brew --prefix`/bin/ctags"
 alias bfg="git filter-branch --tree-filter 'rm -rf $@' HEAD"
-alias tmux="TERM=screen-256color tmux -2"
+alias tmux="TERM=xterm-256color tmux -2"
 alias ls="/bin/ls -G"
 
 source /usr/local/bin/virtualenvwrapper.sh

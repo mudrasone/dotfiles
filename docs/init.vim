@@ -3,18 +3,12 @@
 " System {
 set nocompatible
 
-if system('uname -s') == "Darwin\n"
-    set clipboard=unnamed,unnamedplus
-    let g:python3_host_prog = '/usr/local/bin/python3'
-else
-    let g:python3_host_prog = '/usr/bin/python3'
-    set clipboard=unnamedplus
-endif
-
-let g:python_host_prog  = '/usr/bin/python'
-
 let mapleader = "\<Space>"
 
+let g:python3_host_prog = '/usr/bin/python3'
+let g:python_host_prog  = '/usr/bin/python'
+
+set clipboard=unnamed,unnamedplus
 set termguicolors
 
 syntax on
@@ -25,6 +19,7 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
+" Spelling
 set spelllang=en_us
 set spellfile=$HOME/.nvim/spell/en.utf-8.add
 set complete+=kspell
@@ -34,9 +29,8 @@ if has('persistent_undo')
     set undofile
     set undodir=$HOME/.nvim/undo
 endif
-" }
 
-" Convenience mappings {
+" Plugin shortcuts
 nmap <silent><Leader>pc :PlugClean<CR>
 nmap <silent><Leader>pi :PlugInstall<CR>
 
@@ -90,13 +84,13 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 Plug 'mhinz/vim-signify'
 Plug 'gioele/vim-autoswap'
 Plug 'Raimondi/delimitMate'
 Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
 Plug 'Chiel92/vim-autoformat'
-Plug 'tpope/vim-surround'
 
 " UI
 Plug 'vim-airline/vim-airline'
@@ -136,17 +130,15 @@ call plug#end()
 " Tags {
 let g:easytags_cmd = '/usr/local/bin/ctags'
 
-au BufWritePost *.hs silent !init-tags %
-au BufWritePost *.hsc silent !init-tags %
-au BufWritePost *.lhs silent !init-tags %
+au BufWritePost *.hs,*.hsc,*.lhs silent !init-tags %
 " }
 
 " Haskell {
-au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
-au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
-
 let g:hdevtools_options              = '-g-isrc -g-Wall'
 let g:neomake_haskell_enabled_makers = ['hlint']
+
+au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
+au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
 " }
 
 " HTML {
@@ -205,9 +197,9 @@ noremap <C-n> :NERDTreeToggle<CR>
 
 " Vimwiki {
 let g:vimwiki_list = [{
-            \ "syntax":           "markdown",
-            \ "ext":              ".gpg",
-            \ "path":             "/Users/brandon/Dropbox (Personal)/vimwiki/"
+            \ "syntax": "markdown",
+            \ "ext":    ".gpg",
+            \ "path":   "/Users/brandon/Dropbox (Personal)/vimwiki/"
             \ }]
 
 nmap <Leader>wn :VimwikiDiaryNextDay<CR>
@@ -223,9 +215,9 @@ let g:airline_right_sep     = ''
 " }
 
 " Color {
-silent colorscheme solarized
-
 set background=dark
+
+silent colorscheme solarized
 " }
 
 " Pencil {
@@ -256,13 +248,10 @@ nmap <Leader>cc :CoqToCursor<CR>
 " Goyu {
 nmap <Leader>yo :Goyo <bar> highlight StatusLineNC ctermfg=white<CR>
 " }
-"
-" Rooster {
-autocmd BufRead,BufNewFile *.rooster set ft=coq
-" }
 
 " GPG {
 let g:GPGUseAgent        = 1
 let g:GPGPreferSymmetric = 1
 let g:GPGPreferArmor     = 1
 let g:GPGUsePipes        = 1
+" }
