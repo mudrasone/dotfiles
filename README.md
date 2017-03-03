@@ -41,10 +41,6 @@ Terminal multiplexer. See `tmux.conf` for full configuration details.
 
 * Prefix is `<Control>` + `<a>`
 
-### z
-
-Use `z` to `cd` into commonly used directories.
-
 ### Neovim
 
 Like Vim but with better asynchronous support and default configurations.
