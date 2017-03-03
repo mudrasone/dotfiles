@@ -1,15 +1,21 @@
 # dotfiles
 
-![Screenshot](https://raw.githubusercontent.com/stilesb/dotfiles/master/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/stilesb/dotfiles/master/vim.png)
 
-**An opinionated OSX/Ubuntu terminal-based software development toolset and workflow**
+Vim
+
+![Screenshot](https://raw.githubusercontent.com/stilesb/dotfiles/master/emacs.png)
+
+Emacs
+
+**An opinionated OSX/NixOs/Ubuntu terminal-based software development toolset and workflow**
 
 ## Setup
 
 *Requirements*
 
-* Vagrant
 * iTerm
+* Vagrant
 
 To get started on OSX, simply run:
 
@@ -42,3 +48,7 @@ Use `z` to `cd` into commonly used directories.
 ### Neovim
 
 Like Vim but with better asynchronous support and default configurations.
+
+### Emacs
+
+For use with Coq and Proof General

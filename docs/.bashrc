@@ -21,35 +21,22 @@ export PATH=$HOME/.cabal:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$NIX_LINK/bin:$NIX_LINK/sbin:$PATH
 export PATH=$HOME/.rvm/bin:$PATH
+export PATH="$PATH:$HOME/.rvm/bin"
 
-# OPAM configuration
-. /Users/brandon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
-alias emacs=/usr/local/bin/emacs
-alias dcp='docker-compose'
-alias dm='/usr/local/bin/docker-machine'
-alias vim='nvim'
-alias vi='nvim'
-alias ctags="`brew --prefix`/bin/ctags"
-alias bfg="git filter-branch --tree-filter 'rm -rf $@' HEAD"
-alias tmux="TERM=xterm-256color tmux -2"
-alias ls="/bin/ls -G"
-
+source /Users/brandon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 source /usr/local/bin/virtualenvwrapper.sh
-source $HOME/.profile
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 if [ -e /Users/brandon/.nix-profile/etc/profile.d/nix.sh ]; then
-    . /Users/brandon/.nix-profile/etc/profile.d/nix.sh;
+    source /Users/brandon/.nix-profile/etc/profile.d/nix.sh;
 fi
 
-# GPG
 [ -f ~/.gpg-agent-info ] && source ~/.gpg-agent-info
 if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
-  export GPG_AGENT_INFO
+    export GPG_AGENT_INFO
 else
-  eval $( gpg-agent --daemon --write-env-file ~/.gpg-agent-info )
+    eval $( gpg-agent --daemon --write-env-file ~/.gpg-agent-info )
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -60,15 +47,11 @@ function lazygit () {
     git push
 }
 
-function rmdss {
-    find . -name '*.DS_Store' -type f -delete
+function rmr () {
+    find . -name $1 -type f -delete
 }
 
-function rmpyc {
-    find . -name '*.pyc' -type f -delete
-}
-
-function tinit {
+function tinit () {
     cd ~/Code/"$1"
     tmux -2 new-session -d -s "$1"
     tmux -2 split-window -h -p 40 htop
@@ -76,12 +59,12 @@ function tinit {
     tmux -2 attach-session -d -t "$1"
 }
 
-function flushdns {
-    sudo dscacheutil -flushcache;
-    sudo killall -HUP mDNSResponder;
+function flushdns () {
+    sudo dscacheutil -flushcache
+    sudo killall -HUP mDNSResponder
 }
 
-function docker-clean-tmp {
+function dockercleantmp () {
     screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
 
     # Next login as root
@@ -104,9 +87,19 @@ function docker-clean-tmp {
     du -hs Docker.qcow2
 }
 
-function docker-clean-volumes {
+function dockercleanvolumes () {
     docker rm $(docker ps -a -q)
     docker rmi $(docker images -q)
     docker volume rm $(docker volume ls |awk '{print $2}')
     rm -rf ~/Library/Containers/com.docker.docker/Data/*
 }
+
+alias emacs=/usr/local/bin/emacs
+alias dcp='docker-compose'
+alias dm='/usr/local/bin/docker-machine'
+alias vim='nvim'
+alias vi='nvim'
+alias ctags="`brew --prefix`/bin/ctags"
+alias bfg="git filter-branch --tree-filter 'rm -rf $@' HEAD"
+alias tmux="TERM=xterm-256color tmux -2"
+alias ls="/bin/ls -G"
