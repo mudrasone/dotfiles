@@ -1,6 +1,6 @@
 # dotfiles
 
-*An opinionated OSX/NixOs/Ubuntu terminal-based software development toolset and workflow*
+*An opinionated OSX/NixOs/Ubuntu terminal-based software development toolset*
 
 ![Screenshot](https://raw.githubusercontent.com/stilesb/dotfiles/master/vim.png)
 
