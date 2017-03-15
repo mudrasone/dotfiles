@@ -39,6 +39,24 @@
 
  )
 (load "~/.emacs.d/lisp/PG/generic/proof-site")
-(add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized")
-(customize-set-variable 'frame-background-mode 'dark)
-(load-theme 'solarized t)
+
+;;(add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized")
+;;(customize-set-variable 'frame-background-mode 'dark)
+;;(load-theme 'solarized t)
+
+(set-default-font "Fira Code Retina 14")
+
+(when window-system
+  (set-frame-position (selected-frame) 0 0)
+  (set-frame-size (selected-frame) 186 52))
+
+(defun set-exec-path-from-shell-PATH ()
+  (let ((path-from-shell (replace-regexp-in-string
+                          "[ \t\n]*$"
+                          ""
+                          (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq eshell-path-env path-from-shell) ; for eshell users
+    (setq exec-path (split-string path-from-shell path-separator))))
+
+(when window-system (set-exec-path-from-shell-PATH))

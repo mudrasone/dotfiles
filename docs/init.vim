@@ -100,15 +100,14 @@ Plug 'Shougo/deoplete.nvim'
 " FP
 Plug 'dag/vim2hs'
 Plug 'bitc/vim-hdevtools'
-Plug 'let-def/vimbufsync', { 'on': 'StartCoq' }
-Plug 'jvoorhis/coq.vim', { 'on': 'StartCoq' }
-Plug '~/Code/coquille', { 'branch': 'pathogen-bundle' }
 Plug 'neovimhaskell/haskell-vim'
+Plug 'jvoorhis/coq.vim'
 
 " Writing
 Plug 'vimwiki/vimwiki'
 Plug 'mhinz/vim-startify'
 Plug 'reedes/vim-pencil'
+Plug 'ChesleyTan/wordCount.vim'
 Plug 'Junegunn/goyo.vim'
 Plug 'jamessan/vim-gnupg'
 
@@ -223,6 +222,8 @@ silent colorscheme solarized
 " Pencil {
 let g:pencil#wrapModeDefault = 'soft'
 
+nmap <Leader>words :WordCount<CR>
+
 autocmd BufRead,BufNewFile,BufEnter *.markdown,*.md,*.gpg setlocal spell
 autocmd BufRead,BufNewFile,BufEnter *.markdown,*.md,*.gpg call pencil#init()
 " }
@@ -230,19 +231,6 @@ autocmd BufRead,BufNewFile,BufEnter *.markdown,*.md,*.gpg call pencil#init()
 " Signify {
 let g:signify_sign_show_count = 1
 let g:signify_sign_show_text  = 1
-" }
-
-" Coq {
-function! StartCoq()
-  :call coquille#CoqideMapping()
-endfunction
-
-noremap <C-c> :call StartCoq()<CR>
-
-nmap <Leader>cn :CoqNext<CR>
-nmap <Leader>ck :CoqKill<CR>
-nmap <Leader>cu :CoqUndo<CR>
-nmap <Leader>cc :CoqToCursor<CR>
 " }
 
 " Goyu {
