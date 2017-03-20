@@ -51,14 +51,6 @@ function rmr () {
     find . -name $1 -type f -delete
 }
 
-function tinit () {
-    cd ~/Code/"$1"
-    tmux -2 new-session -d -s "$1"
-    tmux -2 split-window -h -p 40 htop
-    tmux -2 split-window -v
-    tmux -2 attach-session -d -t "$1"
-}
-
 function flushdns () {
     sudo dscacheutil -flushcache
     sudo killall -HUP mDNSResponder
@@ -101,5 +93,4 @@ alias vim='nvim'
 alias vi='nvim'
 alias ctags="`brew --prefix`/bin/ctags"
 alias bfg="git filter-branch --tree-filter 'rm -rf $@' HEAD"
-alias tmux="TERM=xterm-256color tmux -2"
 alias ls="/bin/ls -G"

@@ -14,22 +14,19 @@ set termguicolors
 syntax on
 filetype plugin indent on
 
-" Tabs
 set tabstop=4
 set shiftwidth=4
 set expandtab
 
-" Spelling
 set spelllang=en_us
 set spellfile=$HOME/.nvim/spell/en.utf-8.add
 set complete+=kspell
 
-" Infinite undo
-if has('persistent_undo')
-    set undofile
-    set undodir=$HOME/.nvim/undo
-endif
+set undofile
+set undodir=$HOME/.nvim/undo
+" }
 
+" Shortcuts {
 " Plugin shortcuts
 nmap <silent><Leader>pc :PlugClean<CR>
 nmap <silent><Leader>pi :PlugInstall<CR>
@@ -52,9 +49,6 @@ nmap <silent><Leader>w :w<CR><Esc>
 
 " Toggle line numbers
 nmap <silent><Leader>n :set nonumber!<CR>
-
-" Update spellfile
-nmap <silent><Leader>ms :mkspell! ~/.nvim/spell/en.utf-8.add<CR>
 
 " Edit spellfile
 nmap <silent><Leader>es :edit ~/.nvim/spell/en.utf-8.add<CR>
@@ -84,12 +78,11 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
 Plug 'mhinz/vim-signify'
 Plug 'gioele/vim-autoswap'
 Plug 'Raimondi/delimitMate'
-Plug 'xolox/vim-easytags'
 Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
 Plug 'Chiel92/vim-autoformat'
 
 " UI
@@ -107,17 +100,13 @@ Plug 'jvoorhis/coq.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'mhinz/vim-startify'
 Plug 'reedes/vim-pencil'
-Plug 'ChesleyTan/wordCount.vim'
-Plug 'Junegunn/goyo.vim'
 Plug 'jamessan/vim-gnupg'
 
 " Syntax
 Plug 'LnL7/vim-nix'
 Plug 'alx741/vim-yesod'
 Plug 'pbrisbin/vim-syntax-shakespeare'
-Plug 'daveyarwood/vim-alda'
 Plug 'fatih/vim-nginx'
-Plug 'nowk/genericdc'
 
 " Theme
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
@@ -128,6 +117,7 @@ call plug#end()
 
 " Tags {
 let g:easytags_cmd = '/usr/local/bin/ctags'
+let g:easytags_async = 1
 
 au BufWritePost *.hs,*.hsc,*.lhs silent !init-tags %
 " }
@@ -135,21 +125,10 @@ au BufWritePost *.hs,*.hsc,*.lhs silent !init-tags %
 " Haskell {
 let g:hdevtools_options              = '-g-isrc -g-Wall'
 let g:neomake_haskell_enabled_makers = ['hlint']
-
-au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
-au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
-" }
-
-" HTML {
-let g:neomake_html_maker = {
-    \ 'exe': 'tidy',
-    \ 'args': ['--no-color', '--preset', 'airbnb', '--reporter', 'inline', '--esnext'],
-    \ 'errorformat': '%f: line %l\, col %c\, %m',
-    \ }
 " }
 
 " AutoFormat {
-let g:autoformat_verbosemode            = 0
+let g:autoformat_verosemode             = 0
 let g:autoformat_autoindent             = 1
 let g:autoformat_retab                  = 1
 let g:autoformat_remove_trailing_spaces = 1
@@ -163,8 +142,7 @@ noremap <Leader>e :EasyAlign<CR>
 
 " FZF {
 let g:fzf_history_dir = '~/.fzf-history'
-let g:rg_command = '
-            \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+let g:rg_command = 'rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
             \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
             \ -g "!{.git,node_modules,vendor,docs}/*" '
 
@@ -197,12 +175,18 @@ noremap <C-n> :NERDTreeToggle<CR>
 " Vimwiki {
 let g:vimwiki_list = [{
             \ "syntax": "markdown",
-            \ "ext":    ".gpg",
+            \ "ext":    ".md",
             \ "path":   "/Users/brandon/Dropbox (Personal)/vimwiki/"
             \ }]
 
 nmap <Leader>wn :VimwikiDiaryNextDay<CR>
 nmap <Leader>wp :VimwikiDiaryPrevDay<CR>
+nmap <Leader>wn :call WikiNote()<CR>
+
+function! WikiNote()
+    let l:filename = strftime("%Y-%m-%d")
+    exe "e! " . fnameescape("~/Dropbox (Personal)/vimwiki/diary/" . l:filename . ".pgp")
+endfunction
 " }
 
 " Airline {
@@ -214,15 +198,13 @@ let g:airline_right_sep     = ''
 " }
 
 " Color {
-set background=dark
+set background=light
 
-silent colorscheme solarized
+colorscheme solarized
 " }
 
 " Pencil {
 let g:pencil#wrapModeDefault = 'soft'
-
-nmap <Leader>words :WordCount<CR>
 
 autocmd BufRead,BufNewFile,BufEnter *.markdown,*.md,*.gpg setlocal spell
 autocmd BufRead,BufNewFile,BufEnter *.markdown,*.md,*.gpg call pencil#init()
@@ -231,10 +213,6 @@ autocmd BufRead,BufNewFile,BufEnter *.markdown,*.md,*.gpg call pencil#init()
 " Signify {
 let g:signify_sign_show_count = 1
 let g:signify_sign_show_text  = 1
-" }
-
-" Goyu {
-nmap <Leader>yo :Goyo <bar> highlight StatusLineNC ctermfg=white<CR>
 " }
 
 " GPG {
