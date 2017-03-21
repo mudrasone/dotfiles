@@ -1,4 +1,3 @@
-export HTML_TIDY=~/.tidyrc
 export TERM='xterm-256color'
 export PROJECT_HOME=$PWD/.virtualenv
 export WORKON_HOME=$PWD/.virtualenv
@@ -21,7 +20,6 @@ export PATH=$HOME/.cabal:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$NIX_LINK/bin:$NIX_LINK/sbin:$PATH
 export PATH=$HOME/.rvm/bin:$PATH
-export PATH="$PATH:$HOME/.rvm/bin"
 
 source /Users/brandon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 source /usr/local/bin/virtualenvwrapper.sh
@@ -38,8 +36,6 @@ if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
 else
     eval $( gpg-agent --daemon --write-env-file ~/.gpg-agent-info )
 fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 function lazygit () {
     git add .
@@ -58,17 +54,12 @@ function flushdns () {
 
 function dockercleantmp () {
     screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
-
-    # Next login as root
-
     dd if=/dev/zero of=/var/tempfile
-
     rm /var/tempfile
 
     # logout of the VM
     # Quit the Docker client entirely
     # Now we can recompress the disk:
-
     # > pwd
     # /Users/nick/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux
 
@@ -86,11 +77,8 @@ function dockercleanvolumes () {
     rm -rf ~/Library/Containers/com.docker.docker/Data/*
 }
 
-alias emacs=/usr/local/bin/emacs
 alias dcp='docker-compose'
 alias dm='/usr/local/bin/docker-machine'
-alias vim='nvim'
-alias vi='nvim'
 alias ctags="`brew --prefix`/bin/ctags"
 alias bfg="git filter-branch --tree-filter 'rm -rf $@' HEAD"
 alias ls="/bin/ls -G"
