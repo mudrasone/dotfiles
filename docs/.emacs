@@ -4,7 +4,7 @@
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 
-; Ergonomics: Rebind extended command
+; Ergonomics: Rebind =extended-command=
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 
 ; UI: Minimal window
@@ -51,13 +51,11 @@
 (add-hook 'org-mode-hook 'flyspell-mode)
 (setq org-startup-truncated nil)
 (with-eval-after-load 'org       
-  (setq org-startup-indented t) ; Enable `org-indent-mode' by default
   (add-hook 'org-mode-hook #'visual-line-mode))
 
 (setq org-log-done t)
 (setq org-todo-keywords
       '((sequence "TODO" "|" "DONE" "CANCELLED")))
-(global-set-key (kbd "C-c a") 'org-agenda)
 
 (require 'org-bullets)
 (setq org-ellipsis " …")
@@ -66,11 +64,14 @@
 
 (require 'org-agenda)
 (setq org-agenda-files '("~/Dropbox (Personal)/.org" "~/Dropbox (Personal)/.org/journal"))
+(global-set-key (kbd "C-c a") 'org-agenda)
 
 (require 'org-journal)
-(global-set-key (kbd "C-c C-j") 'org-agenda)
 (setq org-journal-dir "~/Dropbox (Personal)/.org/journal/")
 (setq org-journal-file-format "%Y%m%d.org")
+
+; Util: Spellcheck
+;(setq ispell-program-name "hunspell")
 
 (defun add-word-to-dictionary ()
   (interactive)
@@ -87,21 +88,19 @@
 ; Util: Helm
 (require 'helm)
 (require 'helm-config)
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(global-unset-key (kbd "C-x c"))
-
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB work in terminal
-(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-
 (global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+(define-key helm-map (kbd "C-z")  'helm-select-action)
 
 (helm-mode 1)
 
 (require 'helm-projectile)
+(setq projectile-completion-system 'helm)
 (helm-projectile-on)
-(global-set-key (kbd "C-x C-p") 'helm-projectile-find-file)
 
 (require 'helm-descbinds)
 (helm-descbinds-mode)
@@ -122,7 +121,7 @@
 (require 'flycheck-haskell)
 (add-hook 'haskell-mode-hook 'intero-mode)
 
-; Util: magit
+; Util: Magit
 (require 'magit)
 
 ; System: PATH
@@ -135,3 +134,6 @@
 ; UI: Theme
 (load-theme 'base16-tomorrow)
 (set-face-background 'fringe "white")
+
+; PG: CPDT
+(custom-set-variables '(coq-prog-args '("-R" "/Users/brandon/Code/cpdt/src" "Cpdt")))
