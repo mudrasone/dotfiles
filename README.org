@@ -2,7 +2,7 @@
 
 /An opinionated software development toolset for MacOS with support NixOS/Ubuntu via Vagrant (experimental)/
 
-![Screenshot](https://raw.githubusercontent.com/stilesb/dotfiles/master/emacs.png)
+[[file:https://raw.githubusercontent.com/stilesb/dotfiles/master/emacs.png]]
 
 *Emacs*
 
@@ -23,14 +23,15 @@
 
 ** Emacs
 
-I mainly use this instead of my Vim/Tmux/iTerm setup.use with Coq and Proof General
+I mainly use this instead of my Neovim/Tmux/iTerm setup.use with Coq and Proof General
 
 ** Vim/Tmux/iTerm
 
-- Tmux
+*Neovim*
+
+Like Vim but with better asynchronous support and default configurations.
+
+*Tmux*
 
 Terminal multiplexer. See =tmux.conf= for full configuration details. Prefix is `<Control>` + `<a>`.
 
-- Neovim
-
-Like Vim but with better asynchronous support and default configurations.
