@@ -8,7 +8,7 @@
 
 [[file:https://raw.githubusercontent.com/stilesb/dotfiles/master/vim.png]]
 
-*Vim*
+*Vim/Tmux/iTerm*
 
 ** Setup
 
