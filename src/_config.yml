@@ -1,0 +1,23 @@
+# Setup
+title:        dotfiles
+tagline:      "An opinionated software development toolset for MacOS with experimental support for NixOS/Ubuntu via Vagrant"
+baseurl:      ""
+paginate:     1
+destination: ../docs
+
+# Etc
+github:
+  show_downloads: false
+
+# About/contact
+author:
+  name:       Brandon Stiles
+  url:        https://dotfiles.brandonstil.es
+  
+# Gems
+gems:
+  - jekyll-paginate
+  - jekyll-org
+
+#Others
+markdown: kramdown
