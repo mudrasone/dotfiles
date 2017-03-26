@@ -34,4 +34,3 @@ Like Vim but with better asynchronous support and default configurations.
 ### Tmux
 
 Terminal multiplexer. See `tmux.conf` for full configuration details. Prefix is `<C-a>`.
-
