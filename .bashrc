@@ -1,6 +1,6 @@
 export TERM='xterm-256color'
 export PROJECT_HOME=$PWD/.virtualenv
-export WORKON_HOME=$PWD/.virtualenv
+export WORKON_HOME=$PROJEECT_HOME
 export NVIMRC=~/.config/nvim/init.vim
 export NVM_DIR="/Users/brandon/.nvm"
 export MANPATH=$NIX_LINK/share/man:$MANPATH
@@ -18,11 +18,13 @@ export PATH=/usr/local/pgsql/bin:$PATH
 export PATH=$HOME/Library/Haskell/bin:$PATH
 export PATH=$HOME/.cabal:$PATH
 export PATH=$HOME/.local/bin:$PATH
+export PATH=/usr/local/sbin:$PATH
 export PATH=$NIX_LINK/bin:$NIX_LINK/sbin:$PATH
 export PATH=$HOME/.rvm/bin:$PATH
 
 source /Users/brandon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 source /usr/local/bin/virtualenvwrapper.sh
+source /usr/local/etc/profile.d/z.sh
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
@@ -44,7 +46,7 @@ function lazygit () {
 }
 
 function rmr () {
-    find . -name $1 -type f -delete
+    find . -name "$1" -type f -delete
 }
 
 function flushdns () {
@@ -52,7 +54,7 @@ function flushdns () {
     sudo killall -HUP mDNSResponder
 }
 
-function dockercleantmp () {
+function docker-clean-tmp () {
     screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
     dd if=/dev/zero of=/var/tempfile
     rm /var/tempfile
@@ -70,7 +72,7 @@ function dockercleantmp () {
     du -hs Docker.qcow2
 }
 
-function dockercleanvolumes () {
+function docker-clean-volumes () {
     docker rm $(docker ps -a -q)
     docker rmi $(docker images -q)
     docker volume rm $(docker volume ls |awk '{print $2}')
@@ -82,3 +84,5 @@ alias dm='/usr/local/bin/docker-machine'
 alias ctags="`brew --prefix`/bin/ctags"
 alias bfg="git filter-branch --tree-filter 'rm -rf $@' HEAD"
 alias ls="/bin/ls -G"
+
+PS1='\w $ '

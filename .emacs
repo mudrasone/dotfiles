@@ -46,6 +46,7 @@
 
 ; Util: Terminal
 (require 'sane-term)
+(setq sane-term-shell-command "/bin/bash")
 (global-set-key (kbd "C-x t") 'sane-term)
 (global-set-key (kbd "C-x T") 'sane-term-create)
 
