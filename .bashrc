@@ -79,10 +79,18 @@ function docker-clean-volumes () {
     rm -rf ~/Library/Containers/com.docker.docker/Data/*
 }
 
-alias dcp='docker-compose'
-alias dm='/usr/local/bin/docker-machine'
+function dm-create () {
+    docker-machine create --driver virtualbox --virtualbox-memory 8000 --virtualbox-disk-size 40000 default
+}
+
+function eval-dm-env () {
+    eval $(docker-machine env default)
+}
+
+alias dcp="docker-compose"
+alias dm="/usr/local/bin/docker-machine"
 alias ctags="`brew --prefix`/bin/ctags"
 alias bfg="git filter-branch --tree-filter 'rm -rf $@' HEAD"
 alias ls="/bin/ls -G"
 
-PS1='\w $ '
+PS1="\w $ "
