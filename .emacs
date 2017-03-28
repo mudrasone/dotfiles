@@ -35,7 +35,7 @@
     ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default)))
  '(package-selected-packages
    (quote
-    (smart-mode-line yaml-mode web-mode shakespeare-mode sane-term s pg org-journal org-bullets org-agenda-property neotree markdown-mode magit intero helm-projectile helm-flycheck helm-descbinds helm-ag gruvbox-theme google flycheck-haskell dashboard color-theme base16-theme))))
+    (dockerfile-mode docker org-ac auto-complete smart-mode-line yaml-mode web-mode shakespeare-mode sane-term s pg org-journal org-bullets org-agenda-property neotree markdown-mode magit intero helm-projectile helm-flycheck helm-descbinds helm-ag gruvbox-theme flycheck-haskell dashboard color-theme base16-theme))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -49,8 +49,11 @@
 (global-set-key (kbd "C-x t") 'sane-term)
 (global-set-key (kbd "C-x T") 'sane-term-create)
 
-; Optional convenience binding. This allows C-y to paste even when in term-char-mode (see below). 
-(add-hook 'term-mode-hook (lambda() (define-key term-raw-map (kbd "C-y") (lambda () (interactive) (term-line-mode) (yank) (term-char-mode)))))
+; Optional convenience binding. This allows C-y to paste even when in term-char-mode
+(add-hook 'term-mode-hook
+	  (lambda() (define-key term-raw-map (kbd "C-y")
+		      (lambda () (interactive)
+			(term-line-mode) (yank) (term-char-mode)))))
 
 ; Util: Writing and organization
 (require 'org)
@@ -58,16 +61,14 @@
 (setq org-todo-keywords '((sequence "TODO" "|" "DONE" "CANCELLED")))
 (setq org-startup-truncated nil)
 (setq org-agenda-start-on-weekday 0)
-
 (with-eval-after-load 'org (add-hook 'org-mode-hook #'visual-line-mode))
-
 (add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'org-mode-hook 'flyspell-mode)
 
 (require 'org-crypt)
-(org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 (setq org-crypt-key "stilesbr1@gmail.com")
+(org-crypt-use-before-save-magic)
 
 (require 'org-bullets)
 (setq org-ellipsis " …")
@@ -78,7 +79,6 @@
 (setq org-agenda-files '("~/Dropbox (Personal)/.org"
 			 "~/Dropbox (Personal)/.org/meetings"
 			 "~/Dropbox (Personal)/.org/journal"))
-(global-set-key (kbd "C-c a") 'org-agenda)
 
 (require 'org-agenda-property)
 (setq org-agenda-property-list '("DEADLINE" "SCHEDULED"))
@@ -86,6 +86,7 @@
 (require 'org-journal)
 (setq org-journal-dir "~/Dropbox (Personal)/.org/journal/")
 (setq org-journal-file-format "%Y%m%d.org")
+(add-hook 'org-journal-mode-hook 'org-mode)
 
 (defun add-word-to-dictionary ()
   (interactive)
@@ -107,11 +108,9 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-b") #'helm-filtered-bookmarks)
 (global-set-key (kbd "C-x C-f") #'helm-find-files)
-
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-z")  'helm-select-action)
-
 (helm-mode 1)
 
 (require 'helm-projectile)
@@ -168,12 +167,23 @@
 			(projects . 10)))
 (dashboard-setup-startup-hook)
 
+; Util: Web development
 (require 'web-mode)
 
 ; Util: Encryption
 (require 'epa-file)
 (epa-file-enable)
 
+; UI: Smart Mode Lin
 (require 'smart-mode-line)
 (setq sml/theme 'respectful)
 (sml/setup)
+
+; Util: Autocomplete
+(require 'auto-complete)
+(ac-config-default)
+(global-auto-complete-mode t)
+(add-to-list 'ac-modes 'org-mode)
+
+(require 'org-ac)
+(org-ac/config-default)
