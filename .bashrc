@@ -39,17 +39,21 @@ else
     eval $( gpg-agent --daemon --write-env-file ~/.gpg-agent-info )
 fi
 
-function lazygit () {
+function git-lazy () {
     git add .
     git commit -a -m "$1"
     git push
 }
 
-function rmr () {
+function git-filter-rm () {
+    git filter-branch --tree-filter 'rm -rf $@' HEAD
+}
+
+function find-rm () {
     find . -name "$1" -type f -delete
 }
 
-function flushdns () {
+function dns-flush () {
     sudo dscacheutil -flushcache
     sudo killall -HUP mDNSResponder
 }
@@ -83,14 +87,13 @@ function dm-create () {
     docker-machine create --driver virtualbox --virtualbox-memory 8000 --virtualbox-disk-size 40000 default
 }
 
-function eval-dm-env () {
+function dm-eval-env () {
     eval $(docker-machine env default)
 }
 
 alias dcp="docker-compose"
 alias dm="/usr/local/bin/docker-machine"
 alias ctags="`brew --prefix`/bin/ctags"
-alias bfg="git filter-branch --tree-filter 'rm -rf $@' HEAD"
 alias ls="/bin/ls -G"
 
-PS1="\w $ "
+PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \W\[\033[00m\]\n$ "
