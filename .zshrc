@@ -5,7 +5,6 @@ ZSH_THEME="avit"
 plugins=(git fasd history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/.bashrc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

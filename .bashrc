@@ -22,9 +22,10 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=$NIX_LINK/bin:$NIX_LINK/sbin:$PATH
 export PATH=$HOME/.rvm/bin:$PATH
 
-source /Users/brandon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-source /usr/local/bin/virtualenvwrapper.sh
-source /usr/local/etc/profile.d/z.sh
+. /Users/brandon/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+. /usr/local/bin/virtualenvwrapper.sh
+. /usr/local/etc/profile.d/z.sh
+. /usr/local/opt/nvm/nvm.sh
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
@@ -37,6 +38,10 @@ if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
     export GPG_AGENT_INFO
 else
     eval $( gpg-agent --daemon --write-env-file ~/.gpg-agent-info )
+fi
+
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+    . `brew --prefix`/etc/bash_completion
 fi
 
 function git-lazy () {
