@@ -1,4 +1,4 @@
-export TERM='eterm-color'
+export TERM='xterm-256color'
 export PROJECT_HOME=$PWD/.virtualenv
 export WORKON_HOME=$PROJEECT_HOME
 export NVIMRC=~/.config/nvim/init.vim
