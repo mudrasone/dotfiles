@@ -157,7 +157,7 @@
                    ((org-agenda-skip-function '(or (org-skip-subtree-if-habit)
                                                    (org-skip-subtree-if-priority ?A)
                                                    (org-agenda-skip-if nil '(scheduled deadline))))
-                    (org-agenda-overriding-header "ALL normal priority tasks:"))))
+                    (org-agenda-overriding-header "All normal-priority tasks:"))))
          ((org-agenda-compact-blocks t)))))
 
 (defun org-skip-subtree-if-habit ()
@@ -168,7 +168,7 @@
       nil)))
 
 (defun org-skip-subtree-if-priority (priority)
-  "Skip an agenda subtree if it has a priority of PRIORITY. PRIORITY may be one of the characters ?A, ?B, or ?C."
+  "Skip an agenda subtree if it has a priority of PRIORITY."
   (let ((subtree-end (save-excursion (org-end-of-subtree t)))
         (pri-value (* 1000 (- org-lowest-priority priority)))
         (pri-current (org-get-priority (thing-at-point 'line t))))
