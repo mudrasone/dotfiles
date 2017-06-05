@@ -13,6 +13,7 @@
   (set-default-font "Hasklig")
   (set-face-attribute 'default nil :height 150))
 
+; UI: Font ligatures
 (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
                (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
                (36 . ".\\(?:>\\)")
@@ -61,7 +62,6 @@
         (package-install p)))))
 (load-packages)
 
-; Utils: Custom variables
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -70,10 +70,7 @@
  '(coq-prog-args (quote ("-R" "/Users/brandon/Code/cpdt/src" "Cpdt")))
  '(custom-safe-themes
    (quote
-    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "92192ea8f0bf04421f5b245d906701abaa7bb3b0d2b3b14fca2ee5ebb1da38d8" "4feee83c4fbbe8b827650d0f9af4ba7da903a5d117d849a3ccee88262805f40d" "fee4e306d9070a55dce4d8e9d92d28bd9efe92625d2ba9d4d654fc9cd8113b7f" "50d07ab55e2b5322b2a8b13bc15ddf76d7f5985268833762c500a90e2a09e7aa" "100eeb65d336e3d8f419c0f09170f9fd30f688849c5e60a801a1e6addd8216cb" "d29231b2550e0d30b7d0d7fc54a7fb2aa7f47d1b110ee625c1a56b30fea3be0f" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default)))
- '(package-selected-packages
-   (quote
-    (base16-theme color-theme dashboard rjsx-mode flycheck-haskell gruvbox-theme helm-descbinds helm-flycheck helm-projectile intero magit markdown-mode neotree org-agenda-property org-bullets org-journal pg shakespeare-mode web-mode yaml-mode smart-mode-line org-ac docker dockerfile-mode nix-mode goto-chg undo-tree solarized-theme iedit nginx-mode swiper-helm git-gutter-fringe jsx-mode autopair sane-term hungry-delete helm-ag ack grep+ ag dumb-jump xterm-color flatui-theme))))
+    ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default))))
 
 ; System: Path
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/Users/brandon/.local/bin"))
@@ -113,7 +110,6 @@
 (setq term-term-name "xterm")
 (setq sane-term-shell-command "/bin/bash")
 (add-hook 'term-mode-hook (lambda () (setq term-buffer-maximum-size 10000)))
-;; Like this?      (define-key term-raw-map (kbd "<C-left>")
 (add-hook 'term-mode-hook (lambda () (define-key term-raw-map (kbd "C-p")
 				       (lambda () (interactive) (term-line-mode) (yank) (term-char-mode)))))
 
@@ -146,13 +142,15 @@
 
 (global-set-key (kbd "C-c a") 'org-agenda)
 (load-library "find-lisp")
+
 (setq org-agenda-files (find-lisp-find-files "~/Dropbox (Personal)/.org" "\.org$"))
 (setq org-agenda-compact-blocks t)
 (setq org-agenda-start-on-weekday 0)
+(setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-custom-commands
       '(("d" "Daily agenda and all TODOs"
          ((tags "PRIORITY=\"A\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done 'canceled))
                  (org-agenda-overriding-header "High-priority unfinished tasks:")))
           (agenda "" ((org-agenda-ndays 1)))
           (alltodo ""
@@ -190,19 +188,19 @@
 ; Util: Agenda properties
 (require 'org-agenda-property)
 (setq org-agenda-property-list '("DEADLINE" "SCHEDULED"))
-;; (setq org-agenda-window-setup (quote current-window))
-;; (setq org-deadline-warning-days 7)
-;; (setq org-agenda-span (quote fortnight))
-;; (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
-;; (setq org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled))
-;; (setq org-agenda-todo-ignore-deadlines (quote all))
-;; (setq org-agenda-todo-ignore-scheduled (quote all))
-;; (setq org-agenda-sorting-strategy
-;;   (quote
-;;    ((agenda deadline-up priority-down)
-;;     (todo priority-down category-keep)
-;;     (tags priority-down category-keep)
-;;     (search category-keep))))
+(setq org-agenda-window-setup (quote current-window))
+(setq org-deadline-warning-days 7)
+(setq org-agenda-span (quote fortnight))
+(setq org-agenda-skip-scheduled-if-deadline-is-shown t)
+(setq org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled))
+(setq org-agenda-todo-ignore-deadlines (quote all))
+(setq org-agenda-todo-ignore-scheduled (quote all))
+(setq org-agenda-sorting-strategy
+  (quote
+   ((agenda deadline-up priority-down)
+    (todo priority-down category-keep)
+    (tags priority-down category-keep)
+    (search category-keep))))
 
 ; Util: Journal
 (require 'org-journal)
@@ -210,6 +208,12 @@
 (setq org-journal-file-format "%Y%m%d.org")
 (add-hook 'org-journal-mode-hook 'org-mode)
 (global-set-key (kbd "C-c j") 'org-journal-new-entry)
+
+; Util: Writing encryption
+(require 'org-crypt)
+(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+(setq org-crypt-key "stilesbr1@gmail.com")
+(org-crypt-use-before-save-magic)
  
 ; Util: Project management
 (require 'projectile)
@@ -244,9 +248,8 @@
 
 ; Util: Helm Ag
 (if nil
-    ;; Not working
     (progn (require 'helm-ag)
-	   (global-set-key (kbd "C-x C-/") #'helm-projectile-ag))
+	   (global-set-key (kbd "C-x C-/") #'helm-projectile-ag)) ; Not working
     (progn (global-set-key (kbd "C-x C-/") #'helm-projectile-ack)))
 
 ; Util: Backspace
@@ -261,7 +264,7 @@
 (require 'neotree)
 (setq neo-theme (if (display-graphic-p) 'nerd))
 (setq projectile-switch-project-action 'neotree-projectile-action)
-(global-unset-key (kbd "C-x C-n"))
+;(global-unset-key (kbd "C-x C-n"))
 (global-set-key (kbd "C-x C-n") 'neotree-toggle)
 
 ; UI: Haskell
@@ -291,12 +294,6 @@
 ; Util: Encryption
 (require 'epa-file)
 (epa-file-enable)
-
-; Util: Writing encryption
-(require 'org-crypt)
-(setq org-tags-exclude-from-inheritance (quote ("crypt")))
-(setq org-crypt-key "stilesbr1@gmail.com")
-(org-crypt-use-before-save-magic)
 
 ; UI: Smart Mode Line
 (require 'smart-mode-line)
@@ -377,7 +374,9 @@
          (word (flyspell-get-word)))
     (when (consp word)    
       (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
+
 (global-set-key (kbd "C-c d") 'flyspell-add-word)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
