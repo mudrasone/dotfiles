@@ -96,8 +96,9 @@ function dm-eval-env () {
     eval $(docker-machine env default)
 }
 
-alias dcp="docker-compose"
-alias dm="/usr/local/bin/docker-machine"
+alias c="docker-compose"
+alias m="/usr/local/bin/docker-machine"
+alias d="/usr/local/bin/docker"
 alias ctags="`brew --prefix`/bin/ctags"
 alias ls="/bin/ls -G"
 
