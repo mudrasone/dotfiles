@@ -67,8 +67,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#839496"])
+ '(ansi-color-names-vector ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#839496"])
  '(compilation-message-face (quote default))
  '(coq-prog-args (quote ("-R" "/Users/brandon/Code/cpdt/src" "Cpdt")))
  '(cua-global-mark-cursor-color "#2aa198")
@@ -312,7 +311,7 @@
  
 ; Util: Project management
 (require 'projectile)
-(setq projectile-use-native-indexing nil)
+(setq projectile-indexing-method 'alien)
 (setq projectile-completion-system 'helm)
 (setq projectile-enable-caching nil)
 (projectile-global-mode)
@@ -363,7 +362,7 @@
 (global-unset-key (kbd "C-x C-n"))
 (global-set-key (kbd "C-x C-n") 'neotree-toggle)
 
-; UI: Haskell
+; Util: Haskell
 (require 'haskell-mode)
 
 ; Util: Haskell
@@ -486,6 +485,7 @@
 
 (global-set-key (kbd "C-c d") 'flyspell-add-word)
 
+; Util: Custom
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
