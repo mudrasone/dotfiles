@@ -102,4 +102,8 @@ alias d="/usr/local/bin/docker"
 alias ctags="`brew --prefix`/bin/ctags"
 alias ls="/bin/ls -G"
 
+if [[ -n "$EMACS" ]]; then
+    export TERM=eterm-color
+fi
+
 PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \W\[\033[00m\]\n$ "

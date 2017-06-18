@@ -108,7 +108,7 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (color-theme-solarized direx scala-mode rainbow-mode zenburn-theme firebelly-theme solidity-mode vimish-fold web-beautify yaml-mode xterm-color web-mode undo-tree swiper-helm solarized-theme smart-mode-line shakespeare-mode sane-term rjsx-mode pg org-journal org-bullets org-agenda-property org-ac nix-mode nginx-mode neotree markdown-mode magit jsx-mode intero iedit hungry-delete helm-projectile helm-flycheck helm-descbinds helm-ag gruvbox-theme grep+ goto-chg git-gutter-fringe flycheck-haskell flatui-theme dumb-jump dockerfile-mode docker dashboard color-theme base16-theme ag ack)))
+    (color-theme-solarized direx scala-mode rainbow-mode zenburn-theme firebelly-theme solidity-mode web-beautify yaml-mode xterm-color web-mode undo-tree swiper-helm solarized-theme smart-mode-line shakespeare-mode sane-term rjsx-mode pg org-journal org-bullets org-agenda-property org-ac nix-mode nginx-mode neotree markdown-mode magit jsx-mode intero iedit hungry-delete helm-projectile helm-flycheck helm-descbinds helm-ag gruvbox-theme grep+ goto-chg git-gutter-fringe flycheck-haskell flatui-theme dumb-jump dockerfile-mode docker dashboard color-theme base16-theme ag ack)))
  '(pos-tip-background-color "#eee8d5")
  '(pos-tip-foreground-color "#586e75")
  '(safe-local-variable-values
@@ -312,7 +312,7 @@
  
 ; Util: Project management
 (require 'projectile)
-(setq projectile-indexing-method 'alien)
+(setq projectile-use-native-indexing nil)
 (setq projectile-completion-system 'helm)
 (setq projectile-enable-caching nil)
 (projectile-global-mode)
@@ -476,11 +476,6 @@
 (require 'swiper)
 (require 'swiper-helm)
 
-; Util: Code folding
-(require 'vimish-fold)
-(vimish-fold-global-mode 1)
-;(global-set-key (kbd "C-x v") #'vimish-fold-toggle)
-					
 ; Util: Spelling
 (defun flyspell-add-word ()
   (interactive)
@@ -496,4 +491,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(neo-dir-link-face ((t (:foreground "#278BD2"))))
+ '(neo-file-link-face ((t (:foreground "#657B84")))))
