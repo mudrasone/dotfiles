@@ -164,6 +164,7 @@
 (setq exec-path (append exec-path '("/Users/brandon/.nvm/versions/node/v6.4.0/bin")))
 
 ; System: Term
+(require 'xterm-color)
 (when t (setenv "TERM" "eterm-color"))
 (eval-after-load "term"
   '(progn
@@ -182,10 +183,6 @@
       '(backward-kill-paragraph backward-kill-sentence backward-kill-sexp backward-kill-word bookmark-kill-line kill-backward-chars kill-backward-up-list kill-forward-chars kill-line kill-paragraph kill-rectangle kill-region kill-sentence kill-sexp kill-visual-line kill-whole-line kill-word subword-backward-kill subword-kill yank yank-pop yank-rectangle))))
 (ansi-color-for-comint-mode-on)
 
-; Util: Proof General
-(setq coq-prog-name "/usr/local/bin/coqtop")
-(when nil (load "~/.emacs.d/lisp/PG/generic/proof-site"))
-
 ; Util: Terminal
 (require 'sane-term)
 (setq term-term-name "xterm")
@@ -194,8 +191,9 @@
 (add-hook 'term-mode-hook (lambda () (define-key term-raw-map (kbd "C-p")
 				       (lambda () (interactive) (term-line-mode) (yank) (term-char-mode)))))
 
-; UI: Terminal
-(require 'xterm-color)
+; Util: Proof General
+(setq coq-prog-name "/usr/local/bin/coqtop")
+(when nil (load "~/.emacs.d/lisp/PG/generic/proof-site"))
 
 ; Util: Writing
 (require 'org)
@@ -205,9 +203,6 @@
 (setq org-todo-keywords '((sequence "TODO" "|" "DONE" "CANCELLED")))
       
 (with-eval-after-load 'org (add-hook 'org-mode-hook #'visual-line-mode))
-
-(add-hook 'org-mode-hook 'flyspell-mode)
-(add-hook 'text-mode-hook 'flyspell-mode)
 
 ; UI: Dashboard
 (require 'dashboard)
@@ -424,12 +419,16 @@
                                    (load-theme 'firebelly))))
 
 ; Util: Spelling
+(require 'flyspell)
 (defun flyspell-add-word ()
   (interactive)
   (let ((current-location (point))
          (word (flyspell-get-word)))
     (when (consp word)    
       (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
+
+(add-hook 'org-mode-hook 'flyspell-mode)
+(add-hook 'text-mode-hook 'flyspell-mode)
 
 ; UI: Line numbers
 (add-hook 'prog-mode-hook 'linum-mode)
@@ -456,8 +455,7 @@
   "T" 'sane-term-create
   "w" 'flyspell-add-word
   "n" 'neotree-toggle
-  "j" 'org-journal-open-next-entry
-  "J" 'org-journal-new-entry
+  "j" 'org-journal-new-entry
   "d" 'dumb-jump-go
   "a" 'org-agenda
   "k" 'kill-buffer)
