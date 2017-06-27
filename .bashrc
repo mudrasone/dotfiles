@@ -63,47 +63,36 @@ function dns-flush () {
     sudo killall -HUP mDNSResponder
 }
 
-function docker-clean-tmp () {
-    screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
-    dd if=/dev/zero of=/var/tempfile
-    rm /var/tempfile
-
-    # logout of the VM
-    # Quit the Docker client entirely
-    # Now we can recompress the disk:
-    # > pwd
-    # /Users/nick/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux
-
-    mv Docker.qcow2 Docker.qcow2.original
-    du -hs Docker.qcow2.original
-    qemu-img convert -O qcow2 Docker.qcow2.original Docker.qcow2
-    rm Docker.qcow2.original
-    du -hs Docker.qcow2
-}
-
 function docker-clean-volumes () {
-    docker rm $(docker ps -a -q)
-    docker rmi $(docker images -q)
-    docker volume rm $(docker volume ls |awk '{print $2}')
-    rm -rf ~/Library/Containers/com.docker.docker/Data/*
+    docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes --dry-run
+    docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /etc:/etc spotify/docker-gc
 }
 
-function dm-create () {
-    docker-machine create --driver virtualbox --virtualbox-memory 8000 --virtualbox-disk-size 40000 default
+function docker-machine-create () {
+    if [ $# -eq 0 ]
+    then
+	echo "Usage: docker-machine-create <name>"
+    else
+	docker-machine create --driver virtualbox --virtualbox-memory 8000 --virtualbox-disk-size 40000 "$1"
+    fi
 }
 
-function dm-eval-env () {
-    eval $(docker-machine env default)
+function docker-machine-env () {
+    if [ $# -eq 0 ]
+    then
+	echo "Usage: docker-machine-env <name>"
+    else
+	eval $(docker-machine env "$1")
+    fi
 }
 
 alias c="docker-compose"
 alias m="/usr/local/bin/docker-machine"
 alias d="/usr/local/bin/docker"
 alias ctags="`brew --prefix`/bin/ctags"
-alias ls="/bin/ls -G"
+alias l="/bin/ls -aG"
 
 if [[ -n "$EMACS" ]]; then
-    export TERM=eterm-color
+    export TERM='eterm-color'
+    PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \W\[\033[00m\]\n$ "
 fi
-
-PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \W\[\033[00m\]\n$ "

@@ -1,48 +1,6 @@
-; Ergonomics: Rebind <M-x> to <C-x X-m>
-(global-set-key "\C-x\C-m" 'execute-extended-command)
-
-; UI: Minimal window
-(when window-system
-  (setq frame-resize-pixelwise t)
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1)
-  (menu-bar-mode -1)
-  (set-frame-position (selected-frame) 140 42)
-  (set-frame-size (selected-frame) 180 50)
-  (set-default-font "Hasklig")
-  (set-face-attribute 'default nil :height 150))
-
-; UI: Font ligatures
-(let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
-               (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
-               (36 . ".\\(?:>\\)")
-               (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
-               (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
-               (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
-               (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
-               (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
-               (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
-               (48 . ".\\(?:x[a-zA-Z]\\)")
-               (58 . ".\\(?:::\\|[:=]\\)")
-               (59 . ".\\(?:;;\\|;\\)")
-               (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
-               (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
-               (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
-               (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
-               (91 . ".\\(?:]\\)")
-               (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
-               (94 . ".\\(?:=\\)")
-               (119 . ".\\(?:ww\\)")
-               (123 . ".\\(?:-\\)")
-               (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
-               (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)"))))
-  (dolist (char-regexp alist)
-    (set-char-table-range composition-function-table (car char-regexp)
-                          `([,(cdr char-regexp) 0 font-shape-gstring]))))
-
 ; Packages: Setup
 (require 'package)
+
 (defun load-packages ()
   (package-initialize)
   (setq package-archives
@@ -52,7 +10,7 @@
           ("melpa" . "https://melpa.org/packages/")
           ("melpa-stable" . "https://stable.melpa.org/packages/")))
   (let ((my-packages
-         '(flatui-theme xterm-color dumb-jump ag grep+ ack helm-ag hungry-delete sane-term jsx-mode git-gutter-fringe swiper-helm nginx-mode iedit solarized-theme undo-tree goto-chg nix-mode dockerfile-mode docker org-ac auto-complete smart-mode-line yaml-mode web-mode shakespeare-mode s pg org-journal org-bullets org-agenda-property neotree markdown-mode magit intero helm-projectile helm-flycheck helm-descbinds gruvbox-theme flycheck-haskell rjsx-mode dashboard color-theme base16-theme))
+         '(flatui-theme evil evil-leader xterm-color dumb-jump ag grep+ ack helm-ag hungry-delete sane-term jsx-mode web-beautify git-gutter-fringe nginx-mode iedit solarized-theme undo-tree goto-chg nix-mode dockerfile-mode docker org-ac auto-complete smart-mode-line yaml-mode web-mode shakespeare-mode s pg org-journal org-bullets org-agenda-property neotree solidity-mode rainbow-mode markdown-mode magit intero helm-projectile helm-flycheck helm-descbinds gruvbox-theme dashboard color-theme base16-theme))
         (refreshed? nil))
     (dolist (p my-packages)
       (unless (package-installed-p p)
@@ -60,6 +18,7 @@
           (package-refresh-contents)
           (setq refreshed? t))
         (package-install p)))))
+
 (load-packages)
 
 (custom-set-variables
@@ -67,7 +26,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#839496"])
+ '(ansi-color-names-vector
+   ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#839496"])
  '(compilation-message-face (quote default))
  '(coq-prog-args (quote ("-R" "/Users/brandon/Code/cpdt/src" "Cpdt")))
  '(cua-global-mark-cursor-color "#2aa198")
@@ -107,7 +67,7 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (color-theme-solarized direx scala-mode rainbow-mode zenburn-theme firebelly-theme solidity-mode web-beautify yaml-mode xterm-color web-mode undo-tree swiper-helm solarized-theme smart-mode-line shakespeare-mode sane-term rjsx-mode pg org-journal org-bullets org-agenda-property org-ac nix-mode nginx-mode neotree markdown-mode magit jsx-mode intero iedit hungry-delete helm-projectile helm-flycheck helm-descbinds helm-ag gruvbox-theme grep+ goto-chg git-gutter-fringe flycheck-haskell flatui-theme dumb-jump dockerfile-mode docker dashboard color-theme base16-theme ag ack)))
+    (evil-leader color-theme-solarized scala-mode rainbow-mode zenburn-theme firebelly-theme solidity-mode web-beautify yaml-mode xterm-color web-mode undo-tree swiper-helm solarized-theme smart-mode-line shakespeare-mode sane-term pg org-journal org-bullets org-agenda-property org-ac nix-mode nginx-mode neotree markdown-mode magit intero iedit hungry-delete helm-projectile helm-flycheck helm-descbinds helm-ag gruvbox-theme grep+ goto-chg git-gutter-fringe flycheck-haskell flatui-theme dumb-jump dockerfile-mode docker dashboard color-theme base16-theme ag ack)))
  '(pos-tip-background-color "#eee8d5")
  '(pos-tip-foreground-color "#586e75")
  '(safe-local-variable-values
@@ -148,7 +108,50 @@
  '(xterm-color-names-bright
    ["#fdf6e3" "#cb4b16" "#93a1a1" "#839496" "#657b83" "#6c71c4" "#586e75" "#002b36"]))
 
-;; Util: Store all backup and autosave files in the tmp dir
+; Ergonomics: Rebind <M-x> to <C-x X-m>
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+
+; UI: Minimal window
+(when window-system
+  (setq frame-resize-pixelwise nil)
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (menu-bar-mode -1)
+  (set-frame-position (selected-frame) 140 42)
+  (set-frame-size (selected-frame) 180 50)
+  (set-default-font "Hasklig")
+  (set-face-attribute 'default nil :height 150))
+
+; UI: Font ligatures
+(let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+               (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+               (36 . ".\\(?:>\\)")
+               (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+               (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+               (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+               (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+               (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+               (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+               (48 . ".\\(?:x[a-zA-Z]\\)")
+               (58 . ".\\(?:::\\|[:=]\\)")
+               (59 . ".\\(?:;;\\|;\\)")
+               (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+               (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+               (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+               (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+               (91 . ".\\(?:]\\)")
+               (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+               (94 . ".\\(?:=\\)")
+               (119 . ".\\(?:ww\\)")
+               (123 . ".\\(?:-\\)")
+               (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+               (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)"))))
+  (dolist (char-regexp alist)
+    (set-char-table-range composition-function-table (car char-regexp)
+                          `([,(cdr char-regexp) 0 font-shape-gstring]))))
+
+; Util: Store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
@@ -159,21 +162,6 @@
 (setq exec-path (append exec-path '("/usr/local/bin")))
 (setq exec-path (append exec-path '("/Users/brandon/.local/bin")))
 (setq exec-path (append exec-path '("/Users/brandon/.nvm/versions/node/v6.4.0/bin")))
-
-(eval-after-load 'js2-mode
-  '(define-key js2-mode-map (kbd "C-c b") 'web-beautify-js))
-(eval-after-load 'js
-  '(define-key js-mode-map (kbd "C-c b") 'web-beautify-js))
-(eval-after-load 'json-mode
-  '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
-(eval-after-load 'sgml-mode
-  '(define-key html-mode-map (kbd "C-c b") 'web-beautify-html))
-(eval-after-load 'web-mode
-  '(define-key web-mode-map (kbd "C-c b") 'web-beautify-html))
-(eval-after-load 'css-mode
-  '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
-(eval-after-load 'haskell-mode
-  '(define-key haskell-mode-map (kbd "C-c b") 'haskell-mode-stylish-buffer))
 
 ; System: Term
 (when t (setenv "TERM" "eterm-color"))
@@ -192,6 +180,7 @@
         (eval `(define-key term-raw-map [remap ,func]
                  (lambda () (interactive) (ding)))))
       '(backward-kill-paragraph backward-kill-sentence backward-kill-sexp backward-kill-word bookmark-kill-line kill-backward-chars kill-backward-up-list kill-forward-chars kill-line kill-paragraph kill-rectangle kill-region kill-sentence kill-sexp kill-visual-line kill-whole-line kill-word subword-backward-kill subword-kill yank yank-pop yank-rectangle))))
+(ansi-color-for-comint-mode-on)
 
 ; Util: Proof General
 (setq coq-prog-name "/usr/local/bin/coqtop")
@@ -199,8 +188,6 @@
 
 ; Util: Terminal
 (require 'sane-term)
-(global-set-key (kbd "C-x t") 'sane-term)
-(global-set-key (kbd "C-x T") 'sane-term-create)
 (setq term-term-name "xterm")
 (setq sane-term-shell-command "/bin/bash")
 (add-hook 'term-mode-hook (lambda () (setq term-buffer-maximum-size 10000)))
@@ -222,8 +209,10 @@
 (add-hook 'org-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook 'flyspell-mode)
 
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c C-l") 'org-insert-link)
+; UI: Dashboard
+(require 'dashboard)
+(setq dashboard-items '((recents  . 5) (bookmarks . 5) (projects . 5)))
+(dashboard-setup-startup-hook)
 
 ; UI: Bullets
 (require 'org-bullets)
@@ -233,10 +222,7 @@
 
 ; Util: Agenda
 (require 'org-agenda)
-
-(global-set-key (kbd "C-c a") 'org-agenda)
 (load-library "find-lisp")
-
 (setq org-agenda-files (find-lisp-find-files "~/Dropbox (Personal)/.org" "\.org$"))
 (setq org-agenda-compact-blocks t)
 (setq org-agenda-start-on-weekday 0)
@@ -301,7 +287,10 @@
 (setq org-journal-dir "~/Dropbox (Personal)/.org/journal/")
 (setq org-journal-file-format "%Y%m%d.org")
 (add-hook 'org-journal-mode-hook 'org-mode)
-(global-set-key (kbd "C-c j") 'org-journal-new-entry)
+
+; Util: Org auto-complete
+(require 'org-ac)
+(org-ac/config-default)
 
 ; Util: Writing encryption
 (require 'org-crypt)
@@ -309,6 +298,10 @@
 (setq org-crypt-key "stilesbr1@gmail.com")
 (org-crypt-use-before-save-magic)
  
+; Util: Encryption
+(require 'epa-file)
+(epa-file-enable)
+
 ; Util: Project management
 (require 'projectile)
 (setq projectile-indexing-method 'alien)
@@ -320,8 +313,6 @@
 (require 'helm)
 (require 'helm-config)
 (global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x C-b") #'helm-filtered-bookmarks)
-(global-set-key (kbd "C-x C-f") #'helm-find-files)
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-z")  'helm-select-action)
@@ -331,68 +322,34 @@
 (require 'helm-projectile)
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
-(global-set-key (kbd "C-x C-p") 'helm-projectile-find-file)
 
 ; Util: Helm help
 (require 'helm-descbinds)
 (helm-descbinds-mode)
 
-; Util: Helm auto-complete
-(require 'helm-flycheck)
-
-; Util: Helm Ag
-(if nil
-    (progn (require 'helm-ag)
-	   (global-set-key (kbd "C-x C-/") #'helm-projectile-ag)) ; Not working
-    (progn (global-set-key (kbd "C-x C-/") #'helm-projectile-ack)))
-
 ; Util: Backspace
 (require 'hungry-delete)
 (global-hungry-delete-mode)
 
-; UI: Line numbers
-(add-hook 'prog-mode-hook 'linum-mode)
-(setq linum-format " %d ")
-
 ; UI: Neotree
 (require 'neotree)
+(setq-default neo-show-hidden-files t)
 (setq neo-theme (if (display-graphic-p) 'nerd))
 (setq projectile-switch-project-action 'neotree-projectile-action)
-(setq-default neo-show-hidden-files t)
-(global-unset-key (kbd "C-x C-n"))
-(global-set-key (kbd "C-x C-n") 'neotree-toggle)
+(setq neo-smart-open t)
+(add-hook 'neotree-mode-hook
+	  (lambda ()
+              (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+              (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
+              (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+              (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
 
-; Util: Haskell
-(require 'haskell-mode)
-
-; Util: Haskell
-(require 'flycheck-haskell)
-
-; Util: Intero
+; Util: Haskell development
 (require 'intero)
 (add-hook 'haskell-mode-hook 'intero-mode)
 
-; Util: Magit
-(require 'magit)
-
-; UI: Yaml
-(require 'yaml-mode)
-
-; UI: Dashboard
-(require 'dashboard)
-(setq dashboard-items '((recents  . 5) (bookmarks . 5) (projects . 5)))
-(dashboard-setup-startup-hook)
-
 ; Util: Web development
-(require 'web-mode)
 (require 'web-beautify)
-
-; Util: Solidity
-(require 'solidity-mode)
-
-; Util: Encryption
-(require 'epa-file)
-(epa-file-enable)
 
 ; UI: Smart Mode Line
 (require 'smart-mode-line)
@@ -404,17 +361,6 @@
 (ac-config-default)
 (global-auto-complete-mode t)
 (add-to-list 'ac-modes 'org-mode 'markdown-mode)
-
-; Util: Org auto-complete
-(require 'org-ac)
-(org-ac/config-default)
-
-; Util: Org habits
-(require 'org-habit)
-
-; Util: Writing
-(require 'markdown-mode)
-(add-hook 'markdown-mode-hook 'visual-line-mode)
 
 ; Util: Navigation
 (require 'goto-chg)
@@ -428,19 +374,25 @@
 ; Util: Navigation
 (require 'dumb-jump)
 (setq dumb-jump-selector 'helm)
-(global-set-key (kbd "C-x j") 'dumb-jump-go)
 
-; UI: Git Gutter Fringe
+; UI: VCS
+(require 'magit)
 (require 'git-gutter-fringe)
 
-; UI: Nix
+; UI: Modes
 (require 'nix-mode)
-
-; UI: Syntax
 (require 'nginx-mode)
-
-; UI: Theme
 (require 'rainbow-mode)
+(require 'web-mode)
+(require 'yaml-mode)
+(require 'solidity-mode)
+(require 'haskell-mode)
+(require 'markdown-mode)
+(add-hook 'markdown-mode-hook 'visual-line-mode)
+
+;(require 'jsx-mode)
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
+(autoload 'jsx-mode "jsx-mode" "JSX mode" t)
 
 ; UI: Themes
 (defvar current-theme 5)
@@ -471,10 +423,6 @@
       ((eq current-theme 6) (progn (require 'firebelly-theme)
                                    (load-theme 'firebelly))))
 
-; Util: Completion
-(require 'swiper)
-(require 'swiper-helm)
-
 ; Util: Spelling
 (defun flyspell-add-word ()
   (interactive)
@@ -483,7 +431,51 @@
     (when (consp word)    
       (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
 
-(global-set-key (kbd "C-c d") 'flyspell-add-word)
+; UI: Line numbers
+(add-hook 'prog-mode-hook 'linum-mode)
+(setq linum-format " %d ")
+
+; Util: Evil
+(setq evil-want-C-u-scroll t)
+(setq evil-leader/in-all-states t)
+
+(require 'evil)
+(require 'evil-leader)
+
+(evil-mode 1)
+(global-evil-leader-mode 1)
+
+(evil-leader/set-leader "<SPC>")
+(evil-leader/set-key
+  "/" 'helm-projectile-ack
+  "p" 'helm-projectile-find-file
+  "f" 'helm-find-files
+  "B" 'helm-filtered-bookmarks
+  "b" 'switch-to-buffer
+  "t" 'sane-term
+  "T" 'sane-term-create
+  "w" 'flyspell-add-word
+  "n" 'neotree-toggle
+  "j" 'org-journal-open-next-entry
+  "J" 'org-journal-new-entry
+  "d" 'dumb-jump-go
+  "a" 'org-agenda
+  "k" 'kill-buffer)
+
+(eval-after-load 'js2-mode
+  '(define-key js2-mode-map (kbd "C-c b") 'web-beautify-js))
+(eval-after-load 'js
+  '(define-key js-mode-map (kbd "C-c b") 'web-beautify-js))
+(eval-after-load 'json-mode
+  '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
+(eval-after-load 'sgml-mode
+  '(define-key html-mode-map (kbd "C-c b") 'web-beautify-html))
+(eval-after-load 'web-mode
+  '(define-key web-mode-map (kbd "C-c b") 'web-beautify-html))
+(eval-after-load 'css-mode
+  '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
+(eval-after-load 'haskell-mode
+  '(define-key haskell-mode-map (kbd "C-c b") 'haskell-mode-stylish-buffer))
 
 ; Util: Custom
 (custom-set-faces
