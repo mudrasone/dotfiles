@@ -36,7 +36,7 @@
  '(cua-read-only-cursor-color "#859900")
  '(custom-safe-themes
    (quote
-    ("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "67e998c3c23fe24ed0fb92b9de75011b92f35d3e89344157ae0d544d50a63a72" "ba9be9caf9aa91eb34cf11ad9e8c61e54db68d2d474f99a52ba7e87097fa27f5" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default)))
+    ("ef04dd1e33f7cbd5aa3187981b18652b8d5ac9e680997b45dc5d00443e6a46e3" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "67e998c3c23fe24ed0fb92b9de75011b92f35d3e89344157ae0d544d50a63a72" "ba9be9caf9aa91eb34cf11ad9e8c61e54db68d2d474f99a52ba7e87097fa27f5" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default)))
  '(fci-rule-color "#eee8d5")
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
  '(highlight-symbol-colors
@@ -113,7 +113,7 @@
 
 ; UI: Minimal window
 (when window-system
-  (setq frame-resize-pixelwise nil)
+  (setq frame-resize-pixelwise t)
   (menu-bar-mode -1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
@@ -165,31 +165,14 @@
 
 ; System: Term
 (require 'xterm-color)
+(when nil (setenv "TERM" "xterm-256color"))
 (when t (setenv "TERM" "eterm-color"))
-(eval-after-load "term"
-  '(progn
-     (define-key term-raw-map (kbd "<C-left>")
-       (lambda () (interactive) (term-send-raw-string "\eb")))
-     (define-key term-raw-map (kbd "<M-left>")
-       (lambda () (interactive) (term-send-raw-string "\eb")))
-     (define-key term-raw-map (kbd "<C-right>")
-       (lambda () (interactive) (term-send-raw-string "\ef")))
-     (define-key term-raw-map (kbd "<M-right>")
-       (lambda () (interactive) (term-send-raw-string "\ef")))
-     (mapc
-      (lambda (func)
-        (eval `(define-key term-raw-map [remap ,func]
-                 (lambda () (interactive) (ding)))))
-      '(backward-kill-paragraph backward-kill-sentence backward-kill-sexp backward-kill-word bookmark-kill-line kill-backward-chars kill-backward-up-list kill-forward-chars kill-line kill-paragraph kill-rectangle kill-region kill-sentence kill-sexp kill-visual-line kill-whole-line kill-word subword-backward-kill subword-kill yank yank-pop yank-rectangle))))
-(ansi-color-for-comint-mode-on)
 
 ; Util: Terminal
 (require 'sane-term)
 (setq term-term-name "xterm")
 (setq sane-term-shell-command "/bin/bash")
 (add-hook 'term-mode-hook (lambda () (setq term-buffer-maximum-size 10000)))
-(add-hook 'term-mode-hook (lambda () (define-key term-raw-map (kbd "C-p")
-				       (lambda () (interactive) (term-line-mode) (yank) (term-char-mode)))))
 
 ; Util: Proof General
 (setq coq-prog-name "/usr/local/bin/coqtop")
@@ -222,34 +205,6 @@
 (setq org-agenda-compact-blocks t)
 (setq org-agenda-start-on-weekday 0)
 (setq org-agenda-skip-scheduled-if-done t)
-(setq org-agenda-custom-commands
-      '(("d" "Daily agenda and all TODOs"
-         ((tags "PRIORITY=\"A\""
-                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done 'canceled))
-                 (org-agenda-overriding-header "High-priority unfinished tasks:")))
-          (agenda "" ((org-agenda-ndays 1)))
-          (alltodo ""
-                   ((org-agenda-skip-function '(or (org-skip-subtree-if-habit)
-                                                   (org-skip-subtree-if-priority ?A)
-                                                   (org-agenda-skip-if nil '(scheduled deadline))))
-                    (org-agenda-overriding-header "All normal-priority tasks:"))))
-         ((org-agenda-compact-blocks t)))))
-
-(defun org-skip-subtree-if-habit ()
-  "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
-  (let ((subtree-end (save-excursion (org-end-of-subtree t))))
-    (if (string= (org-entry-get nil "STYLE") "habit")
-        subtree-end
-      nil)))
-
-(defun org-skip-subtree-if-priority (priority)
-  "Skip an agenda subtree if it has a priority of PRIORITY."
-  (let ((subtree-end (save-excursion (org-end-of-subtree t)))
-        (pri-value (* 1000 (- org-lowest-priority priority)))
-        (pri-current (org-get-priority (thing-at-point 'line t))))
-    (if (= pri-value pri-current)
-        subtree-end
-      nil)))
 
 (defun org-mode-header-hook ()
   (dolist (face '(org-level-1
@@ -385,7 +340,6 @@
 (require 'markdown-mode)
 (add-hook 'markdown-mode-hook 'visual-line-mode)
 
-;(require 'jsx-mode)
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
 (autoload 'jsx-mode "jsx-mode" "JSX mode" t)
 
@@ -410,7 +364,7 @@
 				   (setq x-underline-at-descent-line t)
 				   (setq solarized-high-contrat-mode-line nil)
 				   (require 'solarized-theme)
-				   (load-theme 'solarized-light t)))
+				   (load-theme 'solarized-dark t)))
       ((eq current-theme 4) (progn (require 'zenburn-theme)
                                    (load-theme 'zenburn)))
       ((eq current-theme 5) (progn (load-theme 'solarized)
@@ -420,6 +374,7 @@
 
 ; Util: Spelling
 (require 'flyspell)
+
 (defun flyspell-add-word ()
   (interactive)
   (let ((current-location (point))
@@ -443,22 +398,48 @@
 
 (evil-mode 1)
 (global-evil-leader-mode 1)
-
 (evil-leader/set-leader "<SPC>")
-(evil-leader/set-key
-  "/" 'helm-projectile-ack
-  "p" 'helm-projectile-find-file
-  "f" 'helm-find-files
-  "B" 'helm-filtered-bookmarks
-  "b" 'switch-to-buffer
-  "t" 'sane-term
-  "T" 'sane-term-create
-  "w" 'flyspell-add-word
-  "n" 'neotree-toggle
-  "j" 'org-journal-new-entry
-  "d" 'dumb-jump-go
-  "a" 'org-agenda
-  "k" 'kill-buffer)
+
+(global-set-key (kbd "C-c w") 'flyspell-add-word)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c j") 'org-journal-new-entry)
+
+(global-set-key (kbd "C-x d") 'dumb-jump-go)
+(global-set-key (kbd "C-x b") 'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x f") 'helm-find-files)
+
+(define-key evil-insert-state-map (kbd "C-n") 'neotree-toggle)
+(define-key evil-normal-state-map (kbd "C-n") 'neotree-toggle)
+(define-key evil-visual-state-map (kbd "C-n") 'neotree-toggle)
+(define-key evil-motion-state-map (kbd "C-n") 'neotree-toggle)
+
+(define-key evil-insert-state-map (kbd "C-/") 'helm-projectile-ack)
+(define-key evil-normal-state-map (kbd "C-/") 'helm-projectile-ack)
+(define-key evil-visual-state-map (kbd "C-/") 'helm-projectile-ack)
+(define-key evil-motion-state-map (kbd "C-/") 'helm-projectile-ack)
+
+(define-key evil-insert-state-map (kbd "C-f") 'helm-projectile-find-file)
+(define-key evil-normal-state-map (kbd "C-f") 'helm-projectile-find-file)
+(define-key evil-visual-state-map (kbd "C-f") 'helm-projectile-find-file)
+(define-key evil-motion-state-map (kbd "C-f") 'helm-projectile-find-file)
+
+(define-key evil-insert-state-map (kbd "C-b") 'switch-to-buffer)
+(define-key evil-normal-state-map (kbd "C-b") 'switch-to-buffer)
+(define-key evil-visual-state-map (kbd "C-b") 'switch-to-buffer)
+(define-key evil-motion-state-map (kbd "C-b") 'switch-to-buffer)
+
+(define-key evil-insert-state-map (kbd "C-t") 'sane-term)
+(define-key evil-normal-state-map (kbd "C-t") 'sane-term)
+(define-key evil-visual-state-map (kbd "C-t") 'sane-term)
+(define-key evil-motion-state-map (kbd "C-t") 'sane-term)
+
+(define-key evil-insert-state-map (kbd "C-s") 'sane-term-create)
+(define-key evil-normal-state-map (kbd "C-s") 'sane-term-create)
+(define-key evil-visual-state-map (kbd "C-s") 'sane-term-create)
+(define-key evil-motion-state-map (kbd "C-s") 'sane-term-create)
+
+(evil-define-key 'normal term-raw-map "p" 'term-paste)
+(fset 'evil-visual-update-x-selection 'ignore)
 
 (eval-after-load 'js2-mode
   '(define-key js2-mode-map (kbd "C-c b") 'web-beautify-js))
