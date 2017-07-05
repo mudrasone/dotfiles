@@ -338,6 +338,7 @@
 (require 'solidity-mode)
 (require 'haskell-mode)
 (require 'markdown-mode)
+(require 'scala-mode)
 (add-hook 'markdown-mode-hook 'visual-line-mode)
 
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
