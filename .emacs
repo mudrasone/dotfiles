@@ -10,7 +10,7 @@
           ("melpa" . "https://melpa.org/packages/")
           ("melpa-stable" . "https://stable.melpa.org/packages/")))
   (let ((my-packages
-         '(flatui-theme evil evil-leader xterm-color dumb-jump ag grep+ ack helm-ag hungry-delete sane-term jsx-mode web-beautify git-gutter-fringe nginx-mode iedit solarized-theme undo-tree goto-chg nix-mode dockerfile-mode docker org-ac auto-complete smart-mode-line yaml-mode web-mode shakespeare-mode s pg org-journal org-bullets org-agenda-property neotree solidity-mode rainbow-mode markdown-mode magit intero helm-projectile helm-flycheck helm-descbinds gruvbox-theme dashboard color-theme base16-theme))
+         '(flatui-theme scala-mode evil evil-leader xterm-color dumb-jump ag grep+ ack helm-ag hungry-delete sane-term jsx-mode web-beautify git-gutter-fringe nginx-mode iedit solarized-theme undo-tree goto-chg nix-mode dockerfile-mode docker org-ac auto-complete smart-mode-line yaml-mode web-mode shakespeare-mode s pg org-journal org-bullets org-agenda-property neotree solidity-mode rainbow-mode markdown-mode magit intero helm-projectile helm-flycheck helm-descbinds gruvbox-theme dashboard color-theme base16-theme))
         (refreshed? nil))
     (dolist (p my-packages)
       (unless (package-installed-p p)
@@ -20,93 +20,6 @@
         (package-install p)))))
 
 (load-packages)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#839496"])
- '(compilation-message-face (quote default))
- '(coq-prog-args (quote ("-R" "/Users/brandon/Code/cpdt/src" "Cpdt")))
- '(cua-global-mark-cursor-color "#2aa198")
- '(cua-normal-cursor-color "#657b83")
- '(cua-overwrite-cursor-color "#b58900")
- '(cua-read-only-cursor-color "#859900")
- '(custom-safe-themes
-   (quote
-    ("ef04dd1e33f7cbd5aa3187981b18652b8d5ac9e680997b45dc5d00443e6a46e3" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "67e998c3c23fe24ed0fb92b9de75011b92f35d3e89344157ae0d544d50a63a72" "ba9be9caf9aa91eb34cf11ad9e8c61e54db68d2d474f99a52ba7e87097fa27f5" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default)))
- '(fci-rule-color "#eee8d5")
- '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
- '(highlight-symbol-colors
-   (--map
-    (solarized-color-blend it "#fdf6e3" 0.25)
-    (quote
-     ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
- '(highlight-symbol-foreground-color "#586e75")
- '(highlight-tail-colors
-   (quote
-    (("#eee8d5" . 0)
-     ("#B4C342" . 20)
-     ("#69CABF" . 30)
-     ("#69B7F0" . 50)
-     ("#DEB542" . 60)
-     ("#F2804F" . 70)
-     ("#F771AC" . 85)
-     ("#eee8d5" . 100))))
- '(hl-bg-colors
-   (quote
-    ("#DEB542" "#F2804F" "#FF6E64" "#F771AC" "#9EA0E5" "#69B7F0" "#69CABF" "#B4C342")))
- '(hl-fg-colors
-   (quote
-    ("#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3")))
- '(magit-diff-use-overlays nil)
- '(nrepl-message-colors
-   (quote
-    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
- '(package-selected-packages
-   (quote
-    (evil-leader color-theme-solarized scala-mode rainbow-mode zenburn-theme firebelly-theme solidity-mode web-beautify yaml-mode xterm-color web-mode undo-tree swiper-helm solarized-theme smart-mode-line shakespeare-mode sane-term pg org-journal org-bullets org-agenda-property org-ac nix-mode nginx-mode neotree markdown-mode magit intero iedit hungry-delete helm-projectile helm-flycheck helm-descbinds helm-ag gruvbox-theme grep+ goto-chg git-gutter-fringe flycheck-haskell flatui-theme dumb-jump dockerfile-mode docker dashboard color-theme base16-theme ag ack)))
- '(pos-tip-background-color "#eee8d5")
- '(pos-tip-foreground-color "#586e75")
- '(safe-local-variable-values
-   (quote
-    ((haskell-process-use-ghci . t)
-     (haskell-indent-spaces . 4))))
- '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#eee8d5" 0.2))
- '(term-default-bg-color "#fdf6e3")
- '(term-default-fg-color "#657b83")
- '(vc-annotate-background nil)
- '(vc-annotate-background-mode nil)
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#dc322f")
-     (40 . "#c85d17")
-     (60 . "#be730b")
-     (80 . "#b58900")
-     (100 . "#a58e00")
-     (120 . "#9d9100")
-     (140 . "#959300")
-     (160 . "#8d9600")
-     (180 . "#859900")
-     (200 . "#669b32")
-     (220 . "#579d4c")
-     (240 . "#489e65")
-     (260 . "#399f7e")
-     (280 . "#2aa198")
-     (300 . "#2898af")
-     (320 . "#2793ba")
-     (340 . "#268fc6")
-     (360 . "#268bd2"))))
- '(vc-annotate-very-old-color nil)
- '(weechat-color-list
-   (quote
-    (unspecified "#fdf6e3" "#eee8d5" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#657b83" "#839496")))
- '(xterm-color-names
-   ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#073642"])
- '(xterm-color-names-bright
-   ["#fdf6e3" "#cb4b16" "#93a1a1" "#839496" "#657b83" "#6c71c4" "#586e75" "#002b36"]))
 
 ; Ergonomics: Rebind <M-x> to <C-x X-m>
 (global-set-key "\C-x\C-m" 'execute-extended-command)
@@ -301,6 +214,24 @@
 ; Util: Web development
 (require 'web-beautify)
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(coq-prog-args (quote ("-R" "/Users/brandon/Code/cpdt/src" "Cpdt")))
+ '(custom-safe-themes
+   (quote
+    ("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default))))
+(custom-set-faces
+ '(neo-dir-link-face ((t (:foreground "#278BD2"))))
+ '(neo-file-link-face ((t (:foreground "#657B84"))))
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
 ; UI: Smart Mode Line
 (require 'smart-mode-line)
 (setq sml/theme 'respectful)
@@ -339,8 +270,8 @@
 (require 'haskell-mode)
 (require 'markdown-mode)
 (require 'scala-mode)
-(add-hook 'markdown-mode-hook 'visual-line-mode)
 
+(add-hook 'markdown-mode-hook 'visual-line-mode)
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
 (autoload 'jsx-mode "jsx-mode" "JSX mode" t)
 
@@ -442,26 +373,9 @@
 (evil-define-key 'normal term-raw-map "p" 'term-paste)
 (fset 'evil-visual-update-x-selection 'ignore)
 
-(eval-after-load 'js2-mode
-  '(define-key js2-mode-map (kbd "C-c b") 'web-beautify-js))
-(eval-after-load 'js
-  '(define-key js-mode-map (kbd "C-c b") 'web-beautify-js))
-(eval-after-load 'json-mode
-  '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
-(eval-after-load 'sgml-mode
-  '(define-key html-mode-map (kbd "C-c b") 'web-beautify-html))
-(eval-after-load 'web-mode
-  '(define-key web-mode-map (kbd "C-c b") 'web-beautify-html))
-(eval-after-load 'css-mode
-  '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
-(eval-after-load 'haskell-mode
-  '(define-key haskell-mode-map (kbd "C-c b") 'haskell-mode-stylish-buffer))
-
-; Util: Custom
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(neo-dir-link-face ((t (:foreground "#278BD2"))))
- '(neo-file-link-face ((t (:foreground "#657B84")))))
+(eval-after-load 'js '(define-key js-mode-map (kbd "C-c b") 'web-beautify-js))
+(eval-after-load 'json-mode '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
+(eval-after-load 'sgml-mode '(define-key html-mode-map (kbd "C-c b") 'web-beautify-html))
+(eval-after-load 'web-mode '(define-key web-mode-map (kbd "C-c b") 'web-beautify-html))
+(eval-after-load 'css-mode '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
+(eval-after-load 'haskell-mode '(define-key haskell-mode-map (kbd "C-c b") 'haskell-mode-stylish-buffer))
