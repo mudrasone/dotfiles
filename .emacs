@@ -10,7 +10,11 @@
           ("melpa" . "https://melpa.org/packages/")
           ("melpa-stable" . "https://stable.melpa.org/packages/")))
   (let ((my-packages
-         '(flatui-theme scala-mode evil evil-leader xterm-color dumb-jump ag grep+ ack helm-ag hungry-delete sane-term jsx-mode web-beautify git-gutter-fringe nginx-mode iedit solarized-theme undo-tree goto-chg nix-mode dockerfile-mode docker org-ac auto-complete smart-mode-line yaml-mode web-mode shakespeare-mode s pg org-journal org-bullets org-agenda-property neotree solidity-mode rainbow-mode markdown-mode magit intero helm-projectile helm-flycheck helm-descbinds gruvbox-theme dashboard color-theme base16-theme))
+         '(flatui-theme scala-mode evil evil-leader xterm-color dumb-jump ag grep+ ack helm-ag hungry-delete sane-term jsx-mode
+			web-beautify git-gutter-fringe nginx-mode iedit solarized-theme undo-tree goto-chg nix-mode dockerfile-mode
+			docker org-ac auto-complete smart-mode-line yaml-mode web-mode shakespeare-mode s pg org-journal org-bullets
+			org-agenda-property neotree solidity-mode rainbow-mode markdown-mode magit intero helm-projectile helm-flycheck
+			helm-descbinds gruvbox-theme dashboard color-theme base16-theme))
         (refreshed? nil))
     (dolist (p my-packages)
       (unless (package-installed-p p)
@@ -224,13 +228,21 @@
    (quote
     ("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" default))))
 (custom-set-faces
- '(neo-dir-link-face ((t (:foreground "#278BD2"))))
- '(neo-file-link-face ((t (:foreground "#657B84"))))
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+; UI: Neotree
+(when (eq current-theme 2)
+  (progn (custom-set-faces '(neo-dir-link-face ((t (:foreground "#FB4934"))))
+			   '(neo-file-link-face ((t (:foreground "#FAF4C1")))))))
+
+(when (eq current-theme 5)
+  (progn (custom-set-faces '(neo-dir-link-face ((t (:foreground "#278BD2"))))
+			   '(neo-file-link-face ((t (:foreground "#657B84")))))))
 
 ; UI: Smart Mode Line
 (require 'smart-mode-line)
@@ -276,7 +288,7 @@
 (autoload 'jsx-mode "jsx-mode" "JSX mode" t)
 
 ; UI: Themes
-(defvar current-theme 5)
+(defvar current-theme 2)
 (cond ((eq current-theme 0) (progn (load-theme 'base16-tomorrow t)
 				   (set-face-background 'fringe "#eeeeee")))
       ((eq current-theme 1) (progn (require 'flatui-theme)
@@ -300,6 +312,8 @@
       ((eq current-theme 4) (progn (require 'zenburn-theme)
                                    (load-theme 'zenburn)))
       ((eq current-theme 5) (progn (load-theme 'solarized)
+                                   (global-linum-mode 0)
+				   (set-face-background 'linum "#FDF6E3")
 				   (set-face-background 'fringe "#FDF6E3")))
       ((eq current-theme 6) (progn (require 'firebelly-theme)
                                    (load-theme 'firebelly))))
@@ -314,12 +328,12 @@
     (when (consp word)    
       (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
 
-(add-hook 'org-mode-hook 'flyspell-mode)
-(add-hook 'text-mode-hook 'flyspell-mode)
+;; (add-hook 'org-mode-hook 'flyspell-mode)
+;; (add-hook 'text-mode-hook 'flyspell-mode)
 
 ; UI: Line numbers
 (add-hook 'prog-mode-hook 'linum-mode)
-(setq linum-format " %d ")
+(setq linum-format (quote "%4d"))
 
 ; Util: Evil
 (setq evil-want-C-u-scroll t)
@@ -332,6 +346,9 @@
 (global-evil-leader-mode 1)
 (evil-leader/set-leader "<SPC>")
 
+(evil-define-key 'normal term-raw-map "p" 'term-paste)
+(fset 'evil-visual-update-x-selection 'ignore)
+
 (global-set-key (kbd "C-c w") 'flyspell-add-word)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c j") 'org-journal-new-entry)
@@ -340,10 +357,10 @@
 (global-set-key (kbd "C-x b") 'helm-filtered-bookmarks)
 (global-set-key (kbd "C-x f") 'helm-find-files)
 
-(define-key evil-insert-state-map (kbd "C-n") 'neotree-toggle)
-(define-key evil-normal-state-map (kbd "C-n") 'neotree-toggle)
-(define-key evil-visual-state-map (kbd "C-n") 'neotree-toggle)
-(define-key evil-motion-state-map (kbd "C-n") 'neotree-toggle)
+(define-key evil-insert-state-map (kbd "C-w") 'neotree-toggle)
+(define-key evil-normal-state-map (kbd "C-w") 'neotree-toggle)
+(define-key evil-visual-state-map (kbd "C-w") 'neotree-toggle)
+(define-key evil-motion-state-map (kbd "C-w") 'neotree-toggle)
 
 (define-key evil-insert-state-map (kbd "C-/") 'helm-projectile-ack)
 (define-key evil-normal-state-map (kbd "C-/") 'helm-projectile-ack)
@@ -369,9 +386,6 @@
 (define-key evil-normal-state-map (kbd "C-s") 'sane-term-create)
 (define-key evil-visual-state-map (kbd "C-s") 'sane-term-create)
 (define-key evil-motion-state-map (kbd "C-s") 'sane-term-create)
-
-(evil-define-key 'normal term-raw-map "p" 'term-paste)
-(fset 'evil-visual-update-x-selection 'ignore)
 
 (eval-after-load 'js '(define-key js-mode-map (kbd "C-c b") 'web-beautify-js))
 (eval-after-load 'json-mode '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
