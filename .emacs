@@ -69,10 +69,8 @@
                           `([,(cdr char-regexp) 0 font-shape-gstring]))))
 
 ; Util: Store all backup and autosave files in the tmp dir
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
 ; System: Path
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/Users/brandon/.local/bin:/Users/brandon/.nvm/versions/node/v6.4.0/bin"))
@@ -232,17 +230,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
-
-
-; UI: Neotree
-(when (eq current-theme 2)
-  (progn (custom-set-faces '(neo-dir-link-face ((t (:foreground "#FB4934"))))
-			   '(neo-file-link-face ((t (:foreground "#FAF4C1")))))))
-
-(when (eq current-theme 5)
-  (progn (custom-set-faces '(neo-dir-link-face ((t (:foreground "#278BD2"))))
-			   '(neo-file-link-face ((t (:foreground "#657B84")))))))
+)
 
 ; UI: Smart Mode Line
 (require 'smart-mode-line)
@@ -318,8 +306,15 @@
       ((eq current-theme 6) (progn (require 'firebelly-theme)
                                    (load-theme 'firebelly))))
 
-; Util: Spelling
-(require 'flyspell)
+
+; UI: Neotree
+(when (eq current-theme 2)
+  (progn (custom-set-faces '(neo-dir-link-face ((t (:foreground "#FB4934"))))
+			   '(neo-file-link-face ((t (:foreground "#FAF4C1")))))))
+(when (eq current-theme 5)
+  (progn (custom-set-faces '(neo-dir-link-face ((t (:foreground "#278BD2"))))
+			   '(neo-file-link-face ((t (:foreground "#657B84")))))))
+
 
 (defun flyspell-add-word ()
   (interactive)
@@ -328,8 +323,8 @@
     (when (consp word)    
       (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
 
-;; (add-hook 'org-mode-hook 'flyspell-mode)
-;; (add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'org-mode-hook 'flyspell-mode)
+(add-hook 'text-mode-hook 'flyspell-mode)
 
 ; UI: Line numbers
 (add-hook 'prog-mode-hook 'linum-mode)
@@ -354,38 +349,14 @@
 (global-set-key (kbd "C-c j") 'org-journal-new-entry)
 
 (global-set-key (kbd "C-x d") 'dumb-jump-go)
-(global-set-key (kbd "C-x b") 'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x b") 'switch-to-buffer)
+(global-set-key (kbd "C-x B") 'helm-filtered-bookmarks)
 (global-set-key (kbd "C-x f") 'helm-find-files)
-
-(define-key evil-insert-state-map (kbd "C-w") 'neotree-toggle)
-(define-key evil-normal-state-map (kbd "C-w") 'neotree-toggle)
-(define-key evil-visual-state-map (kbd "C-w") 'neotree-toggle)
-(define-key evil-motion-state-map (kbd "C-w") 'neotree-toggle)
-
-(define-key evil-insert-state-map (kbd "C-/") 'helm-projectile-ack)
-(define-key evil-normal-state-map (kbd "C-/") 'helm-projectile-ack)
-(define-key evil-visual-state-map (kbd "C-/") 'helm-projectile-ack)
-(define-key evil-motion-state-map (kbd "C-/") 'helm-projectile-ack)
-
-(define-key evil-insert-state-map (kbd "C-f") 'helm-projectile-find-file)
-(define-key evil-normal-state-map (kbd "C-f") 'helm-projectile-find-file)
-(define-key evil-visual-state-map (kbd "C-f") 'helm-projectile-find-file)
-(define-key evil-motion-state-map (kbd "C-f") 'helm-projectile-find-file)
-
-(define-key evil-insert-state-map (kbd "C-b") 'switch-to-buffer)
-(define-key evil-normal-state-map (kbd "C-b") 'switch-to-buffer)
-(define-key evil-visual-state-map (kbd "C-b") 'switch-to-buffer)
-(define-key evil-motion-state-map (kbd "C-b") 'switch-to-buffer)
-
-(define-key evil-insert-state-map (kbd "C-t") 'sane-term)
-(define-key evil-normal-state-map (kbd "C-t") 'sane-term)
-(define-key evil-visual-state-map (kbd "C-t") 'sane-term)
-(define-key evil-motion-state-map (kbd "C-t") 'sane-term)
-
-(define-key evil-insert-state-map (kbd "C-s") 'sane-term-create)
-(define-key evil-normal-state-map (kbd "C-s") 'sane-term-create)
-(define-key evil-visual-state-map (kbd "C-s") 'sane-term-create)
-(define-key evil-motion-state-map (kbd "C-s") 'sane-term-create)
+(global-set-key (kbd "C-x n") 'neotree-toggle)
+(global-set-key (kbd "C-x /") 'helm-projectile-ack)
+(global-set-key (kbd "C-x f") 'helm-projectile-find-file)
+(global-set-key (kbd "C-x t") 'sane-term)
+(global-set-key (kbd "C-x T") 'sane-term-create)
 
 (eval-after-load 'js '(define-key js-mode-map (kbd "C-c b") 'web-beautify-js))
 (eval-after-load 'json-mode '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
