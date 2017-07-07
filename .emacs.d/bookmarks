@@ -12,9 +12,4 @@
  (front-context-string . "* Emacs Settings")
  (rear-context-string)
  (position . 1))
-(".emacs"
- (filename . "~/.emacs")
- (front-context-string . "; Ergonomics: Re")
- (rear-context-string)
- (position . 1))
 )
