@@ -78,9 +78,9 @@
 (setenv "TERM" "eterm-color")
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/Users/brandon/.local/bin:/Users/brandon/.nvm/versions/node/v6.4.0/bin"))
 
-(setq exec-path (append exec-path '("/usr/local/bin")))
-(setq exec-path (append exec-path '("/Users/brandon/.local/bin")))
-(setq exec-path (append exec-path '("/Users/brandon/.nvm/versions/node/v6.4.0/bin")))
+(setq exec-path (append exec-path '("/usr/local/bin"))
+      exec-path (append exec-path '("/Users/brandon/.local/bin"))
+      exec-path (append exec-path '("/Users/brandon/.nvm/versions/node/v6.4.0/bin")))
 
 (require 'sane-term)
 (setq term-term-name "xterm"
@@ -96,13 +96,9 @@
 (when nil (load "~/.emacs.d/lisp/PG/generic/proof-site"))
 #+END_SRC
 
-** Org
+** Org Mode
 
 #+BEGIN_SRC emacs-lisp
-(require 'dashboard)
-(setq dashboard-items '((recents  . 5) (bookmarks . 5) (projects . 5)))
-(dashboard-setup-startup-hook)
-
 (setq org-startup-truncated nil
       org-log-done t
       org-todo-keywords '((sequence "TODO" "|" "DONE" "CANCELLED")))
@@ -162,15 +158,15 @@
 (require 'epa-file)
 (epa-file-enable)
 #+END_SRC
-
+   
 ** Project Management
 
 #+BEGIN_SRC emacs-lisp
 (require 'projectile)
 (setq projectile-indexing-method 'alien
       projectile-completion-system 'helm
-      projectile-enable-caching t)
-(projectile-global-mode)
+      projectile-enable-caching nil)
+(projectile-mode)
 
 (require 'helm)
 (require 'helm-config)
@@ -185,9 +181,9 @@
 
 (require 'neotree)
 (setq-default neo-show-hidden-files t)
-(setq neo-theme (if (display-graphic-p) 'nerd))
-(setq projectile-switch-project-action 'neotree-projectile-action)
-(setq neo-smart-open t)
+(setq neo-theme (if (display-graphic-p) 'nerd)
+      projectile-switch-project-action 'neotree-projectile-action
+      neo-smart-open t)
 (add-hook 'neotree-mode-hook
 	  (lambda ()
               (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
@@ -296,6 +292,10 @@
 ** Utilities
    
 #+BEGIN_SRC emacs-lisp
+(require 'dashboard)
+(setq dashboard-items '((recents  . 5) (bookmarks . 5) (projects . 5)))
+(dashboard-setup-startup-hook)
+
 (setq backup-directory-alist `((".*" ., temporary-file-directory))
       auto-save-file-name-transforms `((".*", temporary-file-directory t))
       savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
@@ -326,8 +326,8 @@
 ** Evil Mode
   
 #+BEGIN_SRC emacs-lisp
-(setq evil-want-C-u-scroll t)
-(setq evil-leader/in-all-states t)
+(setq evil-want-C-u-scroll t
+      evil-leader/in-all-states t)
 
 (require 'evil)
 (require 'evil-leader)
@@ -337,6 +337,7 @@
 (evil-leader/set-leader "<SPC>")
 
 (evil-define-key 'normal term-raw-map "p" 'term-paste)
+
 (fset 'evil-visual-update-x-selection 'ignore)
 #+END_SRC
 

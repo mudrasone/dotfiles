@@ -1,0 +1,49 @@
+#!/bin/bash
+
+function git-lazy () {
+    git add .
+    git commit -a -m "$1"
+    git push
+}
+
+function git-filter-rm () {
+    git filter-branch --tree-filter 'rm -rf $@' HEAD
+}
+
+function find-rm () {
+    find . -name "$1" -type f -delete
+}
+
+function dns-flush () {
+    sudo dscacheutil -flushcache
+    sudo killall -HUP mDNSResponder
+}
+
+function docker-clean-volumes () {
+    docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes --dry-run
+    docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /etc:/etc spotify/docker-gc
+}
+
+function docker-machine-create () {
+    if [ $# -eq 0 ]
+    then
+	echo "Usage: docker-machine-create <name>"
+    else
+	docker-machine create --driver virtualbox --virtualbox-memory 8000 --virtualbox-disk-size 40000 "$1"
+    fi
+}
+
+function docker-machine-env () {
+    if [ $# -eq 0 ]
+    then
+	echo "Usage: docker-machine-env <name>"
+    else
+	eval $(docker-machine env "$1")
+    fi
+}
+
+alias c="docker-compose"
+alias m="/usr/local/bin/docker-machine"
+alias d="/usr/local/bin/docker"
+alias ctags="`brew --prefix`/bin/ctags"
+alias l="/bin/ls -aG"
