@@ -1,0 +1,20 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("init.el"
+ (filename . "~/.emacs.d/init.el")
+ (front-context-string . ";; Added by Pack")
+ (rear-context-string)
+ (position . 1))
+("settings.org"
+ (filename . "~/.emacs.d/settings.org")
+ (front-context-string . "* Emacs Settings")
+ (rear-context-string)
+ (position . 1))
+(".emacs"
+ (filename . "~/.emacs")
+ (front-context-string . "; Ergonomics: Re")
+ (rear-context-string)
+ (position . 1))
+)
