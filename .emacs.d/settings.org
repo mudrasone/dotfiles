@@ -79,7 +79,7 @@
                           `([,(cdr char-regexp) 0 font-shape-gstring]))))
 #+END_SRC
 
-** QUOTE Terminal
+** Terminal
 
 #+BEGIN_SRC emacs-lisp
 (setenv "TERM" "eterm-color")
@@ -310,7 +310,7 @@
     (when (consp word)    
       (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
 
-(setq linum-format (quote "%4d"))
+(setq linum-format (quote "%4d "))
 
 (add-hook 'org-mode-hook 'flyspell-mode)
 (add-hook 'text-mode-hook 'flyspell-mode)
@@ -355,6 +355,7 @@
 (global-set-key (kbd "C-x d") 'dumb-jump-go)
 (global-set-key (kbd "C-x b") 'switch-to-buffer)
 (global-set-key (kbd "C-x B") 'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x r") 'helm-recentf)
 (global-set-key (kbd "C-x f") 'helm-find-files)
 (global-set-key (kbd "C-x n") 'neotree-toggle)
 (global-set-key (kbd "C-x /") 'helm-projectile-ack)
