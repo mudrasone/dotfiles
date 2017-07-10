@@ -22,10 +22,11 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.rvm/bin:$PATH
 export PATH=$NIX_LINK/bin:$NIX_LINK/sbin:$PATH
 
-. $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+. $HOME/.opam/opam-init/init.zsh
 . /usr/local/bin/virtualenvwrapper.sh
 . /usr/local/etc/profile.d/z.sh
 . /usr/local/opt/nvm/nvm.sh
+. $HOME/.functionsrc
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
