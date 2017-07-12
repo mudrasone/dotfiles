@@ -12,11 +12,6 @@
 ** Window
 
 #+BEGIN_SRC emacs-lisp
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
-
 (when window-system
   (setq frame-resize-pixelwise t)
   (setenv "TERM" "eterm-color")
