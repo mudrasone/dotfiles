@@ -3,37 +3,10 @@
 ** Packaging
 
 #+BEGIN_SRC emacs-lisp
-(require 'package)
-
-(defun load-packages ()
-  (package-initialize)
-  (setq package-archives
-        '(("marmalade" . "http://marmalade-repo.org/packages/")
-          ("gnu" . "http://elpa.gnu.org/packages/")
-          ("org" . "http://orgmode.org/elpa/")
-          ("melpa" . "https://melpa.org/packages/")
-          ("melpa-stable" . "https://stable.melpa.org/packages/")))
-  (let ((my-packages
-         '(flatui-theme dumb-jump ag grep+ helm-ag hungry-delete sane-term jsx-mode
-	   web-beautify git-gutter-fringe nginx-mode iedit solarized-theme undo-tree goto-chg nix-mode dockerfile-mode
-	   docker org-ac auto-complete smart-mode-line yaml-mode web-mode shakespeare-mode s pg org-journal org-bullets
-	   org-agenda-property neotree solidity-mode rainbow-mode markdown-mode magit helm-projectile helm-flycheck
-	   helm-descbinds color-theme base16-theme use-package))
-        (refreshed? nil))
-    (dolist (p my-packages)
-      (unless (package-installed-p p)
-        (when (null refreshed?)
-          (package-refresh-contents)
-          (setq refreshed? t))
-        (package-install p)))))
-
-(load-packages)
-
-(use-package ack)
-(use-package gruvbox-theme)
-(use-package dashboard)
-(use-package scala-mode)
-(use-package intero)
+(eval-when-compile
+  (require 'use-package))
+(require 'diminish)
+(require 'bind-key)
 #+END_SRC
 
 ** Window
@@ -46,54 +19,54 @@
 
 (when window-system
   (setq frame-resize-pixelwise t)
+  (setenv "TERM" "eterm-color")
   (set-frame-position (selected-frame) 140 42)
   (set-frame-size (selected-frame) 180 50)
   (set-default-font "Hasklig")
-  (set-face-attribute 'default nil :height 150))
-
-(let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
-               (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
-               (36 . ".\\(?:>\\)")
-               (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
-               (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
-               (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
-               (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
-               (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
-               (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
-               (48 . ".\\(?:x[a-zA-Z]\\)")
-               (58 . ".\\(?:::\\|[:=]\\)")
-               (59 . ".\\(?:;;\\|;\\)")
-               (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
-               (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
-               (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
-               (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
-               (91 . ".\\(?:]\\)")
-               (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
-               (94 . ".\\(?:=\\)")
-               (119 . ".\\(?:ww\\)")
-               (123 . ".\\(?:-\\)")
-               (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
-               (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)"))))
-  (dolist (char-regexp alist)
-    (set-char-table-range composition-function-table (car char-regexp)
-                          `([,(cdr char-regexp) 0 font-shape-gstring]))))
+  (set-face-attribute 'default nil :height 150)
+  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+                 (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+                 (36 . ".\\(?:>\\)")
+                 (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+                 (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+                 (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+                 (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+                 (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+                 (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+                 (48 . ".\\(?:x[a-zA-Z]\\)")
+                 (58 . ".\\(?:::\\|[:=]\\)")
+                 (59 . ".\\(?:;;\\|;\\)")
+                 (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+                 (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+                 (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+                 (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+                 (91 . ".\\(?:]\\)")
+                 (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+                 (94 . ".\\(?:=\\)")
+                 (119 . ".\\(?:ww\\)")
+                 (123 . ".\\(?:-\\)")
+                 (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+                 (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)"))))
+    (dolist (char-regexp alist)
+      (set-char-table-range composition-function-table (car char-regexp)
+                            `([,(cdr char-regexp) 0 font-shape-gstring])))))
 #+END_SRC
 
 ** Terminal
 
 #+BEGIN_SRC emacs-lisp
-(setenv "TERM" "eterm-color")
+(use-package sane-term
+ :ensure t
+ :config
+ (setq term-term-name "xterm-256color"
+       sane-term-shell-command "/bin/bash")
+ (add-hook 'term-mode-hook (lambda () (setq term-buffer-maximum-size 10000))))
+
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/Users/brandon/.local/bin:/Users/brandon/.nvm/versions/node/v6.4.0/bin"))
 
 (setq exec-path (append exec-path '("/usr/local/bin"))
       exec-path (append exec-path '("/Users/brandon/.local/bin"))
       exec-path (append exec-path '("/Users/brandon/.nvm/versions/node/v6.4.0/bin")))
-
-(require 'sane-term)
-(setq term-term-name "xterm-256color"
-      sane-term-shell-command "/bin/bash")
-
-(add-hook 'term-mode-hook (lambda () (setq term-buffer-maximum-size 10000)))
 #+END_SRC
 
 ** Coq
@@ -106,138 +79,147 @@
 ** Org Mode
 
 #+BEGIN_SRC emacs-lisp
-(setq org-startup-truncated nil
-      org-log-done t
-      org-todo-keywords '((sequence "TODO" "|" "DONE" "CANCELLED")))
-      
-(with-eval-after-load 'org (add-hook 'org-mode-hook #'visual-line-mode))
-
-(require 'org-bullets)
-(setq org-ellipsis " …"
-      org-bullets-bullet-list '("•"))
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-
-(require 'org-agenda)
-(load-library "find-lisp")
-(setq org-agenda-files (find-lisp-find-files "~/Dropbox (Personal)/.org" "\.org$")
-      org-agenda-compact-blocks t
-      org-agenda-start-on-weekday 0
-      org-agenda-skip-scheduled-if-done t)
-
-(defun org-mode-header-hook ()
-  (dolist (face '(org-level-1
-                  org-level-2
-                  org-level-3
-                  org-level-4
-                  org-level-5))
-    (set-face-attribute face nil :weight 'semi-bold :height 1.0)))
-(add-hook 'org-mode-hook 'org-mode-header-hook)
-
-(require 'org-agenda-property)
-(setq org-agenda-property-list '("DEADLINE" "SCHEDULED")
-      org-agenda-window-setup (quote current-window)
-      org-deadline-warning-days 7
-      org-agenda-span (quote fortnight)
-      org-agenda-skip-scheduled-if-deadline-is-shown t
-      org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled)
-      org-agenda-todo-ignore-deadlines (quote all)
-      org-agenda-todo-ignore-scheduled (quote all))
-(setq org-agenda-sorting-strategy
-  (quote
-   ((agenda deadline-up priority-down)
-    (todo priority-down category-keep)
-    (tags priority-down category-keep)
-    (search category-keep))))
-
-(require 'org-journal)
-(setq org-journal-dir "~/Dropbox (Personal)/.org/journal/"
-      org-journal-file-format "%Y%m%d.org")
-(add-hook 'org-journal-mode-hook 'org-mode)
-
-(require 'org-ac)
-(org-ac/config-default)
-
-(require 'org-crypt)
-(setq org-tags-exclude-from-inheritance (quote ("crypt"))
-      org-crypt-key "stilesbr1@gmail.com")
-(org-crypt-use-before-save-magic)
- 
-(require 'epa-file)
-(epa-file-enable)
+(use-package org
+ :ensure t
+ :config 
+ (with-eval-after-load 'org (add-hook 'org-mode-hook #'visual-line-mode))
+ (setq org-startup-truncated nil
+       org-log-done t
+       org-todo-keywords '((sequence "TODO" "|" "DONE" "CANCELLED"))))
+(use-package org-ac
+ :ensure t)
+(use-package org-journal
+ :ensure t)
+(use-package org-bullets
+ :ensure t
+ :config 
+ (setq org-ellipsis " …"
+       org-bullets-bullet-list '("•"))
+ (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+(use-package org-agenda
+ :ensure t
+ :config 
+ (load-library "find-lisp")
+ (setq org-agenda-files (find-lisp-find-files "~/Dropbox (Personal)/.org" "\.org$")
+       org-agenda-compact-blocks t
+       org-agenda-start-on-weekday 0
+       org-agenda-skip-scheduled-if-done t)
+ (defun org-mode-header-hook () (dolist (face '(org-level-1
+                                                org-level-2
+						org-level-3
+						org-level-4
+						org-level-5))
+						(set-face-attribute face nil :weight 'semi-bold :height 1.0)))
+						(add-hook 'org-mode-hook 'org-mode-header-hook))
+(use-package org-agenda-property
+ :ensure t
+ :config 
+ (setq org-agenda-property-list '("DEADLINE" "SCHEDULED")
+       org-agenda-window-setup (quote current-window)
+       org-deadline-warning-days 7
+       org-agenda-span (quote fortnight)
+       org-agenda-skip-scheduled-if-deadline-is-shown t
+       org-agenda-skip-deadline-prewarning-if-scheduled (quote pre-scheduled)
+       org-agenda-todo-ignore-deadlines (quote all)
+       org-agenda-todo-ignore-scheduled (quote all))
+       org-agenda-sorting-strategy (quote ((agenda deadline-up priority-down)
+                                           (todo priority-down category-keep)
+					   (tags priority-down category-keep)
+					   (search category-keep))))
+(use-package org-journal
+ :ensure t
+ :config 
+ (setq org-journal-dir "~/Dropbox (Personal)/.org/journal/"
+       org-journal-file-format "%Y%m%d.org")
+       (add-hook 'org-journal-mode-hook 'org-mode))
+(use-package org-ac
+ :ensure t
+ :config 
+ (org-ac/config-default))
+(use-package org-crypt
+ :ensure t
+ :config
+ (setq org-tags-exclude-from-inheritance (quote ("crypt"))
+       org-crypt-key "stilesbr1@gmail.com")
+ (org-crypt-use-before-save-magic))
+(use-package epa-file
+ :ensure t
+ :config 
+ (epa-file-enable))
 #+END_SRC
    
 ** IDE
 
 #+BEGIN_SRC emacs-lisp
-(require 'intero)
-(intero-global-mode 1)
-
-(require 'web-beautify)
-(require 'goto-chg)
-(require 'undo-tree)
-(require 'iedit)
-(require 'magit)
-(require 'git-gutter-fringe)
-
-(require 'hungry-delete)
-(global-hungry-delete-mode)
-
-(require 'auto-complete)
-(ac-config-default)
-(global-auto-complete-mode t)
-(add-to-list 'ac-modes 'org-mode 'markdown-mode)
-
-(require 'dumb-jump)
-(setq dumb-jump-selector 'helm)
-
-(require 'nix-mode)
-(require 'nginx-mode)
-(require 'rainbow-mode)
-(require 'web-mode)
-(require 'yaml-mode)
-(require 'solidity-mode)
-(require 'haskell-mode)
-(require 'markdown-mode)
-(require 'scala-mode)
-
-(add-hook 'markdown-mode-hook 'visual-line-mode)
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
-(autoload 'jsx-mode "jsx-mode" "JSX mode" t)
+(use-package jsx-mode
+ :ensure t
+ :config 
+ (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
+ (autoload 'jsx-mode "jsx-mode" "JSX mode" t))
+(use-package web-beautify
+ :ensure t)
+(use-package git-gutter-fringe
+ :ensure t)
+(use-package nginx-mode
+ :ensure t)
+(use-package nix-mode
+ :ensure t)
+(use-package dockerfile-mode
+ :ensure t)
+(use-package docker
+ :ensure t)
+(use-package yaml-mode
+ :ensure t)
+(use-package web-mode
+ :ensure t)
+(use-package shakespeare-mode
+ :ensure t)
+(use-package solidity-mode
+ :ensure t)
+(use-package rainbow-mode
+ :ensure t)
+(use-package markdown-mode
+ :ensure t
+ :config
+ (add-hook 'markdown-mode-hook 'visual-line-mode))
+(use-package magit
+ :ensure t)
+(use-package smart-mode-line
+ :ensure t
+ :init
+ (setq sml/theme 'respectful)
+ (setq sml/no-confirm-load-theme t)
+ (smart-mode-line-enable))
+(use-package scala-mode
+ :ensure t)
+(use-package intero
+ :ensure t
+ :init (intero-global-mode 1))
+(use-package haskell-mode
+ :ensure t)
 #+END_SRC
-
-** Custom Variables and Faces
    
-#+BEGIN_SRC emacs-lisp
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(coq-prog-args (quote ("-R" "/Users/brandon/Code/cpdt/src" "Cpdt"))))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-#+END_SRC
-
 ** Theme
    
 #+BEGIN_SRC emacs-lisp
 (defvar current-theme 2)
-(cond ((eq current-theme 0) (progn (load-theme 'base16-tomorrow t)
-				   (set-face-background 'fringe "#eeeeee")))
-      ((eq current-theme 1) (progn (require 'flatui-theme)
-				   (load-theme 'flatui t)
-				   (global-linum-mode 1)
-				   (set-face-background 'linum "#ecf0f1")
-				   (set-face-background 'fringe "#ecf0f1")
-				   (global-linum-mode 0)))
-      ((eq current-theme 2) (progn (load-theme 'gruvbox t)
-                                   (custom-set-faces '(neo-dir-link-face ((t (:foreground "#FB4934"))))
-	                                             '(neo-file-link-face ((t (:foreground "#FAF4C1")))))))
+(cond ((eq current-theme 0) (use-package base15-theme
+			     :ensure t
+			     :init
+			     (load-theme 'base16-tomorrow t)
+		             (set-face-background 'fringe "#eeeeee")))
+      ((eq current-theme 1) (use-package flatui-theme
+	                     :ensure t
+			     :init 
+		             (global-linum-mode 1)
+			     (set-face-background 'linum "#ecf0f1")
+			     (set-face-background 'fringe "#ecf0f1")
+			     (global-linum-mode 0)))
+      ((eq current-theme 2) (use-package gruvbox-theme
+                             :ensure t
+	                     :config 
+			     (custom-set-faces '(neo-dir-link-face ((t (:foreground "#FB4934"))))
+			                       '(neo-file-link-face ((t (:foreground "#FAF4C1")))))))
       ((eq current-theme 3) (progn (setq solarized-use-variable-pitch nil
 				         solarized-scale-org-headlines nil
 				         solarized-height-minus-1 1.0
@@ -255,49 +237,96 @@
 			                             '(neo-file-link-face ((t (:foreground "#657B84")))))
 				   (set-face-background 'linum "#FDF6E3")
 				   (set-face-background 'fringe "#FDF6E3"))))
+
+;; (use-package color-theme
+;; :ensure t)
+
+;; (use-package solarized-theme
+;; :ensure t)
 #+END_SRC
 
 ** Project Management
 
 #+BEGIN_SRC emacs-lisp
-(require 'dashboard)
-(setq dashboard-items '((recents  . 5) (bookmarks . 5) (projects . 5)))
-(dashboard-setup-startup-hook)
+(use-package dashboard
+ :ensure t
+ :config 
+ (setq dashboard-items '((recents  . 5) (bookmarks . 5) (projects . 5)))
+ (dashboard-setup-startup-hook))
+(use-package projectile
+ :ensure t
+ :config 
+ (setq projectile-indexing-method 'alien
+       projectile-completion-system 'helm
+       projectile-enable-caching nil)
+ (projectile-mode))
+(use-package helm
+ :ensure t
+ :config
+ (helm-mode 0))
+(use-package helm-config
+ :ensure t)
+(use-package helm-projectile
+ :ensure t
+ :config 
+ (setq projectile-completion-system 'helm)
+ (helm-projectile-on))
+(use-package helm-flycheck    
+ :ensure t)
+(use-package helm-descbinds
+ :ensure t
+ :config 
+ (helm-descbinds-mode))
+(use-package helm-ag
+ :ensure t)
 
-(require 'projectile)
-(setq projectile-indexing-method 'alien
-      projectile-completion-system 'helm
-      projectile-enable-caching nil)
-(projectile-mode)
-
-(require 'helm)
-(require 'helm-config)
-(helm-mode 1)
-
-(require 'helm-projectile)
-(setq projectile-completion-system 'helm)
-(helm-projectile-on)
-
-(require 'helm-descbinds)
-(helm-descbinds-mode)
-
-(require 'neotree)
-(setq-default neo-show-hidden-files t)
-(setq neo-theme (if (display-graphic-p) 'nerd)
-      projectile-switch-project-action 'neotree-projectile-action
-      neo-smart-open t)
-(add-hook 'neotree-mode-hook
-	  (lambda ()
-              (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
-              (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
-              (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-              (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
-
+(use-package neotree
+ :ensure t
+ :config 
+ (setq-default neo-show-hidden-files t)
+ (setq neo-theme (if (display-graphic-p) 'nerd)
+       projectile-switch-project-action 'neotree-projectile-action
+       neo-smart-open t)
+ (add-hook 'neotree-mode-hook (lambda () (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+                                         (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
+					 (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+					 (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter))))
 #+END_SRC
 
 ** Utilities
    
 #+BEGIN_SRC emacs-lisp
+(use-package s
+ :ensure t)
+(use-package pg
+ :ensure t)
+(use-package dumb-jump
+ :ensure t
+ :config 
+ (setq dumb-jump-selector 'helm))
+(use-package ag
+ :ensure t)
+(use-package grep+
+ :ensure t)
+(use-package hungry-delete 
+ :ensure t
+ :config 
+ (global-hungry-delete-mode))
+(use-package iedit
+ :ensure t)
+(use-package undo-tree
+ :ensure t)
+(use-package goto-chg
+ :ensure t)
+(use-package auto-complete
+ :ensure t
+ :config 
+ (ac-config-default)
+ (global-auto-complete-mode t)
+ (add-to-list 'ac-modes 'org-mode 'markdown-mode))
+(use-package ack
+ :ensure t)
+
 (setq backup-directory-alist `((".*" ., temporary-file-directory))
       auto-save-file-name-transforms `((".*", temporary-file-directory t))
       savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
@@ -311,30 +340,61 @@
       (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
 
 (setq linum-format (quote "%4d "))
-
-(add-hook 'org-mode-hook 'flyspell-mode)
-(add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'prog-mode-hook 'linum-mode)
+
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+(add-hook 'org-mode-hook 'flyspell-mode)
+
+(defun copy-from-osx ()
+  (shell-command-to-string "pbpaste"))
+
+(defun paste-to-osx (text &optional push)
+  (let ((process-connection-type nil))
+    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+      (process-send-string proc text)
+      (process-send-eof proc))))
+
+(setq interprogram-cut-function 'paste-to-osx)
+(setq interprogram-paste-function 'copy-from-osx)
 #+END_SRC
 
 ** Evil Mode
   
 #+BEGIN_SRC emacs-lisp
 (use-package evil
-:ensure t
-:init
-(setq evil-want-C-u-scroll t
-      evil-leader/in-all-states t)
-:config
-(evil-mode 1)
-(evil-define-key 'normal term-raw-map "p" 'term-paste)
-(fset 'evil-visual-update-x-selection 'ignore))
+ :ensure t
+ :init
+ (setq evil-want-C-u-scroll t
+       evil-leader/in-all-states t)
+ :config
+ (evil-mode 1)
+ (evil-define-key 'normal term-raw-map "p" 'term-paste)
+ (fset 'evil-visual-update-x-selection 'ignore)
+ (add-hook 'org-mode-hook (lambda () (define-key evil-normal-state-map (kbd "TAB") 'org-cycle))))
 
 (use-package evil-leader
-:ensure t
-:config
-(global-evil-leader-mode 1)
-(evil-leader/set-leader "<SPC>"))
+ :ensure t
+ :config
+ (global-evil-leader-mode 1)
+ (evil-leader/set-leader "<SPC>"))
+
+(use-package evil-org
+ :ensure t
+ :after org
+ :config
+ (add-hook 'org-mode-hook 'evil-org-mode)
+ (add-hook 'evil-org-mode-hook (lambda () (evil-org-set-key-theme))))
+
+; (use-package evil-terminal-cursor-changer
+; :ensure t
+; :config 
+; (setq evil-motion-state-cursor 'box
+;       evil-visual-state-cursor 'box
+;       evil-normal-state-cursor 'box
+;       evil-insert-state-cursor 'bar
+;       evil-emacs-state-cursor  'hbar)
+; :init (unless (display-graphic-p) (evil-terminal-cursor-changer-activate)))
 #+END_SRC
 
 ** Key Bindings
@@ -351,11 +411,13 @@
 (global-set-key (kbd "C-c w") 'flyspell-add-word)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c j") 'org-journal-new-entry)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c i") 'org-insert-link)
 
 (global-set-key (kbd "C-x d") 'dumb-jump-go)
 (global-set-key (kbd "C-x b") 'switch-to-buffer)
 (global-set-key (kbd "C-x B") 'helm-filtered-bookmarks)
-(global-set-key (kbd "C-x r") 'helm-recentf)
+(global-set-key (kbd "C-x R") 'helm-recentf)
 (global-set-key (kbd "C-x f") 'helm-find-files)
 (global-set-key (kbd "C-x n") 'neotree-toggle)
 (global-set-key (kbd "C-x /") 'helm-projectile-ack)

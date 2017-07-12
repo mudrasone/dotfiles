@@ -51,3 +51,6 @@ if [[ -n "$EMACS" ]]; then
 else 
     export TERM='xterm-256color'
 fi
+
+# added by travis gem
+[ -f /Users/brandon/.travis/travis.sh ] && source /Users/brandon/.travis/travis.sh

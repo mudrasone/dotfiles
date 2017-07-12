@@ -17,3 +17,6 @@ fi
 
 export ZSH_THEME_GIT_TIME_SINCE_COMMIT_NEUTRAL="%{$fg[brown]%}"
 export ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[brown]%}◒ "
+
+# added by travis gem
+[ -f /Users/brandon/.travis/travis.sh ] && source /Users/brandon/.travis/travis.sh
