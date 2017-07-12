@@ -72,8 +72,12 @@
 ** Coq
    
 #+BEGIN_SRC emacs-lisp
-(setq coq-prog-name "/usr/local/bin/coqtop")
-(when nil (load "~/.emacs.d/lisp/PG/generic/proof-site"))
+(use-package pg
+ :ensure t
+ :defer t
+ :config 
+ (setq coq-prog-name "/usr/local/bin/coqtop")
+ (when t (load "~/.emacs.d/lisp/PG/generic/proof-site")))
 #+END_SRC
 
 ** Org Mode
@@ -86,10 +90,6 @@
  (setq org-startup-truncated nil
        org-log-done t
        org-todo-keywords '((sequence "TODO" "|" "DONE" "CANCELLED"))))
-(use-package org-ac
- :ensure t)
-(use-package org-journal
- :ensure t)
 (use-package org-bullets
  :ensure t
  :config 
@@ -153,36 +153,50 @@
 #+BEGIN_SRC emacs-lisp
 (use-package jsx-mode
  :ensure t
+ :defer t
  :config 
  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
  (autoload 'jsx-mode "jsx-mode" "JSX mode" t))
 (use-package web-beautify
+ :defer t
  :ensure t)
 (use-package git-gutter-fringe
+ :defer t
  :ensure t)
 (use-package nginx-mode
+ :defer t
  :ensure t)
 (use-package nix-mode
+ :defer t
  :ensure t)
 (use-package dockerfile-mode
+ :defer t
  :ensure t)
 (use-package docker
+ :defer t
  :ensure t)
 (use-package yaml-mode
+ :defer t
  :ensure t)
 (use-package web-mode
+ :defer t
  :ensure t)
 (use-package shakespeare-mode
+ :defer t
  :ensure t)
 (use-package solidity-mode
+ :defer t
  :ensure t)
 (use-package rainbow-mode
+ :defer t
  :ensure t)
 (use-package markdown-mode
  :ensure t
+ :defer t
  :config
  (add-hook 'markdown-mode-hook 'visual-line-mode))
 (use-package magit
+ :defer t
  :ensure t)
 (use-package smart-mode-line
  :ensure t
@@ -191,11 +205,14 @@
  (setq sml/no-confirm-load-theme t)
  (smart-mode-line-enable))
 (use-package scala-mode
+ :defer t
  :ensure t)
 (use-package intero
+ :defer t
  :ensure t
  :init (intero-global-mode 1))
 (use-package haskell-mode
+ :defer t
  :ensure t)
 #+END_SRC
    
@@ -279,7 +296,6 @@
  (helm-descbinds-mode))
 (use-package helm-ag
  :ensure t)
-
 (use-package neotree
  :ensure t
  :config 
@@ -297,8 +313,6 @@
    
 #+BEGIN_SRC emacs-lisp
 (use-package s
- :ensure t)
-(use-package pg
  :ensure t)
 (use-package dumb-jump
  :ensure t
@@ -386,15 +400,9 @@
  (add-hook 'org-mode-hook 'evil-org-mode)
  (add-hook 'evil-org-mode-hook (lambda () (evil-org-set-key-theme))))
 
-; (use-package evil-terminal-cursor-changer
-; :ensure t
-; :config 
-; (setq evil-motion-state-cursor 'box
-;       evil-visual-state-cursor 'box
-;       evil-normal-state-cursor 'box
-;       evil-insert-state-cursor 'bar
-;       evil-emacs-state-cursor  'hbar)
-; :init (unless (display-graphic-p) (evil-terminal-cursor-changer-activate)))
+(use-package evil-terminal-cursor-changer
+:ensure t
+:init (unless (display-graphic-p) (evil-terminal-cursor-changer-activate)))
 #+END_SRC
 
 ** Key Bindings
