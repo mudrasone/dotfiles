@@ -88,7 +88,7 @@
 (use-package org-bullets
  :ensure t
  :config 
- (setq org-ellipsis " …"
+ (setq org-ellipsis "…"
        org-bullets-bullet-list '("•"))
  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 (use-package org-agenda
@@ -272,12 +272,10 @@
        projectile-completion-system 'helm
        projectile-enable-caching nil)
  (projectile-mode))
-(use-package helm
+(use-package helm-config
  :ensure t
  :config
- (helm-mode 0))
-(use-package helm-config
- :ensure t)
+ (helm-mode 1))
 (use-package helm-projectile
  :ensure t
  :config 
@@ -351,7 +349,6 @@
 (setq linum-format (quote "%4d "))
 (add-hook 'prog-mode-hook 'linum-mode)
 
-(add-hook 'text-mode-hook 'flyspell-mode)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 (add-hook 'org-mode-hook 'flyspell-mode)
 
@@ -397,7 +394,8 @@
 
 (use-package evil-terminal-cursor-changer
 :ensure t
-:init (unless (display-graphic-p) (evil-terminal-cursor-changer-activate)))
+:after evil
+:config (unless (display-graphic-p) (evil-terminal-cursor-changer-activate)))
 #+END_SRC
 
 ** Key Bindings
@@ -418,11 +416,11 @@
 (global-set-key (kbd "C-c i") 'org-insert-link)
 
 (global-set-key (kbd "C-x d") 'dumb-jump-go)
+(global-set-key (kbd "C-x n") 'neotree-toggle)
 (global-set-key (kbd "C-x b") 'switch-to-buffer)
 (global-set-key (kbd "C-x B") 'helm-filtered-bookmarks)
 (global-set-key (kbd "C-x R") 'helm-recentf)
 (global-set-key (kbd "C-x f") 'helm-find-files)
-(global-set-key (kbd "C-x n") 'neotree-toggle)
 (global-set-key (kbd "C-x /") 'helm-projectile-ack)
 (global-set-key (kbd "C-x p") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x t") 'sane-term)

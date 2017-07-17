@@ -41,10 +41,6 @@ else
     eval $(gpg-agent --daemon --write-env-file ~/.gpg-agent-info)
 fi
 
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-    . `brew --prefix`/etc/bash_completion
-fi
-
 if [[ -n "$EMACS" ]]; then
     export TERM='eterm-color'
     PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \W\[\033[00m\]\n$ "

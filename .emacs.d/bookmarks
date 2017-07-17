@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-((".bashrc"
+((".functionsrc"
+ (filename . "~/.functionsrc")
+ (front-context-string . "#!/bin/bash\n\nfun")
+ (rear-context-string)
+ (position . 1))
+(".bashrc"
  (filename . "~/.bashrc")
  (front-context-string . "export PROJECT_H")
  (rear-context-string)
