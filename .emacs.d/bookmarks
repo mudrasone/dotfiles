@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-((".functionsrc"
+((".tmux.conf"
+ (filename . "~/.tmux.conf")
+ (front-context-string . "set-option -g st")
+ (rear-context-string . "atus bar colors\n")
+ (position . 169))
+(".functionsrc"
  (filename . "~/.functionsrc")
  (front-context-string . "#!/bin/bash\n\nfun")
  (rear-context-string)

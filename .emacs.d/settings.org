@@ -1,17 +1,20 @@
 * Emacs Settings
-  
-** Packaging
 
-#+BEGIN_SRC emacs-lisp
-(eval-when-compile
-  (require 'use-package))
-(require 'diminish)
-(require 'bind-key)
+** Personal 
+
+#+BEGIN_SRC
+(setq user-full-name "Brandon Stiles"
+      user-mail-address "me@brandonstil.es")
 #+END_SRC
 
 ** Window
 
 #+BEGIN_SRC emacs-lisp
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+
 (when window-system
   (setq frame-resize-pixelwise t)
   (setenv "TERM" "eterm-color")
@@ -394,8 +397,12 @@
 
 (use-package evil-terminal-cursor-changer
 :ensure t
-:after evil
-:config (unless (display-graphic-p) (evil-terminal-cursor-changer-activate)))
+:config 
+(evil-terminal-cursor-changer-activate)
+(setq evil-default-cursor (quote (t "#750000"))
+    evil-visual-state-cursor '("#880000" box)
+    evil-normal-state-cursor '("#750000" box)
+    evil-insert-state-cursor '("#e2e222" box)))
 #+END_SRC
 
 ** Key Bindings
