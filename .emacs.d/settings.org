@@ -1,5 +1,5 @@
 * Emacs Settings
-
+  
 ** Personal 
    
 #+BEGIN_SRC
@@ -54,6 +54,7 @@
 #+BEGIN_SRC emacs-lisp
 (use-package sane-term
  :ensure t
+ :defer f
  :config
  (setq term-term-name "xterm-256color"
        sane-term-shell-command "/bin/bash")
@@ -75,7 +76,7 @@
 #+BEGIN_SRC emacs-lisp
 (use-package pg
  :ensure t
- :defer t
+ :defer f
  :config 
  (setq coq-prog-name "/usr/local/bin/coqtop")
  (when t (load "~/.emacs.d/lisp/PG/generic/proof-site")))
@@ -84,13 +85,6 @@
 ** Org Mode
 
 #+BEGIN_SRC emacs-lisp
-(use-package org
- :ensure t
- :config 
- (with-eval-after-load 'org (add-hook 'org-mode-hook #'visual-line-mode))
- (setq org-startup-truncated nil
-       org-log-done t
-       org-todo-keywords '((sequence "TODO" "|" "DONE" "CANCELLED"))))
 (use-package org-bullets
  :ensure t
  :config 
@@ -99,6 +93,7 @@
  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 (use-package org-agenda
  :ensure t
+ :defer f
  :config 
  (load-library "find-lisp")
  (setq org-agenda-files (find-lisp-find-files "~/Dropbox (Personal)/.org" "\.org$")
@@ -114,6 +109,7 @@
 						(add-hook 'org-mode-hook 'org-mode-header-hook))
 (use-package org-agenda-property
  :ensure t
+ :defer f
  :config 
  (setq org-agenda-property-list '("DEADLINE" "SCHEDULED")
        org-agenda-window-setup (quote current-window)
@@ -129,24 +125,36 @@
 					   (search category-keep))))
 (use-package org-journal
  :ensure t
+ :defer f 
  :config 
  (setq org-journal-dir "~/Dropbox (Personal)/.org/journal/"
        org-journal-file-format "%Y%m%d.org")
        (add-hook 'org-journal-mode-hook 'org-mode))
+
 (use-package org-ac
  :ensure t
+ :defer f
  :config 
  (org-ac/config-default))
+
 (use-package org-crypt
  :ensure t
+ :defer f 
  :config
  (setq org-tags-exclude-from-inheritance (quote ("crypt"))
        org-crypt-key "stilesbr1@gmail.com")
  (org-crypt-use-before-save-magic))
+
 (use-package epa-file
  :ensure t
+ :defer f 
  :config 
  (epa-file-enable))
+(with-eval-after-load 'org (add-hook 'org-mode-hook #'visual-line-mode))
+(setq org-src-fontify-natively t
+      org-startup-truncated nil
+      org-log-done t
+      org-todo-keywords '((sequence "TODO" "|" "DONE" "CANCELLED")))
 #+END_SRC
    
 ** IDE
@@ -154,66 +162,78 @@
 #+BEGIN_SRC emacs-lisp
 (use-package jsx-mode
  :ensure t
- :defer t
- :config 
- (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
- (autoload 'jsx-mode "jsx-mode" "JSX mode" t))
+ :defer f
+ :init (setq jsx-indent-level 2))
+
 (use-package web-beautify
- :defer t
+ :defer f
  :ensure t)
-(use-package git-gutter-fringe
- :defer t
- :ensure t)
+
 (use-package nginx-mode
- :defer t
+ :defer f
  :ensure t)
+
 (use-package nix-mode
- :defer t
+ :defer f
  :ensure t)
+
 (use-package dockerfile-mode
- :defer t
+ :defer f
  :ensure t)
+
 (use-package docker
- :defer t
+ :defer f
  :ensure t)
+
 (use-package yaml-mode
- :defer t
+ :defer f
  :ensure t)
+
 (use-package web-mode
- :defer t
+ :defer f
  :ensure t)
+
 (use-package shakespeare-mode
- :defer t
+ :defer f
  :ensure t)
+
 (use-package solidity-mode
- :defer t
+ :defer f
  :ensure t)
+
 (use-package rainbow-mode
- :defer t
+ :defer f
  :ensure t)
+
 (use-package markdown-mode
  :ensure t
- :defer t
+ :defer f
  :config
  (add-hook 'markdown-mode-hook 'visual-line-mode))
+
 (use-package magit
- :defer t
+ :defer f
  :ensure t)
+
 (use-package smart-mode-line
  :ensure t
+ :defer f
  :init
  (setq sml/theme 'respectful)
  (setq sml/no-confirm-load-theme t)
  (smart-mode-line-enable))
+
 (use-package scala-mode
- :defer t
+ :defer f
  :ensure t)
+
 (use-package intero
- :defer t
+ :defer f
  :ensure t
  :init (intero-global-mode 1))
+
 (use-package haskell-mode
- :defer t
+ :defer f
  :ensure t)
 #+END_SRC
    
@@ -229,14 +249,10 @@
       ((eq current-theme 1) (use-package flatui-theme
 	                     :ensure t
 			     :init 
-		             (global-linum-mode 1)
-			     (set-face-background 'linum "#ecf0f1")
-			     (set-face-background 'fringe "#ecf0f1")
-			     (global-linum-mode 0)))
+			     (set-face-background 'fringe "#ecf0f1")))
       ((eq current-theme 2) (use-package gruvbox-theme
                              :ensure t
 	                     :config 
-			     (global-linum-mode 0)
 			     (custom-set-faces '(neo-dir-link-face ((t (:foreground "#FB4934"))))
 			                       '(neo-file-link-face ((t (:foreground "#FAF4C1"))))))))
 #+END_SRC
@@ -249,32 +265,45 @@
  :config 
  (setq dashboard-items '((recents  . 5) (bookmarks . 5) (projects . 5)))
  (dashboard-setup-startup-hook))
+
+(use-package helm-config
+ :ensure t
+ :config
+ (helm-mode 1)
+ (global-set-key (kbd "M-x") 'helm-M-x)
+ (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+ (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+ (define-key helm-map (kbd "C-z") 'helm-select-action))
+
 (use-package projectile
  :ensure t
- :config 
+ :config
  (setq projectile-indexing-method 'alien
        projectile-completion-system 'helm
        projectile-enable-caching nil)
  (projectile-mode))
-(use-package helm-config
- :ensure t
- :config
- (helm-mode 1))
+
 (use-package helm-projectile
  :ensure t
  :config 
  (setq projectile-completion-system 'helm)
  (helm-projectile-on))
+
 (use-package helm-flycheck    
+ :defer f
  :ensure t)
+
 (use-package helm-descbinds
  :ensure t
  :config 
  (helm-descbinds-mode))
+
 (use-package helm-ag
  :ensure t)
+
 (use-package neotree
  :ensure t
+ :defer f
  :config 
  (setq-default neo-show-hidden-files t)
  (setq neo-theme (if (display-graphic-p) 'nerd)
@@ -290,32 +319,47 @@
    
 #+BEGIN_SRC emacs-lisp
 (use-package s
+ :defer f
  :ensure t)
+
 (use-package dumb-jump
  :ensure t
+ :defer f
  :config 
  (setq dumb-jump-selector 'helm))
+
 (use-package ag
+ :defer f
  :ensure t)
-(use-package grep+
- :ensure t)
+
 (use-package hungry-delete 
+ :defer f
  :ensure t
  :config 
  (global-hungry-delete-mode))
+
 (use-package iedit
+ :defer f
  :ensure t)
+
 (use-package undo-tree
+ :defer f
  :ensure t)
+
 (use-package goto-chg
+ :defer f
  :ensure t)
+
 (use-package auto-complete
  :ensure t
+ :defer f
  :config 
  (ac-config-default)
  (global-auto-complete-mode t)
  (add-to-list 'ac-modes 'org-mode 'markdown-mode))
+
 (use-package ack
+ :defer f
  :ensure t)
 
 (setq backup-directory-alist `((".*" ., temporary-file-directory))
@@ -323,18 +367,18 @@
       savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 (savehist-mode 1)
 
+(use-package hlinum
+ :ensure t
+ :config 
+ (setq linum-format (quote "%4d "))
+ (hlinum-activate))
+
 (defun flyspell-add-word ()
   (interactive)
   (let ((current-location (point))
          (word (flyspell-get-word)))
     (when (consp word)    
       (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
-
-(setq linum-format (quote "%4d "))
-(add-hook 'prog-mode-hook 'linum-mode)
-
-(add-hook 'prog-mode-hook 'flyspell-prog-mode)
-(add-hook 'org-mode-hook 'flyspell-mode)
 
 (defun copy-from-osx ()
   (shell-command-to-string "pbpaste"))
@@ -345,8 +389,11 @@
       (process-send-string proc text)
       (process-send-eof proc))))
 
-(setq interprogram-cut-function 'paste-to-osx)
-(setq interprogram-paste-function 'copy-from-osx)
+(setq interprogram-cut-function 'paste-to-osx
+      interprogram-paste-function 'copy-from-osx)
+      
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+(add-hook 'org-mode-hook 'flyspell-mode)
 #+END_SRC
 
 ** Evil Mode
@@ -365,37 +412,33 @@
 
 (use-package evil-leader
  :ensure t
+ :defer f
  :config
  (global-evil-leader-mode 1)
  (evil-leader/set-leader "<SPC>"))
 
 (use-package evil-org
  :ensure t
- :after org
+ :defer f
  :config
  (add-hook 'org-mode-hook 'evil-org-mode)
  (add-hook 'evil-org-mode-hook (lambda () (evil-org-set-key-theme))))
 
 (use-package evil-terminal-cursor-changer
-:ensure t
-:config 
-(evil-terminal-cursor-changer-activate)
-(setq evil-default-cursor (quote (t "#750000"))
-    evil-visual-state-cursor '("#880000" box)
-    evil-normal-state-cursor '("#750000" box)
-    evil-insert-state-cursor '("#e2e222" box)))
+ :ensure t
+ :defer f
+ :config 
+ (evil-terminal-cursor-changer-activate)
+ (setq evil-default-cursor (quote (t "#750000"))
+       evil-visual-state-cursor '("#880000" box)
+       evil-normal-state-cursor '("#750000" box)
+       evil-insert-state-cursor '("#e2e222" box)))
 #+END_SRC
 
 ** Key Bindings
 
 #+BEGIN_SRC emacs-lisp
 (global-set-key "\C-x\C-m" 'execute-extended-command)
-
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
-(define-key helm-map (kbd "C-z")  'helm-select-action)
-
-(global-set-key (kbd "M-x") 'helm-M-x)
 
 (global-set-key (kbd "C-c w") 'flyspell-add-word)
 (global-set-key (kbd "C-c a") 'org-agenda)
@@ -416,7 +459,6 @@
 
 (eval-after-load 'js '(define-key js-mode-map (kbd "C-c b") 'web-beautify-js))
 (eval-after-load 'json-mode '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
-(eval-after-load 'sgml-mode '(define-key html-mode-map (kbd "C-c b") 'web-beautify-html))
 (eval-after-load 'web-mode '(define-key web-mode-map (kbd "C-c b") 'web-beautify-html))
 (eval-after-load 'css-mode '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
 (eval-after-load 'haskell-mode '(define-key haskell-mode-map (kbd "C-c b") 'haskell-mode-stylish-buffer))

@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-((".tmux.conf"
+(("qd.org"
+ (filename . "~/Dropbox (Personal)/.org/qd.org")
+ (front-context-string . "\n- As an admin I")
+ (rear-context-string . "ries:\n\nPhase 1:\n")
+ (position . 102))
+(".tmux.conf"
  (filename . "~/.tmux.conf")
  (front-context-string . "set-option -g st")
  (rear-context-string . "atus bar colors\n")

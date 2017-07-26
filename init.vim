@@ -1,6 +1,6 @@
 " vim: set ft=vim foldmarker={,} foldmethod=marker spell:
 
-" System {
+    " System {
 set nocompatible
 
 let mapleader = "\<Space>"
@@ -110,6 +110,7 @@ Plug 'fatih/vim-nginx'
 
 " Theme
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
+Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
@@ -190,7 +191,7 @@ endfunction
 " }
 
 " Airline {
-let g:airline_theme         = 'solarized'
+let g:airline_Them          = ''
 let g:airline_left_alt_sep  = '-'
 let g:airline_right_alt_sep = '-'
 let g:airline_left_sep      = ''
@@ -198,9 +199,9 @@ let g:airline_right_sep     = ''
 " }
 
 " Color {
-set background=light
+set background=dark
 
-colorscheme solarized
+colorscheme gruvbox 
 " }
 
 " Pencil {
