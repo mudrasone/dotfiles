@@ -1,22 +1,9 @@
 export ZSH=$HOME/.oh-my-zsh
 
-ZSH_THEME="avit"
+ZSH_THEME="crcandy"
 
-plugins=(git fasd history-substring-search)
+plugins=(git osx history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
-source ~/.functionsrc
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-if [[ $USER == "root" ]]; then
-  CARETCOLOR="red"
-else
-  CARETCOLOR="brown"
-fi
-
-export ZSH_THEME_GIT_TIME_SINCE_COMMIT_NEUTRAL="%{$fg[brown]%}"
-export ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[brown]%}◒ "
-
-# added by travis gem
-[ -f /Users/brandon/.travis/travis.sh ] && source /Users/brandon/.travis/travis.sh
+source $HOME/.profile
