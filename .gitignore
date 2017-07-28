@@ -4,6 +4,7 @@ tags
 .emacs.d/elpa
 .emacs.d/savefile
 .emacs.d/var
+.emacs.d/.git
 .emacs.d/var
 *.DS_Store
 *~

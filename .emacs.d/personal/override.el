@@ -26,6 +26,13 @@
 (setq org-bullets-bullet-list '("•"))
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
+(require 'org-agenda)
+(load-library "find-lisp")
+(setq org-agenda-files (find-lisp-find-files "~/Dropbox (Personal)/.org" "\.org$")
+      org-agenda-compact-blocks t
+      org-agenda-start-on-weekday 0
+      org-agenda-skip-scheduled-if-done t)
+
 (require 'dashboard)
 (setq dashboard-items '((recents  . 10) (bookmarks . 10) (projects . 10)))
 (dashboard-setup-startup-hook)
