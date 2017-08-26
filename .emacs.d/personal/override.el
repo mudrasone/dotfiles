@@ -2,8 +2,6 @@
 
 (when window-system
   (setq frame-resize-pixelwise t)
-  (set-frame-position (selected-frame) 140 42)
-  (set-frame-size (selected-frame) 180 50)
   (set-default-font "Hasklig")
   (set-face-attribute 'default nil :height 150)
   (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
@@ -59,7 +57,6 @@
 (setq org-bullets-bullet-list '("•"))
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
-(require 'org-agenda)
 (require 'org-agenda-property)
 (load-library "find-lisp")
 (setq org-agenda-files (find-lisp-find-files "/Volumes/Turing/Dropbox/.org" "\.org$")
@@ -81,10 +78,10 @@
       org-agenda-skip-scheduled-if-done t
       org-todo-keywords '((sequence "TODO" "|" "DONE" "CANCELLED")))
 
-(require 'epa-file)
+;; (require 'org-epa)
 (epa-file-enable)
 
-(require 'org-crypt)
+;; (require 'org-crypt)
 (setq org-tags-exclude-from-inheritance (quote ("crypt"))
       org-crypt-key "stilesbr1@gmail.com")
 (org-crypt-use-before-save-magic)
@@ -122,8 +119,5 @@
 (add-to-list 'flycheck-disabled-checkers 'python-flake8)
 (add-to-list 'flycheck-disabled-checkers 'python-pylint)
 
-(require 'sml-mode)
-
 (require 'pg)
 (setq coq-prog-name "/usr/local/bin/coqtop")
-;; (load "~/.emacs.d/lisp/PG/generic/proof-site")
