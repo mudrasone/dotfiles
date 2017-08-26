@@ -4,6 +4,8 @@ source $HOME/.zshenv
 source $HOME/.functionsrc
 source $HOME/.opam/opam-init/init.zsh
 
+source $(brew --prefix autoenv)/activate.sh
+
 source /usr/local/bin/virtualenvwrapper.sh
 source /usr/local/etc/profile.d/z.sh
 source /usr/local/opt/nvm/nvm.sh

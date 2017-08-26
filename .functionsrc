@@ -19,22 +19,24 @@ function dns-flush () {
     sudo killall -HUP mDNSResponder
 }
 
-function dm-clean () {
-    docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes
+function m-clean () {
+    docker run -v /var/run/docker.sock:/var/run/docker.sock -v \
+           /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes
     docker system prune -f
     docker rmi $(docker images -q -f dangling=true)
 }
 
-function dm-create() {
+function m-create() {
     if [ $# -eq 0 ]
     then
 	echo "Usage: dmc <name>"
     else
-	docker-machine create --driver virtualbox --virtualbox-memory 8000 --virtualbox-disk-size 40000 "$1"
+	docker-machine create --driver virtualbox --virtualbox-memory 4096 \
+            --virtualbox-disk-size 80000 "$1"
     fi
 }
 
-function dm-env () {
+function m-env () {
     if [ $# -eq 0 ]
     then
 	echo "Usage: dme <name>"
@@ -46,5 +48,6 @@ function dm-env () {
 alias c="docker-compose"
 alias m="/usr/local/bin/docker-machine"
 alias d="/usr/local/bin/docker"
+alias e="emacs -nw"
 alias ctags="`brew --prefix`/bin/ctags"
 alias l="/bin/ls -aG"

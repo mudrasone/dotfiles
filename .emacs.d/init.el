@@ -39,9 +39,6 @@
 ;; You may delete these explanatory comments.
 ;(package-initialize)
 
-;; TODO: Fix this
-(setq exec-path-from-shell-arguments '("-l"))
-
 (defvar current-user
   (getenv
    (if (equal system-type 'windows-nt) "USERNAME" "USER")))
@@ -141,4 +138,5 @@ by Prelude.")
 (prelude-eval-after-init
  ;; greet the use with some useful tip
  (run-at-time 5 nil 'prelude-tip-of-the-day))
+
 ;;; init.el ends here

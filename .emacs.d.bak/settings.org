@@ -1,7 +1,7 @@
 * Emacs Settings
-  
-** Personal 
-   
+
+** Personal
+
 #+BEGIN_SRC
 (setq user-full-name "Brandon Stiles"
       user-mail-address "me@brandonstil.es")
@@ -72,12 +72,12 @@
 #+END_SRC
 
 ** Coq
-   
+
 #+BEGIN_SRC emacs-lisp
 (use-package pg
  :ensure t
  :defer f
- :config 
+ :config
  (setq coq-prog-name "/usr/local/bin/coqtop")
  (when t (load "~/.emacs.d/lisp/PG/generic/proof-site")))
 #+END_SRC
@@ -87,14 +87,14 @@
 #+BEGIN_SRC emacs-lisp
 (use-package org-bullets
  :ensure t
- :config 
+ :config
  (setq org-ellipsis "…"
        org-bullets-bullet-list '("•"))
  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 (use-package org-agenda
  :ensure t
  :defer f
- :config 
+ :config
  (load-library "find-lisp")
  (setq org-agenda-files (find-lisp-find-files "~/Dropbox (Personal)/.org" "\.org$")
        org-agenda-compact-blocks t
@@ -110,7 +110,7 @@
 (use-package org-agenda-property
  :ensure t
  :defer f
- :config 
+ :config
  (setq org-agenda-property-list '("DEADLINE" "SCHEDULED")
        org-agenda-window-setup (quote current-window)
        org-deadline-warning-days 7
@@ -125,8 +125,8 @@
 					   (search category-keep))))
 (use-package org-journal
  :ensure t
- :defer f 
- :config 
+ :defer f
+ :config
  (setq org-journal-dir "~/Dropbox (Personal)/.org/journal/"
        org-journal-file-format "%Y%m%d.org")
        (add-hook 'org-journal-mode-hook 'org-mode))
@@ -134,12 +134,12 @@
 (use-package org-ac
  :ensure t
  :defer f
- :config 
+ :config
  (org-ac/config-default))
 
 (use-package org-crypt
  :ensure t
- :defer f 
+ :defer f
  :config
  (setq org-tags-exclude-from-inheritance (quote ("crypt"))
        org-crypt-key "stilesbr1@gmail.com")
@@ -147,8 +147,8 @@
 
 (use-package epa-file
  :ensure t
- :defer f 
- :config 
+ :defer f
+ :config
  (epa-file-enable))
 (with-eval-after-load 'org (add-hook 'org-mode-hook #'visual-line-mode))
 (setq org-src-fontify-natively t
@@ -156,7 +156,7 @@
       org-log-done t
       org-todo-keywords '((sequence "TODO" "|" "DONE" "CANCELLED")))
 #+END_SRC
-   
+
 ** IDE
 
 #+BEGIN_SRC emacs-lisp
@@ -236,9 +236,9 @@
  :defer f
  :ensure t)
 #+END_SRC
-   
+
 ** Theme
-   
+
 #+BEGIN_SRC emacs-lisp
 (defvar current-theme 2)
 (cond ((eq current-theme 0) (use-package base15-theme
@@ -248,11 +248,11 @@
 		             (set-face-background 'fringe "#eeeeee")))
       ((eq current-theme 1) (use-package flatui-theme
 	                     :ensure t
-			     :init 
+			     :init
 			     (set-face-background 'fringe "#ecf0f1")))
       ((eq current-theme 2) (use-package gruvbox-theme
                              :ensure t
-	                     :config 
+	                     :config
 			     (custom-set-faces '(neo-dir-link-face ((t (:foreground "#FB4934"))))
 			                       '(neo-file-link-face ((t (:foreground "#FAF4C1"))))))))
 #+END_SRC
@@ -262,7 +262,7 @@
 #+BEGIN_SRC emacs-lisp
 (use-package dashboard
  :ensure t
- :config 
+ :config
  (setq dashboard-items '((recents  . 5) (bookmarks . 5) (projects . 5)))
  (dashboard-setup-startup-hook))
 
@@ -285,17 +285,17 @@
 
 (use-package helm-projectile
  :ensure t
- :config 
+ :config
  (setq projectile-completion-system 'helm)
  (helm-projectile-on))
 
-(use-package helm-flycheck    
+(use-package helm-flycheck
  :defer f
  :ensure t)
 
 (use-package helm-descbinds
  :ensure t
- :config 
+ :config
  (helm-descbinds-mode))
 
 (use-package helm-ag
@@ -304,7 +304,7 @@
 (use-package neotree
  :ensure t
  :defer f
- :config 
+ :config
  (setq-default neo-show-hidden-files t)
  (setq neo-theme (if (display-graphic-p) 'nerd)
        projectile-switch-project-action 'neotree-projectile-action
@@ -316,7 +316,7 @@
 #+END_SRC
 
 ** Utilities
-   
+
 #+BEGIN_SRC emacs-lisp
 (use-package s
  :defer f
@@ -325,17 +325,17 @@
 (use-package dumb-jump
  :ensure t
  :defer f
- :config 
+ :config
  (setq dumb-jump-selector 'helm))
 
 (use-package ag
  :defer f
  :ensure t)
 
-(use-package hungry-delete 
+(use-package hungry-delete
  :defer f
  :ensure t
- :config 
+ :config
  (global-hungry-delete-mode))
 
 (use-package iedit
@@ -353,7 +353,7 @@
 (use-package auto-complete
  :ensure t
  :defer f
- :config 
+ :config
  (ac-config-default)
  (global-auto-complete-mode t)
  (add-to-list 'ac-modes 'org-mode 'markdown-mode))
@@ -369,7 +369,7 @@
 
 (use-package hlinum
  :ensure t
- :config 
+ :config
  (setq linum-format (quote "%4d "))
  (hlinum-activate))
 
@@ -377,7 +377,7 @@
   (interactive)
   (let ((current-location (point))
          (word (flyspell-get-word)))
-    (when (consp word)    
+    (when (consp word)
       (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
 
 (defun copy-from-osx ()
@@ -391,13 +391,13 @@
 
 (setq interprogram-cut-function 'paste-to-osx
       interprogram-paste-function 'copy-from-osx)
-      
+
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 (add-hook 'org-mode-hook 'flyspell-mode)
 #+END_SRC
 
 ** Evil Mode
-  
+
 #+BEGIN_SRC emacs-lisp
 (use-package evil
  :ensure t
@@ -427,7 +427,7 @@
 (use-package evil-terminal-cursor-changer
  :ensure t
  :defer f
- :config 
+ :config
  (evil-terminal-cursor-changer-activate)
  (setq evil-default-cursor (quote (t "#750000"))
        evil-visual-state-cursor '("#880000" box)
