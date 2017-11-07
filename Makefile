@@ -1,6 +1,5 @@
 all:
-	@cp ~/.tmux.conf ~/.functionsrc ~/.config/nvim/init.vim ~/.bashrc ~/.zshrc ~/.profile ~/.zshenv .
-	@cp -R ~/.emacs.d .
+	@cp ~/.tmux.conf ~/.functionsrc ~/.zshrc .
 
 serve:
 	@cd _site && jekyll serve
