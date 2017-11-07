@@ -22,8 +22,9 @@ function dns-flush () {
 function m-clean () {
     docker run -v /var/run/docker.sock:/var/run/docker.sock -v \
            /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes
-    docker system prune -f
-    docker rmi $(docker images -q -f dangling=true)
+    docker system prune -f | echo "Skipping..."
+    docker rmi $(docker images -q -f dangling=true) | echo "Skipping..."
+    echo "Done!"
 }
 
 function m-create() {
@@ -32,7 +33,7 @@ function m-create() {
 	echo "Usage: dmc <name>"
     else
 	docker-machine create --driver virtualbox --virtualbox-memory 4096 \
-            --virtualbox-disk-size 80000 "$1"
+            --virtualbox-disk-size 100000 "$1"
     fi
 }
 
@@ -49,5 +50,5 @@ alias c="docker-compose"
 alias m="/usr/local/bin/docker-machine"
 alias d="/usr/local/bin/docker"
 alias e="emacs -nw"
+
 alias ctags="`brew --prefix`/bin/ctags"
-alias l="/bin/ls -aG"
