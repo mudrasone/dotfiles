@@ -2,6 +2,7 @@
 (prelude-require-packages '(dashboard
                             solarized-theme
                             solidity-mode
+                            nix-mode
                             jsx-mode
                             org-journal
                             org-bullets

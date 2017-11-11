@@ -88,10 +88,4 @@ source $ZSH/oh-my-zsh.sh
 
 . ~/.functionsrc
 
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-
-# Initialization for FDK command line tools.Wed Nov 8 14:48:52 2017
-FDK_EXE="/Users/brandon/bin/FDK/Tools/osx"
-PATH=${PATH}:"/Users/brandon/bin/FDK/Tools/osx"
-export PATH
-export FDK_EXE
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh 
