@@ -1,3 +1,5 @@
+# dotfiles
+
 *An opinionated tooling guide for software development*
 
 ![Emacs](https://raw.githubusercontent.com/mudrasone/dotfiles/master/emacs.png)
@@ -29,3 +31,8 @@ Like Vim but with better asynchronous support and default configurations.
 
 Terminal multiplexer. See `tmux.conf` for full configuration details. Prefix is `<C-a>`.
 
+## FAQ
+
+1. Why isn't this file an org file?
+
+Working on it.
