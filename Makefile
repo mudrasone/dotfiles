@@ -3,4 +3,7 @@ all:
 	@cp ~/.tmux.conf ~/.zshrc ~/.functionsrc ~/.vimrc .
 	@cp -R ~/.emacs.d/personal ~/.emacs.d/prelude-modules.el .emacs.d/
 	@rm .emacs.d/personal/custom.el
+	@brew list > .brew
+	@brew cask list > .casks
+
 

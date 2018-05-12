@@ -4,7 +4,7 @@
 
 ![Emacs](https://raw.githubusercontent.com/mudrasone/dotfiles/master/emacs.png)
 
-*Emacs**
+**Emacs**
 
 ## Setup
 
@@ -32,3 +32,4 @@ Terminal multiplexer. See `tmux.conf` for full configuration details. Prefix is 
 1. Why isn't this file an org file?
 
 You got me!
+
