@@ -19,13 +19,9 @@
 
 ## Emacs
 
-I mainly use this instead of my Neovim/Tmux/iTerm setup. Why? Emacs is more comprehensive as I use `org-mode` extensively. Coq support via Proof General is also a huge plus.
+I use this instead of Vim/Tmux/iTerm for most of my development. Emacs is simply a more comprehensive editor for FP, for example, Coq support via Proof General is amazing. Vim and the terminal are still great for small tasks.
 
 ## Vim/Tmux/iTerm
-
-### Neovim
-
-Like Vim but with better asynchronous support and default configurations.
 
 ### Tmux
 
@@ -35,4 +31,4 @@ Terminal multiplexer. See `tmux.conf` for full configuration details. Prefix is 
 
 1. Why isn't this file an org file?
 
-Working on it.
+You got me!

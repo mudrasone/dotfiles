@@ -10,7 +10,7 @@ function git-filter-rm () {
     git filter-branch --tree-filter 'rm -rf $@' HEAD
 }
 
-function find-rm () {
+function find-delete () {
     find . -name "$1" -type f -delete
 }
 
@@ -24,13 +24,12 @@ function m-clean () {
            /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes
     docker system prune -f | echo "Skipping..."
     docker rmi $(docker images -q -f dangling=true) | echo "Skipping..."
-    echo "Done!"
 }
 
 function m-create() {
     if [ $# -eq 0 ]
     then
-	echo "Usage: dmc <name>"
+	echo "Usage: m-create <name>"
     else
 	docker-machine create --driver virtualbox --virtualbox-memory 4096 \
             --virtualbox-disk-size 100000 "$1"
@@ -40,15 +39,15 @@ function m-create() {
 function m-env () {
     if [ $# -eq 0 ]
     then
-	echo "Usage: dme <name>"
+	echo "Usage: m-env <environment>"
     else
 	eval $(docker-machine env "$1")
     fi
 }
 
+alias ctags="`brew --prefix`/bin/ctags"
+
 alias c="docker-compose"
 alias m="/usr/local/bin/docker-machine"
 alias d="/usr/local/bin/docker"
-alias e="emacs -nw"
 
-alias ctags="`brew --prefix`/bin/ctags"
