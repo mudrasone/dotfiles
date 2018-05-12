@@ -4,7 +4,7 @@
 
 ![Emacs](https://raw.githubusercontent.com/mudrasone/dotfiles/master/emacs.png)
 
-**Vim/Tmux/iTerm**
+*Emacs**
 
 ## Setup
 
