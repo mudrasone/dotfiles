@@ -17,3 +17,5 @@ set shiftwidth=4
 set expandtab
 
 colorscheme desert
+
+set clipboard=unnamed
