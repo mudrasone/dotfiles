@@ -5,5 +5,3 @@ all:
 	@rm .emacs.d/personal/custom.el
 	@brew list > .brew
 	@brew cask list > .casks
-
-
