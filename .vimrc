@@ -1,10 +1,10 @@
-" breaks compatibility with vi
+" Breaks compatibility with vi
 set nocompatible
 
-" to prevent security exploits
+" Prevent security exploits
 set modelines=0
 
-" windows clipboard
+" Windows clipboard
 set clipboard^=unnamed
 let s:clip = '/mnt/c/Windows/System32/clip.exe'
 if executable(s:clip)
@@ -17,25 +17,25 @@ end
 map <silent> "=p :r !powershell.exe -Command Get-Clipboard<CR>
 map! <silent> <C-r>= :r !powershell.exe -Command Get-Clipboard<CR>
 
-" tab settings
+" Tab settings
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-" set the proper tab / whitespace handling for a given programming language
+" Set proper tab / whitespace handling for a given programming language
 if has("autocmd")
-    " enable file type search
+    " Enable file type search
     filetype plugin on
-    " use filetype indent
+    " Use filetype indent
     filetype indent on
-    " consistent with the Linux Kernel Coding Style Guidelines
+    " Consistent with the Linux Kernel Coding Style Guidelines
     autocmd FileType c,cpp,opencl set expandtab tabstop=4 shiftwidth=4 textwidth=80
     autocmd FileType python,lua set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79
     autocmd FileType jade,css,sass,html set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79
 endif
 
-" general settings
+" General settings
 syntax on
 set nu
 set encoding=utf-8
@@ -45,13 +45,13 @@ set showcmd
 set hidden
 set wildmenu
 set wildmode=list:longest
-"set cursorline
+set cursorline
 set ttyfast
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
 
-" searching and moving settings
+" Searching and moving settings
 set ignorecase
 set smartcase
 set incsearch
@@ -63,24 +63,18 @@ set wrap
 set textwidth=79
 set formatoptions=qrn1
 
-" making j & k behave rationally
+" Make j & k behave rationally
 nnoremap j gj
 nnoremap k gk
 
 au FocusLost * :wa
 inoremap jk <ESC>
 
-" Solarized
-syntax on
-"set background=dark
-"let g:solarized_termcolors = 256
-colorscheme default
-
-set autoindent     " always set autoindenting on
+set autoindent
 set smartindent
 set cindent
 
-" stop mutt from indenting each paragraph
+" Stop mutt from indenting each paragraph
 au FileType mail set noautoindent
 au FileType mail set nosmartindent
 au FileType mail set nocindent
@@ -88,13 +82,13 @@ au FileType mail set indentexpr=
 au FileType mail setlocal fo+=aw
 "au FileType mail filetype indent off
 
-" window navigation
+" Window navigation
 map <C-H> <C-W><Left>
 map <C-L> <C-W><Right>
 map <C-J> <C-W><Down>
 map <C-K> <C-W><Up>
 
-" spacebar in insert mode inserts a single character
+" Spacebar in insert mode inserts a single character
 :nmap <Space> i_<Esc>r
 
 set listchars=eol:↓,tab:→\ ,trail:↤,extends:>,precedes:<
@@ -102,13 +96,13 @@ set list
 
 execute pathogen#infect()
 
-" nerdtree shortcut
+" Nerdtree shortcut
 :nmap <c-k><c-b> :NERDTreeToggle<CR>
 
-" to disable folding which is default with plasticboy/vim-markdown
+" Disable folding which is default with plasticboy/vim-markdown
 let g:vim_markdown_folding_disabled=1
 
-" ctags-related
+" Ctags-related
 set tags=./.tags,.tags,./tags,tags
 
 let g:syntastic_always_populate_loc_list = 1
@@ -116,15 +110,15 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" python
+" Python
 let g:syntastic_python_checkers=['flake8']
 
-" haskell
+" Haskell
 let g:syntastic_haskell_checkers = ['hlint']
 let g:syntastic_hs_checkers=['ghc-mod', 'hlint']
 
 
-" tagbar
+" Tagbar
 nmap <F8> :TagbarToggle<CR>
 let g:tagbar_left=1
 let g:tagbar_sort=0
@@ -163,5 +157,11 @@ let g:tagbar_type_haskell = {
     \ }
 \ }
 
-" ctrlp
+" Ctrlp
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+" Solarized
+syntax on
+set background=dark
+let g:solarized_termcolors = 256
+colorscheme solarized
