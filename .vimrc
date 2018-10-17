@@ -4,18 +4,8 @@ set nocompatible
 " Prevent security exploits
 set modelines=0
 
-" Windows clipboard
+" Not working
 set clipboard^=unnamed
-let s:clip = '/mnt/c/Windows/System32/clip.exe'
-if executable(s:clip)
-    augroup WSLYank
-        autocmd!
-        autocmd TextYankPost * call system('echo '.shellescape(join(v:event.regcontents, "\<CR>")).' | '.s:clip)
-    augroup END
-end
-
-map <silent> "=p :r !powershell.exe -Command Get-Clipboard<CR>
-map! <silent> <C-r>= :r !powershell.exe -Command Get-Clipboard<CR>
 
 " Tab settings
 set tabstop=4
@@ -32,7 +22,7 @@ if has("autocmd")
     " Consistent with the Linux Kernel Coding Style Guidelines
     autocmd FileType c,cpp,opencl set expandtab tabstop=4 shiftwidth=4 textwidth=80
     autocmd FileType python,lua set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79
-    autocmd FileType jade,css,sass,html set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79
+    autocmd FileType jade,css,sass,html,yaml set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79
 endif
 
 " General settings
@@ -96,9 +86,6 @@ set list
 
 execute pathogen#infect()
 
-" Nerdtree shortcut
-:nmap <c-k><c-b> :NERDTreeToggle<CR>
-
 " Disable folding which is default with plasticboy/vim-markdown
 let g:vim_markdown_folding_disabled=1
 
@@ -157,11 +144,19 @@ let g:tagbar_type_haskell = {
     \ }
 \ }
 
-" Ctrlp
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-
 " Solarized
 syntax on
 set background=dark
-let g:solarized_termcolors = 256
 colorscheme solarized
+
+" Nerd
+map <C-n> :NERDTreeToggle<CR>
+
+" FZF
+set rtp+=~/.fzf
+
+map <C-h> :History<CR>
+map <C-b> :Buffers<CR>
+map <C-g> :GFiles<CR>
+map <C-f> :Files<CR>
+map ag :Ag<CR>
