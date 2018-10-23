@@ -5,7 +5,7 @@ set nocompatible
 set modelines=0
 
 " Not working
-set clipboard^=unnamed
+set clipboard=unnamed
 
 " Tab settings
 set tabstop=4
@@ -21,8 +21,8 @@ if has("autocmd")
     filetype indent on
     " Consistent with the Linux Kernel Coding Style Guidelines
     autocmd FileType c,cpp,opencl set expandtab tabstop=4 shiftwidth=4 textwidth=80
-    autocmd FileType python,lua set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79
-    autocmd FileType jade,css,sass,html,yaml set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79
+    autocmd FileType python,html,css set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79
+    autocmd FileType jade,sass,yaml set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79
 endif
 
 " General settings
@@ -63,14 +63,6 @@ inoremap jk <ESC>
 set autoindent
 set smartindent
 set cindent
-
-" Stop mutt from indenting each paragraph
-au FileType mail set noautoindent
-au FileType mail set nosmartindent
-au FileType mail set nocindent
-au FileType mail set indentexpr=
-au FileType mail setlocal fo+=aw
-"au FileType mail filetype indent off
 
 " Window navigation
 map <C-H> <C-W><Left>
@@ -151,6 +143,7 @@ colorscheme solarized
 
 " Nerd
 map <C-n> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
 
 " FZF
 set rtp+=~/.fzf
