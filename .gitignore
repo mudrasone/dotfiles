@@ -2,3 +2,5 @@ tags
 .virtualenv
 *.DS_Store
 *~
+*.swo
+*.swp
