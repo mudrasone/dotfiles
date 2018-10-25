@@ -4,7 +4,7 @@
 
 ![Screenshot](https://raw.githubusercontent.com/pindaroso/dotfiles/master/ss.png)
 
-**Emacs**
+**Vim**
 
 ## Setup
 
