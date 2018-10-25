@@ -3,9 +3,11 @@ set nocompatible
 
 " Prevent security exploits
 set modelines=0
+set title titlestring=
 
-" Not working
+" Clipboard
 set clipboard=unnamed
+set clipboard+=unnamedplus
 
 " Tab settings
 set tabstop=4
@@ -143,7 +145,8 @@ colorscheme solarized
 
 " Nerd
 map <C-n> :NERDTreeToggle<CR>
-let NERDTreeShowHidden=1
+let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeShowHidden = 1
 
 " FZF
 set rtp+=~/.fzf
@@ -153,3 +156,20 @@ map <C-b> :Buffers<CR>
 map <C-g> :GFiles<CR>
 map <C-f> :Files<CR>
 map ag :Ag<CR>
+
+let g:fzf_history = '/home/brandon/.fzf-history'
+let g:fzf_colors = {
+    \ 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'Normal'],
+    \ 'hl':      ['fg', 'Comment'],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'Normal'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'border':  ['fg', 'Ignore'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Normal']
+    \ }

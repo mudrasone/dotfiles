@@ -2,7 +2,7 @@
 
 *An opinionated tooling guide for software development*
 
-![Emacs](https://raw.githubusercontent.com/mudrasone/dotfiles/master/emacs.png)
+![Screenshot](https://raw.githubusercontent.com/mudrasone/dotfiles/master/ss.png)
 
 **Emacs**
 
