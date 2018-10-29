@@ -98,7 +98,6 @@ let g:syntastic_python_checkers=['flake8']
 let g:syntastic_haskell_checkers = ['hlint']
 let g:syntastic_hs_checkers=['ghc-mod', 'hlint']
 
-
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
 let g:tagbar_left=1

@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH="/home/brandon/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -98,7 +98,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Z
-. ~/.local/bin/z.sh 
+. $HOME/.local/bin/z.sh
 
 # CUDA
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-9.0/extras/CUPTI/lib64
@@ -111,4 +111,4 @@ export NUMBAPRO_NVVM=/usr/local/cuda-9.0/nvvm/lib64/libnvvm.so
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Path
-export PATH=/home/brandon/.local/bin:/home/brandon/bin:/snap/bin:/usr/local/go/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/bin:/snap/bin:/usr/local/go/bin:$PATH
