@@ -172,3 +172,7 @@ let g:fzf_colors = {
     \ 'spinner': ['fg', 'Label'],
     \ 'header':  ['fg', 'Normal']
     \ }
+
+" Swap
+set backupdir=$HOME/.vim/swapfiles
+set directory=$HOME/.vim/swapfiles
