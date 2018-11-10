@@ -131,3 +131,5 @@ export PATH=$PATH:$GOROOT/bin:$GOBIN
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /home/pindaroso/node_modules/tabtab/.completions/sls.zsh ]] && . /home/pindaroso/node_modules/tabtab/.completions/sls.zsh
+
+alias n="nvim"

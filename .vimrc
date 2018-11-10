@@ -1,5 +1,5 @@
 " Modeline and Notes {
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+" vim: set foldmarker={,} foldlevel=0 foldmethod=marker:
 "
 "
 "        ___                       ___           ___           ___
@@ -15,7 +15,7 @@
 "                                 \/__/         \|__|         \/__/
 "
 "
-"   This is the personal .vimrc file of Brandon Robert.
+"   This is the personal .vimrc file of Pindaroso.
 "   While much of it is beneficial for general use, I would
 "   recommend picking out the parts you want and understand.
 "
@@ -67,9 +67,7 @@ set undodir=$HOME/.vim/.undo//
 " Set proper tab / whitespace handling for a given programming language
 if has("autocmd")
     " Enable file type search
-    filetype plugin on
-    " Use filetype indent
-    filetype indent on
+    filetype plugin indent on
     " Consistent with the Linux Kernel Coding Style Guidelines
     autocmd FileType c,cpp,opencl set expandtab tabstop=4 shiftwidth=4 textwidth=80
     autocmd FileType python,html,css set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79
@@ -106,9 +104,6 @@ set list
 set autoindent
 set smartindent
 set cindent
-
-set spell
-set spelllang=en_us
 " }
 
 " Searching and moving settings {
@@ -213,7 +208,7 @@ let NERDTreeShowHidden = 1
 " }
 
 " FZF {
-set rtp+=~/.fzf
+set rtp+=$HOME/.fzf
 
 map <C-h> :History<CR>
 map <C-b> :Buffers<CR>
@@ -221,7 +216,7 @@ map <C-g> :GFiles<CR>
 map <C-f> :Files<CR>
 map <C-o> :Ag<CR>
 
-let g:fzf_history = '~/.fzf-history'
+let g:fzf_history = $HOME + '/.fzf-history'
 let g:fzf_colors = {
     \ 'fg':      ['fg', 'Normal'],
     \ 'bg':      ['bg', 'Normal'],
@@ -237,4 +232,11 @@ let g:fzf_colors = {
     \ 'spinner': ['fg', 'Label'],
     \ 'header':  ['fg', 'Normal']
     \ }
+" }
+
+" Spelling {
+set spelllang=en_us spell
+
+hi clear SpellBad
+hi SpellBad cterm=underline
 " }
