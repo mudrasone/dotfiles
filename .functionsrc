@@ -45,9 +45,4 @@ function m-env () {
     fi
 }
 
-alias ctags="`brew --prefix`/bin/ctags"
-
-alias c="docker-compose"
-alias m="/usr/local/bin/docker-machine"
-alias d="/usr/local/bin/docker"
-
+#alias ctags="`brew --prefix`/bin/ctags"

@@ -1,19 +1,68 @@
-" Breaks compatibility with vi
-set nocompatible
+" Modeline and Notes {
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+"
+"
+"        ___                       ___           ___           ___
+"       /\__\          ___        /\__\         /\  \         /\  \
+"      /:/  /         /\  \      /::|  |       /::\  \       /::\  \
+"     /:/  /          \:\  \    /:|:|  |      /:/\:\  \     /:/\:\  \
+"    /:/__/  ___      /::\__\  /:/|:|__|__   /::\~\:\  \   /:/  \:\  \
+"    |:|  | /\__\  __/:/\/__/ /:/ |::::\__\ /:/\:\ \:\__\ /:/__/ \:\__\
+"    |:|  |/:/  / /\/:/  /    \/__/~~/:/  / \/_|::\/:/  / \:\  \  \/__/
+"    |:|__/:/  /  \::/__/           /:/  /     |:|::/  /   \:\  \
+"     \::::/__/    \:\__\          /:/  /      |:|\/__/     \:\  \
+"      ~~~~         \/__/         /:/  /       |:|  |        \:\__\
+"                                 \/__/         \|__|         \/__/
+"
+"
+"   This is the personal .vimrc file of Brandon Robert.
+"   While much of it is beneficial for general use, I would
+"   recommend picking out the parts you want and understand.
+"
+"   You can find me at https://www.pindaroso.com
+"
+"   Copyright 2018 Brandon Stiles
+"
+"   Licensed under the Apache License, Version 2.0 (the "License");
+"   you may not use this file except in compliance with the License.
+"   You may obtain a copy of the License at
+"
+"       http://www.apache.org/licenses/LICENSE-2.0
+"
+"   Unless required by applicable law or agreed to in writing, software
+"   distributed under the License is distributed on an "AS IS" BASIS,
+"   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+"   See the License for the specific language governing permissions and
+"   limitations under the License.
+" }
 
-" Prevent security exploits
+" Breaks compatibility with vi {
+set nocompatible
+" }
+
+" Prevent security exploits {
 set modelines=0
 set title titlestring=
+" }
 
-" Clipboard
+" Folds {
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END
+" }
+
+" Clipboard {
 set clipboard=unnamed
 set clipboard+=unnamedplus
+" }
 
-" Tab settings
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
+" Session persistence {
+set backupdir=$HOME/.vim/.backup//
+set directory=$HOME/.vim/.swap//
+set undodir=$HOME/.vim/.undo//
+" }
 
 " Set proper tab / whitespace handling for a given programming language
 if has("autocmd")
@@ -27,9 +76,17 @@ if has("autocmd")
     autocmd FileType jade,sass,yaml set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79
 endif
 
-" General settings
+" General settings {
 syntax on
+
 set nu
+set updatetime=500
+
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
 set encoding=utf-8
 set scrolloff=3
 set showmode
@@ -43,68 +100,72 @@ set ruler
 set backspace=indent,eol,start
 set laststatus=2
 
-" Searching and moving settings
+set listchars=eol:˯,tab:→\ ,trail:↤,extends:>,precedes:<
+set list
+
+set autoindent
+set smartindent
+set cindent
+
+set spell
+set spelllang=en_us
+" }
+
+" Searching and moving settings {
 set ignorecase
 set smartcase
 set incsearch
 set showmatch
 set hlsearch
 set wrapscan
-
 set wrap
-set textwidth=79
 set formatoptions=qrn1
+" }
 
-" Make j & k behave rationally
+" Make j & k behave rationally {
 nnoremap j gj
 nnoremap k gk
+" }
 
+" Write {
 au FocusLost * :wa
 inoremap jk <ESC>
+" }
 
-set autoindent
-set smartindent
-set cindent
+" Spacebar in insert mode inserts a single character {
+:nmap <Space> i_<Esc>r
+" }
 
-" Window navigation
+" Window navigation {
 map <C-H> <C-W><Left>
 map <C-L> <C-W><Right>
 map <C-J> <C-W><Down>
 map <C-K> <C-W><Up>
+" }
 
-" Spacebar in insert mode inserts a single character
-:nmap <Space> i_<Esc>r
-
-set listchars=eol:↓,tab:→\ ,trail:↤,extends:>,precedes:<
-set list
+" Ctags {
+set tags=./.tags,.tags,./tags,tags
+" }
 
 execute pathogen#infect()
 
-" Disable folding which is default with plasticboy/vim-markdown
-let g:vim_markdown_folding_disabled=1
-
-" Ctags-related
-set tags=./.tags,.tags,./tags,tags
-
+" Syntastic {
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" Python
 let g:syntastic_python_checkers=['flake8']
-
-" Haskell
 let g:syntastic_haskell_checkers = ['hlint']
 let g:syntastic_hs_checkers=['ghc-mod', 'hlint']
+" }
 
-" Tagbar
+" Tagbar {
 nmap <F8> :TagbarToggle<CR>
+
 let g:tagbar_left=1
 let g:tagbar_sort=0
 let g:tagbar_width=25
-set updatetime=500
-
 let g:tagbar_type_haskell = {
     \ 'ctagsbin'  : 'hasktags',
     \ 'ctagsargs' : '-x -c -o-',
@@ -136,27 +197,31 @@ let g:tagbar_type_haskell = {
         \ 'type'   : 't'
     \ }
 \ }
+" }
 
-" Solarized
-syntax on
+" Color {
+let g:solarized_termcolors = 16
 set background=dark
 colorscheme solarized
+" }
 
-" Nerd
+" NERDTree {
 map <C-n> :NERDTreeToggle<CR>
+
 let NERDTreeIgnore = ['\.pyc$']
 let NERDTreeShowHidden = 1
+" }
 
-" FZF
+" FZF {
 set rtp+=~/.fzf
 
 map <C-h> :History<CR>
 map <C-b> :Buffers<CR>
 map <C-g> :GFiles<CR>
 map <C-f> :Files<CR>
-map ag :Ag<CR>
+map <C-o> :Ag<CR>
 
-let g:fzf_history = '/home/brandon/.fzf-history'
+let g:fzf_history = '~/.fzf-history'
 let g:fzf_colors = {
     \ 'fg':      ['fg', 'Normal'],
     \ 'bg':      ['bg', 'Normal'],
@@ -172,7 +237,4 @@ let g:fzf_colors = {
     \ 'spinner': ['fg', 'Label'],
     \ 'header':  ['fg', 'Normal']
     \ }
-
-" Swap
-set backupdir=$HOME/.vim/swapfiles
-set directory=$HOME/.vim/swapfiles
+" }

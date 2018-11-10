@@ -101,14 +101,33 @@ source $ZSH/oh-my-zsh.sh
 . $HOME/.local/bin/z.sh
 
 # CUDA
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-9.0/extras/CUPTI/lib64
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-10.0/lib64:/usr/local/cuda-10.0/extras/CUPTI/lib64"
+export CUDA_HOME=/usr/local/cuda
 
 # Python Numba
-export NUMBAPRO_LIBDEVICE=/usr/local/cuda-9.0/nvvm/libdevice/
-export NUMBAPRO_NVVM=/usr/local/cuda-9.0/nvvm/lib64/libnvvm.so
+export NUMBAPRO_LIBDEVICE=/usr/local/cuda-10.0/nvvm/libdevice/
+export NUMBAPRO_NVVM=/usr/local/cuda-10.0/nvvm/lib64/libnvvm.so
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Path
 export PATH=$HOME/.local/bin:$HOME/bin:/snap/bin:/usr/local/go/bin:$PATH
+
+# Java
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+export JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
+
+# Go
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+
+# PATH
+export PATH=$PATH:$GOROOT/bin:$GOBIN
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /home/pindaroso/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/pindaroso/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /home/pindaroso/node_modules/tabtab/.completions/sls.zsh ]] && . /home/pindaroso/node_modules/tabtab/.completions/sls.zsh
