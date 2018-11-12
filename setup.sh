@@ -3,7 +3,7 @@
 # Debian
 sudo apt-get update -y
 sudo apt-get install -y tmux vim-gtk zsh silversearcher-ag git \
-    python3-pip docker.io
+    python3-pip docker.io exuberant-ctags
 
 pip3 install docker-compose
 
@@ -29,6 +29,7 @@ git clone git@github.com:scrooloose/nerdtree.git $HOME/.vim/bundle/nerdtree
 git clone git@github.com:gioele/vim-autoswap.git $HOME/.vim/bundle/vim-autoswap
 git clone git@github.com:vim-syntastic/syntastic.git $HOME/.vim/bundle/syntastic
 git clone git@github.com:Valloric/YouCompleteMe.git $HOME/.vim/bundle/YouCompleteMe
+git clone git@github.com:majutsushi/tagbar.git $HOME/.vim/bundle/tagbar
 
 # YCM
 cd $HOME/.vim/bundle/YouCompleteMe
@@ -41,4 +42,3 @@ git clone git@github.com:pindaroso/dotfiles.git $HOME/code/dotfiles
 cd code/dotfiles
 
 cp .vimrc .tmux.conf .zshrc $HOME
-cp crcandy.zsh-theme $HOME/.oh-my-zsh/themes/crcandy.zsh-theme

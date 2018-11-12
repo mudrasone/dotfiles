@@ -1,5 +1,5 @@
 all:
-	@cp ~/.tmux.conf ~/.zshrc ~/.functionsrc ~/.vimrc .
+	@cp ~/.tmux.conf ~/.zshrc ~/.vimrc .
 
 
 linux:

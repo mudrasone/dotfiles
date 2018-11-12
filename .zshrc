@@ -132,4 +132,18 @@ export PATH=$PATH:$GOROOT/bin:$GOBIN
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /home/pindaroso/node_modules/tabtab/.completions/sls.zsh ]] && . /home/pindaroso/node_modules/tabtab/.completions/sls.zsh
 
-alias n="nvim"
+function git-lazy () {
+    git add .
+    git commit -a -m "$1"
+    git push
+}
+
+function git-filter-rm () {
+    git filter-branch --tree-filter 'rm -rf $@' HEAD
+}
+
+function find-delete () {
+    find . -name "$1" -type f -delete
+}
+
+#alias ctags="`brew --prefix`/bin/ctags"

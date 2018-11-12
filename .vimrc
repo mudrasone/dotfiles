@@ -152,15 +152,15 @@ let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_haskell_checkers = ['hlint']
-let g:syntastic_hs_checkers=['ghc-mod', 'hlint']
+let g:syntastic_hs_checkers = ['ghc-mod', 'hlint']
 " }
 
 " Tagbar {
-nmap <F8> :TagbarToggle<CR>
+map <C-o> :TagbarToggle<CR>
 
-let g:tagbar_left=1
-let g:tagbar_sort=0
-let g:tagbar_width=25
+let g:tagbar_left = 0
+let g:tagbar_sort = 0
+let g:tagbar_width = 25
 let g:tagbar_type_haskell = {
     \ 'ctagsbin'  : 'hasktags',
     \ 'ctagsargs' : '-x -c -o-',
@@ -192,6 +192,32 @@ let g:tagbar_type_haskell = {
         \ 'type'   : 't'
     \ }
 \ }
+
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ }
+\ }
 " }
 
 " Color {
@@ -214,7 +240,7 @@ map <C-h> :History<CR>
 map <C-b> :Buffers<CR>
 map <C-g> :GFiles<CR>
 map <C-f> :Files<CR>
-map <C-o> :Ag<CR>
+map <C-k> :Ag<CR>
 
 let g:fzf_history = $HOME + '/.fzf-history'
 let g:fzf_colors = {
@@ -239,4 +265,11 @@ set spelllang=en_us spell
 
 hi clear SpellBad
 hi SpellBad cterm=underline
+" }
+
+" YCM {
+set completeopt-=preview
+
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_autoclose_preview_window_after_completion = 1
 " }
