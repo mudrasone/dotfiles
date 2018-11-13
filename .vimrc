@@ -21,7 +21,7 @@
 "
 "   You can find me at https://www.pindaroso.com
 "
-"   Copyright 2018 Brandon Stiles
+"   Copyright 2018 Pindaroso
 "
 "   Licensed under the Apache License, Version 2.0 (the "License");
 "   you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ set directory=$HOME/.vim/.swap//
 set undodir=$HOME/.vim/.undo//
 " }
 
-" Set proper tab / whitespace handling for a given programming language
+" Set proper tab / whitespace handling for a given programming language {
 if has("autocmd")
     " Enable file type search
     filetype plugin indent on
@@ -73,6 +73,7 @@ if has("autocmd")
     autocmd FileType python,html,css set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79
     autocmd FileType jade,sass,yaml set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79
 endif
+" }
 
 " General settings {
 syntax on
