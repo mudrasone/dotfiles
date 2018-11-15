@@ -21,7 +21,7 @@
 "
 "   You can find me at https://www.pindaroso.com
 "
-"   Copyright 2018 Pindaroso
+"   Copyright 2018 Brandon Stiles
 "
 "   Licensed under the Apache License, Version 2.0 (the "License");
 "   you may not use this file except in compliance with the License.
@@ -99,8 +99,7 @@ set ruler
 set backspace=indent,eol,start
 set laststatus=2
 
-set listchars=eol:˯,tab:→\ ,trail:↤,extends:>,precedes:<
-set list
+set list listchars=tab:∙\ ,trail:·,precedes:←,extends:→,eol:¬,nbsp:␣
 
 set autoindent
 set smartindent
@@ -108,7 +107,6 @@ set cindent
 " }
 
 " Searching and moving settings {
-set ignorecase
 set smartcase
 set incsearch
 set showmatch
@@ -273,4 +271,8 @@ set completeopt-=preview
 
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
+" }
+
+" FAR {
+let g:far#source = "ag"
 " }
