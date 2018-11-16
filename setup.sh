@@ -23,13 +23,18 @@ $HOME/.fzf/install
 mkdir -p $HOME/.vim/autoload $HOME/.vim/bundle && \
     curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-git clone git@github.com:altercation/vim-colors-solarized.git $HOME/.vim/bundle/vim-colors-solarized
-git clone git@github.com:junegunn/fzf.vim.git $HOME/.vim/bundle/fzf.vim
-git clone git@github.com:scrooloose/nerdtree.git $HOME/.vim/bundle/nerdtree
-git clone git@github.com:gioele/vim-autoswap.git $HOME/.vim/bundle/vim-autoswap
-git clone git@github.com:vim-syntastic/syntastic.git $HOME/.vim/bundle/syntastic
-git clone git@github.com:Valloric/YouCompleteMe.git $HOME/.vim/bundle/YouCompleteMe
-git clone git@github.com:majutsushi/tagbar.git $HOME/.vim/bundle/tagbar
+# Plugins
+cd $HOME/.vim/bundle
+
+git clone git@github.com:altercation/vim-colors-solarized.git
+git clone git@github.com:junegunn/fzf.vim.git
+git clone git@github.com:scrooloose/nerdtree.git
+git clone git@github.com:gioele/vim-autoswap.git
+git clone git@github.com:vim-syntastic/syntastic.git
+git clone git@github.com:Valloric/YouCompleteMe.git
+git clone git@github.com:majutsushi/tagbar.git
+git clone git@github.com:brooth/far.vim.git
+git clone git@github.com:romainl/vim-cool.git
 
 # YCM
 cd $HOME/.vim/bundle/YouCompleteMe
