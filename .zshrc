@@ -111,23 +111,20 @@ export NUMBAPRO_NVVM=/usr/local/cuda-10.0/nvvm/lib64/libnvvm.so
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Path
-export PATH=$HOME/.local/bin:$HOME/bin:/snap/bin:/usr/local/go/bin:$PATH
-
 # Java
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 export JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
 
 # Go
 export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
 
-# PATH
-export PATH=$PATH:$GOROOT/bin:$GOBIN
+# Path
+export PATH=$HOME/.local/bin:$HOME/bin:/snap/bin:/usr/local/go/bin:$PATH:$GOPATH/bin
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
 [[ -f /home/pindaroso/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/pindaroso/node_modules/tabtab/.completions/serverless.zsh
+
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /home/pindaroso/node_modules/tabtab/.completions/sls.zsh ]] && . /home/pindaroso/node_modules/tabtab/.completions/sls.zsh
