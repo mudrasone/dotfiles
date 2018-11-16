@@ -223,6 +223,7 @@ let g:tagbar_type_go = {
 let g:solarized_termcolors = 16
 set background=dark
 colorscheme solarized
+hi Specialkey ctermbg=8
 " }
 
 " NERDTree {
