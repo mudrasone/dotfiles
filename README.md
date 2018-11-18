@@ -2,7 +2,7 @@
 
 *An opinionated tooling guide for software development*
 
-![Screenshot](https://raw.githubusercontent.com/pindaroso/dotfiles/master/ss.png)
+![Screenshot](https://raw.githubusercontent.com/pindaroso/dotfiles/master/images/ss.png)
 
 **Vim**
 
