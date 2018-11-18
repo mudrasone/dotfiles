@@ -97,8 +97,17 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+function glazy () {
+    git add .
+    git commit -a -m "$1"
+    git push
+}
+
 # Z
 . $HOME/.local/bin/z.sh
+
+# FZF
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # CUDA
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-10.0/lib64:/usr/local/cuda-10.0/extras/CUPTI/lib64"
@@ -108,9 +117,6 @@ export CUDA_HOME=/usr/local/cuda
 export NUMBAPRO_LIBDEVICE=/usr/local/cuda-10.0/nvvm/libdevice/
 export NUMBAPRO_NVVM=/usr/local/cuda-10.0/nvvm/lib64/libnvvm.so
 
-# FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # Java
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 export JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
@@ -119,28 +125,4 @@ export JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
 export GOPATH=$HOME/go
 
 # Path
-export PATH=$HOME/.local/bin:$HOME/bin:/snap/bin:/usr/local/go/bin:$PATH:$GOPATH/bin
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /home/pindaroso/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/pindaroso/node_modules/tabtab/.completions/serverless.zsh
-
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /home/pindaroso/node_modules/tabtab/.completions/sls.zsh ]] && . /home/pindaroso/node_modules/tabtab/.completions/sls.zsh
-
-function git-lazy () {
-    git add .
-    git commit -a -m "$1"
-    git push
-}
-
-function git-filter-rm () {
-    git filter-branch --tree-filter 'rm -rf $@' HEAD
-}
-
-function find-delete () {
-    find . -name "$1" -type f -delete
-}
-
-#alias ctags="`brew --prefix`/bin/ctags"
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$GOPATH/bin
