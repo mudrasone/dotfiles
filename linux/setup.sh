@@ -3,7 +3,7 @@
 # Debian"
 sudo apt-get update -y
 sudo apt-get install -y tmux vim-gtk zsh silversearcher-ag git \
-    python3-pip docker.io exuberant-ctags curl cmake
+    python3-pip docker.io exuberant-ctags curl cmake npm
 
 git config --global user.email "brandon@datitect.com"
 git config --global user.username "pindaroso"
@@ -34,6 +34,12 @@ mkdir -p $HOME/.vim/autoload $HOME/.vim/bundle && \
 wget https://dl.google.com/go/go1.11.2.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.11.2.linux-amd64.tar.gz
 rm go1.11.2.linux-amd64.tar.gz
+
+# Elm
+sudo npm install -g elm
+
+# Haskell Stack
+curl -sSL https://get.haskellstack.org/ | sh
 
 # Plugins
 cd $HOME/.vim/bundle
