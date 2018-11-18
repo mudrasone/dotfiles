@@ -5,6 +5,10 @@ sudo apt-get update -y
 sudo apt-get install -y tmux vim-gtk zsh silversearcher-ag git \
     python3-pip docker.io exuberant-ctags curl
 
+git config --global user.email "brandon@datitect.com"
+git config --global user.username "pindaroso"
+git config --global user.name "Brandon"
+
 sudo usermod -aG docker $USER
 pip3 install docker-compose
 
