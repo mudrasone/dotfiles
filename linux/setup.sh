@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Debian
+# Debian"
 sudo apt-get update -y
 sudo apt-get install -y tmux vim-gtk zsh silversearcher-ag git \
-    python3-pip docker.io exuberant-ctags
+    python3-pip docker.io exuberant-ctags curl
 
 pip3 install docker-compose
 
@@ -13,7 +13,9 @@ mkdir -p $HOME/code $HOME/.local/bin
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # Z
-wget https://github.com/rupa/z/raw/master/z.sh $HOME/.local/bin/z.sh
+wget https://github.com/rupa/z/raw/master/z.sh
+mv z.sh $HOME/.local/bin/z.sh
+chmod +x $HOME/.local/bin/z.sh
 
 # FZF
 git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
@@ -41,9 +43,7 @@ cd $HOME/.vim/bundle/YouCompleteMe
 git submodule update --init --recursive
 python3 install.py --clang-completer --go-completer
 
-# Setup
-git clone git@github.com:pindaroso/dotfiles.git $HOME/code/dotfiles
-
+# Dotfiles
 cd code/dotfiles
-
 cp .vimrc .tmux.conf .zshrc $HOME
+mkdir -p $HOME/.vim/{.backup,.swap,.undo}
