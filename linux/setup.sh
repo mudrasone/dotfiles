@@ -5,6 +5,7 @@ sudo apt-get update -y
 sudo apt-get install -y tmux vim-gtk zsh silversearcher-ag git \
     python3-pip docker.io exuberant-ctags curl
 
+sudo usermod -aG docker $USER
 pip3 install docker-compose
 
 mkdir -p $HOME/code $HOME/.local/bin
