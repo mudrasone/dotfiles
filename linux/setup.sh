@@ -53,6 +53,7 @@ git clone git@github.com:Valloric/YouCompleteMe.git
 git clone git@github.com:majutsushi/tagbar.git
 git clone git@github.com:brooth/far.vim.git
 git clone git@github.com:romainl/vim-cool.git
+git clone git@github.com:ElmCast/elm-vim.git
 
 # YCM
 cd $HOME/.vim/bundle/YouCompleteMe
