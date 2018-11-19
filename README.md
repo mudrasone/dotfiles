@@ -1,3 +1,5 @@
+# ![Travis CI/CD](https://travis-ci.org/pindaroso/dotfiles.svg?branch=master)
+
 # dotfiles
 
 *An opinionated tooling guide for software development*
