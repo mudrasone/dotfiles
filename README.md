@@ -19,3 +19,7 @@
 ### Tmux
 
 Terminal multiplexer. See `.tmux.conf` for full configuration details. Prefix is `<C-a>`.
+
+## Notes
+
+- Set display scaling to 1.3
