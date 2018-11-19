@@ -1,4 +1,4 @@
-# ![Travis CI/CD](https://travis-ci.org/pindaroso/dotfiles.svg?branch=master)
+![Travis CI/CD](https://travis-ci.org/pindaroso/dotfiles.svg?branch=master)
 
 # dotfiles
 
