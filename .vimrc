@@ -149,9 +149,10 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_haskell_checkers = ['hlint']
-let g:syntastic_hs_checkers = ['ghc-mod', 'hlint']
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_haskell_checkers = ['ghc-mod', 'hlint -i "Reduce duplication"']
+
+let g:elm_syntastic_show_warnings = 1
 " }
 
 " Tagbar {
@@ -272,6 +273,10 @@ set completeopt-=preview
 
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
+
+let g:ycm_semantic_triggers = {
+     \ 'elm' : ['.'],
+     \ }
 " }
 
 " FAR {
