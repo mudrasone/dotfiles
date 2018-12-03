@@ -1,13 +1,18 @@
 #!/bin/bash
 
+# set -e
+# set -x
+
 # Debian"
 sudo apt-get update -y
+sudo dpkg --configure -a
 sudo apt-get install -y tmux vim-gtk zsh silversearcher-ag git \
     python3-pip docker.io exuberant-ctags curl cmake npm htop
+# sudo apt-get gnome-tweak-tool
 
 git config --global user.email "brandon@datitect.com"
 git config --global user.username "pindaroso"
-git config --global user.name "Brandon"
+git config --global user.name "Pindaroso"
 
 sudo usermod -aG docker $USER
 pip3 install docker-compose
@@ -61,6 +66,6 @@ git submodule update --init --recursive
 python3 install.py --clang-completer --go-completer
 
 # Dotfiles
-cd code/dotfiles
+cd ~/code/dotfiles
 cp .vimrc .tmux.conf .zshrc $HOME
 mkdir -p $HOME/.vim/{.backup,.swap,.undo}

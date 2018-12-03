@@ -221,7 +221,7 @@ let g:tagbar_type_go = {
 " }
 
 " Color {
-let g:solarized_termcolors = 16
+let g:solarized_termtrans = 1
 set background=dark
 colorscheme solarized
 hi Specialkey ctermbg=8
@@ -247,10 +247,10 @@ let g:fzf_history = $HOME + '/.fzf-history'
 let g:fzf_colors = {
     \ 'fg':      ['fg', 'Normal'],
     \ 'bg':      ['bg', 'Normal'],
-    \ 'hl':      ['fg', 'Comment'],
+    \ 'hl':      ['fg', 'Normal'],
     \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-    \ 'bg+':     ['bg', 'Normal'],
-    \ 'hl+':     ['fg', 'Statement'],
+    \ 'bg+':     ['bg', 'CursorLine'],
+    \ 'hl+':     ['fg', 'Normal'],
     \ 'info':    ['fg', 'PreProc'],
     \ 'border':  ['fg', 'Ignore'],
     \ 'prompt':  ['fg', 'Conditional'],

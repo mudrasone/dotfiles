@@ -110,8 +110,8 @@ function glazy () {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # CUDA
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-10.0/lib64:/usr/local/cuda-10.0/extras/CUPTI/lib64"
-export CUDA_HOME=/usr/local/cuda
+# export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-10.0/lib64:/usr/local/cuda-10.0/extras/CUPTI/lib64"
+# export CUDA_HOME=/usr/local/cuda
 
 # Python Numba
 export NUMBAPRO_LIBDEVICE=/usr/local/cuda-10.0/nvvm/libdevice/
@@ -125,4 +125,4 @@ export JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
 export GOPATH=$HOME/go
 
 # Path
-export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$GOPATH/bin
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin
