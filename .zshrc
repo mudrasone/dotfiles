@@ -126,3 +126,6 @@ export GOPATH=$HOME/go
 
 # Path
 export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin
+
+# Dapp Tools
+. $HOME/.nix-profile/etc/profile.d/nix.sh

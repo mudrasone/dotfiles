@@ -1,14 +1,14 @@
 #!/bin/bash
 
+set -x
 # set -e
-# set -x
 
 # Debian"
 sudo apt-get update -y
 sudo dpkg --configure -a
 sudo apt-get install -y tmux vim-gtk zsh silversearcher-ag git \
-    python3-pip docker.io exuberant-ctags curl cmake npm htop
-# sudo apt-get gnome-tweak-tool
+    python3-pip docker.io exuberant-ctags curl cmake npm htop \
+    gnome-tweak-tool mosh
 
 git config --global user.email "brandon@datitect.com"
 git config --global user.username "pindaroso"
@@ -59,13 +59,22 @@ git clone git@github.com:majutsushi/tagbar.git
 git clone git@github.com:brooth/far.vim.git
 git clone git@github.com:romainl/vim-cool.git
 git clone git@github.com:ElmCast/elm-vim.git
+git clone git@github.com:tomlion/vim-solidity.git
 
 # YCM
 cd $HOME/.vim/bundle/YouCompleteMe
 git submodule update --init --recursive
 python3 install.py --clang-completer --go-completer
 
+# Gnome Term
+git clone git@github.com:Anthony25/gnome-terminal-colors-solarized.git
+cd gnome-terminal-colors-solarized
+./install.sh
+
 # Dotfiles
 cd ~/code/dotfiles
 cp .vimrc .tmux.conf .zshrc $HOME
 mkdir -p $HOME/.vim/{.backup,.swap,.undo}
+
+# Dapp Tools
+curl https://dapp.tools/install | sh

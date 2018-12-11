@@ -1,6 +1,6 @@
-" Modeline and Notes {
 " vim: set foldmarker={,} foldlevel=0 foldmethod=marker:
 "
+" Modeline and Notes {
 "
 "        ___                       ___           ___           ___
 "       /\__\          ___        /\__\         /\  \         /\  \
@@ -19,7 +19,7 @@
 "   While much of it is beneficial for general use, I would
 "   recommend picking out the parts you want and understand.
 "
-"   You can find me at https://www.pindaroso.com
+"   You can find me at https://www.github.com/pindaroso
 "
 "   Copyright 2018 Brandon Stiles
 "
@@ -46,11 +46,14 @@ set title titlestring=
 " }
 
 " Folds {
-augroup remember_folds
+augroup AutoSaveFolds
   autocmd!
-  autocmd BufWinLeave * mkview
-  autocmd BufWinEnter * silent! loadview
+  autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
+  autocmd BufWinEnter ?* silent! loadview
 augroup END
+
+set viewoptions=folds,cursor
+set sessionoptions=folds
 " }
 
 " Clipboard {
@@ -221,8 +224,9 @@ let g:tagbar_type_go = {
 " }
 
 " Color {
-let g:solarized_termtrans = 1
 set background=dark
+let g:solarized_termtrans = 1
+let g:solarized_termcolors = 16
 colorscheme solarized
 hi Specialkey ctermbg=8
 " }
@@ -247,9 +251,9 @@ let g:fzf_history = $HOME + '/.fzf-history'
 let g:fzf_colors = {
     \ 'fg':      ['fg', 'Normal'],
     \ 'bg':      ['bg', 'Normal'],
-    \ 'hl':      ['fg', 'Normal'],
+    \ 'hl':      ['fg', 'Comment'],
     \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-    \ 'bg+':     ['bg', 'CursorLine'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
     \ 'hl+':     ['fg', 'Normal'],
     \ 'info':    ['fg', 'PreProc'],
     \ 'border':  ['fg', 'Ignore'],
