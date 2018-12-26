@@ -56,7 +56,7 @@ git clone git@github.com:gioele/vim-autoswap.git
 git clone git@github.com:vim-syntastic/syntastic.git
 git clone git@github.com:Valloric/YouCompleteMe.git
 git clone git@github.com:majutsushi/tagbar.git
-git clone git@github.com:brooth/far.vim.git
+git clone git@github.com:dkprice/vim-easygrep.git
 git clone git@github.com:romainl/vim-cool.git
 git clone git@github.com:ElmCast/elm-vim.git
 git clone git@github.com:tomlion/vim-solidity.git

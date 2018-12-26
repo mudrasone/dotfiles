@@ -103,6 +103,8 @@ function glazy () {
     git push
 }
 
+alias c="clear"
+
 # Z
 . $HOME/.local/bin/z.sh
 
