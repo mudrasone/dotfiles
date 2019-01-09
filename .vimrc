@@ -154,6 +154,12 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_checker_args="--ignore=E501,W601"
+let g:syntastic_python_flake8_args="--ignore=E501,W601"
+let g:pymode_lint_ignore="E501,W601"
+
+let g:pep8_ignore="E501,W601"
+
 let g:syntastic_haskell_checkers = ['ghc-mod', 'hlint -i "Reduce duplication"']
 
 let g:elm_syntastic_show_warnings = 1

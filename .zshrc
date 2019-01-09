@@ -112,12 +112,12 @@ alias c="clear"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # CUDA
-# export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-10.0/lib64:/usr/local/cuda-10.0/extras/CUPTI/lib64"
-# export CUDA_HOME=/usr/local/cuda
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/cuda-10.0/lib64:/usr/lib/cuda-10.0/extras/CUPTI/lib64"
+export CUDA_HOME=/usr/lib/cuda
 
 # Python Numba
-export NUMBAPRO_LIBDEVICE=/usr/local/cuda-10.0/nvvm/libdevice/
-export NUMBAPRO_NVVM=/usr/local/cuda-10.0/nvvm/lib64/libnvvm.so
+export NUMBAPRO_LIBDEVICE=/usr/lib/cuda-10.0/nvvm/libdevice/
+export NUMBAPRO_NVVM=/usr/lib/cuda-10.0/nvvm/lib64/libnvvm.so
 
 # Java
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle
@@ -127,7 +127,10 @@ export JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
 export GOPATH=$HOME/go
 
 # Path
-export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin:/usr/lib/cuda-10.0
 
 # Dapp Tools
 . $HOME/.nix-profile/etc/profile.d/nix.sh
+
+export GLUE_DIR=$HOME/code/glue/data
+export BERT_BASE_DIR=$HOME/code/BERT-Base/multi_cased_L-12_H-768_A-12
