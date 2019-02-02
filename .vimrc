@@ -108,6 +108,8 @@ set list listchars=tab:∙\ ,trail:·,precedes:←,extends:→,eol:¬,nbsp:␣
 set autoindent
 set smartindent
 set cindent
+
+set mouse=a
 " }
 
 " Searching and moving settings {
