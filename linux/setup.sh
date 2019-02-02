@@ -60,6 +60,8 @@ git clone git@github.com:dkprice/vim-easygrep.git
 git clone git@github.com:romainl/vim-cool.git
 git clone git@github.com:ElmCast/elm-vim.git
 git clone git@github.com:tomlion/vim-solidity.git
+git clone git@github.com:chr4/nginx.vim.git
+git clone git@github.com:dkprice/vim-easygrep.git
 
 # YCM
 cd $HOME/.vim/bundle/YouCompleteMe
@@ -78,3 +80,6 @@ mkdir -p $HOME/.vim/{.backup,.swap,.undo}
 
 # Dapp Tools
 curl https://dapp.tools/install | sh
+
+# Kitty
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
