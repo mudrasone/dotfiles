@@ -59,6 +59,10 @@ set sessionoptions=folds
 " Clipboard {
 set clipboard=unnamed
 set clipboard+=unnamedplus
+
+nnoremap d "_d
+xnoremap d "_d
+xnoremap p "_dP
 " }
 
 " Session persistence {
