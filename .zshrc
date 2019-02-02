@@ -64,7 +64,10 @@ ZSH_THEME="crcandy"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  zsh-completions
 )
+
+autoload -Uz compinit && compinit
 
 source $ZSH/oh-my-zsh.sh
 
@@ -134,3 +137,11 @@ export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin:/usr/
 
 export GLUE_DIR=$HOME/code/glue/data
 export BERT_BASE_DIR=$HOME/code/BERT-Base/multi_cased_L-12_H-768_A-12
+
+export WORKSPACE="$HOME/code"
+
+alias ws='cd $WORKSPACE && exa -abghHliS'
+alias histstats="history | awk '{CMD[\$2]++;count++;}END { for (a in CMD)print CMD[a] \" \" CMD[a]/count*100 \"% \" a;}' | grep -v './' | column -c3 -s ' ' -t | sort -nr | nl |  head -n10"
+
+# Completion for kitty
+kitty + complete setup zsh | source /dev/stdin
