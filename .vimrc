@@ -69,6 +69,7 @@ xnoremap p "_dP
 set backupdir=$HOME/.vim/.backup//
 set directory=$HOME/.vim/.swap//
 set undodir=$HOME/.vim/.undo//
+set undofile
 " }
 
 " Set proper tab / whitespace handling for a given programming language {
@@ -253,8 +254,8 @@ set rtp+=$HOME/.fzf
 
 map <C-h> :History<CR>
 map <C-b> :Buffers<CR>
-map <C-g> :GFiles<CR>
-map <C-f> :Files<CR>
+map <C-f> :GFiles<CR>
+map <C-g> :Files<CR>
 map <C-k> :Ag<CR>
 
 let g:fzf_history = $HOME + '/.fzf-history'
