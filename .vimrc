@@ -153,6 +153,7 @@ set tags=./.tags,.tags,./tags,tags
 " }
 
 execute pathogen#infect()
+execute pathogen#helptags()
 
 " Syntastic {
 let g:syntastic_always_populate_loc_list = 1
@@ -174,7 +175,6 @@ map <C-o> :TagbarToggle<CR>
 
 let g:tagbar_left = 0
 let g:tagbar_sort = 0
-let g:tagbar_width = 25
 let g:tagbar_type_haskell = {
     \ 'ctagsbin'  : 'hasktags',
     \ 'ctagsargs' : '-x -c -o-',
@@ -265,14 +265,14 @@ let g:fzf_colors = {
     \ 'hl':      ['fg', 'Comment'],
     \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
     \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-    \ 'hl+':     ['fg', 'Normal'],
+    \ 'hl+':     ['fg', 'Statement'],
     \ 'info':    ['fg', 'PreProc'],
     \ 'border':  ['fg', 'Ignore'],
     \ 'prompt':  ['fg', 'Conditional'],
     \ 'pointer': ['fg', 'Exception'],
     \ 'marker':  ['fg', 'Keyword'],
     \ 'spinner': ['fg', 'Label'],
-    \ 'header':  ['fg', 'Normal']
+    \ 'header':  ['fg', 'Comment']
     \ }
 " }
 
@@ -304,4 +304,11 @@ let g:CoolTotalMatches = 1
 
 " Autoformat {
 noremap <C-l> :Autoformat<CR>
+" }
+
+" Gutentags {
+" set statusline+=%{gutentags#statusline()}
+" }
+
+" BufSurf {
 " }
