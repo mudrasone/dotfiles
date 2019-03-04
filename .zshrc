@@ -145,3 +145,12 @@ alias histstats="history | awk '{CMD[\$2]++;count++;}END { for (a in CMD)print C
 
 # Completion for kitty
 kitty + complete setup zsh | source /dev/stdin
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# added by travis gem
+[ -f /home/pindaroso/.travis/travis.sh ] && source /home/pindaroso/.travis/travis.sh

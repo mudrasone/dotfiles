@@ -312,3 +312,7 @@ noremap <C-l> :Autoformat<CR>
 
 " BufSurf {
 " }
+
+" Emmet {
+let g:user_emmet_expandabbr_key='<Tab>'
+" }
