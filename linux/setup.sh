@@ -10,6 +10,7 @@ sudo apt-get install -y tmux vim-gtk zsh silversearcher-ag git \
     python3-pip docker.io exuberant-ctags curl cmake npm htop \
     gnome-tweak-tool mosh
 
+
 git config --global user.email "brandon@datitect.com"
 git config --global user.username "pindaroso"
 git config --global user.name "Pindaroso"
@@ -84,3 +85,10 @@ curl https://dapp.tools/install | sh
 
 # Kitty
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+cp kitty.conf ~/.config/kitty/kitty.conf
+
+# Nix
+curl https://nixos.org/nix/install | sh
+
+# Font
+# https://github.com/tonsky/FiraCode
