@@ -7,9 +7,14 @@ set -x
 sudo apt-get update -y
 sudo dpkg --configure -a
 sudo apt-get install -y tmux vim-gtk zsh silversearcher-ag git \
-    python3-pip docker.io exuberant-ctags curl cmake npm htop \
+    python3-pip exuberant-ctags curl cmake npm htop \
     gnome-tweak-tool mosh
 
+# Docker CE
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable edge"
+apt-cache policy docker-ce
+sudo apt-get install -y docker-ce
 
 git config --global user.email "brandon@datitect.com"
 git config --global user.username "pindaroso"
