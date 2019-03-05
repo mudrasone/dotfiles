@@ -154,3 +154,5 @@ export NVM_DIR="$HOME/.nvm"
 
 # added by travis gem
 [ -f /home/pindaroso/.travis/travis.sh ] && source /home/pindaroso/.travis/travis.sh
+
+eval `dircolors /home/pindaroso/.dir_colors/dircolors`

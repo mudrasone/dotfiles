@@ -62,7 +62,6 @@ git clone git@github.com:romainl/vim-cool.git
 git clone git@github.com:ElmCast/elm-vim.git
 git clone git@github.com:tomlion/vim-solidity.git
 git clone git@github.com:chr4/nginx.vim.git
-git clone git@github.com:dkprice/vim-easygrep.git
 git clone git@github.com:ludovicchabant/vim-gutentags.git
 
 # YCM
