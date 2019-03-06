@@ -140,7 +140,7 @@ export BERT_BASE_DIR=$HOME/code/BERT-Base/multi_cased_L-12_H-768_A-12
 
 export WORKSPACE="$HOME/code"
 
-alias ws='cd $WORKSPACE && exa -abghHliS'
+alias ws='cd $WORKSPACE && ls -la'
 alias histstats="history | awk '{CMD[\$2]++;count++;}END { for (a in CMD)print CMD[a] \" \" CMD[a]/count*100 \"% \" a;}' | grep -v './' | column -c3 -s ' ' -t | sort -nr | nl |  head -n10"
 
 # Completion for kitty
@@ -156,3 +156,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -f /home/pindaroso/.travis/travis.sh ] && source /home/pindaroso/.travis/travis.sh
 
 eval `dircolors /home/pindaroso/.dir_colors/dircolors`
+
+# Virtualenv
+export PYTHONPATH=/usr/bin/python3
+export VIRTUALENVWRAPPER_PYTHON=$PYTHONPATH
+source $HOME/.local/bin/virtualenvwrapper.sh
+

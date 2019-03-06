@@ -102,7 +102,7 @@ set showcmd
 set hidden
 set wildmenu
 set wildmode=list:longest
-set cursorline
+"set cursorline
 set ttyfast
 set ruler
 set backspace=indent,eol,start
@@ -161,11 +161,19 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+"let g:syntastic_python_checkers = ['mypy']
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_checker_args="--ignore=E501,W601"
 let g:syntastic_python_flake8_args="--ignore=E501,W601,W504"
 
 let g:syntastic_haskell_checkers = ['ghc-mod', 'hlint -i "Reduce duplication"']
+
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_enable_signs = 0
 
 let g:elm_syntastic_show_warnings = 1
 " }

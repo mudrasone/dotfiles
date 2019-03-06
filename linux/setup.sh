@@ -18,10 +18,10 @@ sudo apt-get install -y docker-ce
 
 # Nvidia Docker
 curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
-  sudo apt-key add -
+    sudo apt-key add -
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
-  sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+    sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 sudo apt-get update
 sudo apt-get install -y nvidia-docker2
 sudo pkill -SIGHUP dockerd
@@ -80,6 +80,8 @@ git clone git@github.com:ElmCast/elm-vim.git
 git clone git@github.com:tomlion/vim-solidity.git
 git clone git@github.com:chr4/nginx.vim.git
 git clone git@github.com:ludovicchabant/vim-gutentags.git
+git clone git@github.com:Chiel92/vim-autoformat.git
+git clone git@github.com:airblade/vim-gitgutter.git
 
 # YCM
 cd $HOME/.vim/bundle/YouCompleteMe
@@ -108,3 +110,9 @@ curl https://nixos.org/nix/install | sh
 
 # Font
 # https://github.com/tonsky/FiraCode
+
+# Travis
+sudo apt-add-repository -y ppa:brightbox/ruby-ng
+sudo apt-get update
+sudo apt-get install -y ruby-dev ruby-switch
+gem install travis -v 1.8.9 --no-rdoc --no-ri
