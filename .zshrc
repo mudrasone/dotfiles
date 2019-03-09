@@ -100,13 +100,14 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-function glazy () {
+function glz () {
     git add .
-    git commit -a -m "$1"
+    cmt "$1"
     git push
 }
 
 alias c="clear"
+alias v="v"
 
 # Z
 . $HOME/.local/bin/z.sh
@@ -161,4 +162,3 @@ eval `dircolors /home/pindaroso/.dir_colors/dircolors`
 export PYTHONPATH=/usr/bin/python3
 export VIRTUALENVWRAPPER_PYTHON=$PYTHONPATH
 source $HOME/.local/bin/virtualenvwrapper.sh
-

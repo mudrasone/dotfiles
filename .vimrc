@@ -80,6 +80,7 @@ if has("autocmd")
     autocmd FileType c,cpp,opencl set expandtab tabstop=4 shiftwidth=4 textwidth=80
     autocmd FileType python,html,css set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79
     autocmd FileType jade,sass,yaml set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79
+    autocmd BufNewFile,BufRead Dockerfile.* set filetype=dockerfile
     autocmd BufNewFile,BufRead *.html set filetype=htmldjango
 endif
 " }

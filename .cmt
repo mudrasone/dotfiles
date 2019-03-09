@@ -1,0 +1,25 @@
+# input parts
+{
+    "Type" = [
+        "feat",
+        "fix",
+        "docs",
+        "style",
+        "refactor",
+        "test",
+        "chore"
+    ]
+    "Scope" = %
+    "Body" = !@
+}
+
+# predefined messages
+{
+    vb = "chore (package.yaml): version bump"
+    readme = "docs (README.md): updated readme"
+}
+
+# output format
+${Type} (${Scope}): ${*}
+
+${Body}
