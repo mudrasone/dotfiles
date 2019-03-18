@@ -107,7 +107,7 @@ function glz () {
 }
 
 alias c="clear"
-alias v="v"
+alias v="vim"
 
 # Z
 . $HOME/.local/bin/z.sh
@@ -142,7 +142,6 @@ export BERT_BASE_DIR=$HOME/code/BERT-Base/multi_cased_L-12_H-768_A-12
 export WORKSPACE="$HOME/code"
 
 alias ws='cd $WORKSPACE && ls -la'
-alias histstats="history | awk '{CMD[\$2]++;count++;}END { for (a in CMD)print CMD[a] \" \" CMD[a]/count*100 \"% \" a;}' | grep -v './' | column -c3 -s ' ' -t | sort -nr | nl |  head -n10"
 
 # Completion for kitty
 kitty + complete setup zsh | source /dev/stdin
@@ -162,3 +161,6 @@ eval `dircolors /home/pindaroso/.dir_colors/dircolors`
 export PYTHONPATH=/usr/bin/python3
 export VIRTUALENVWRAPPER_PYTHON=$PYTHONPATH
 source $HOME/.local/bin/virtualenvwrapper.sh
+
+# Docker
+alias drmi='docker rmi $(docker images | grep "^<none>" | awk "{print $3}")'

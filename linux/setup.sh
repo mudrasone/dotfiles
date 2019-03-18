@@ -8,7 +8,7 @@ sudo apt-get update -y
 sudo dpkg --configure -a
 sudo apt-get install -y tmux vim-gtk zsh silversearcher-ag git \
     python3-pip exuberant-ctags curl cmake npm htop \
-    gnome-tweak-tool mosh
+    gnome-tweak-tool mosh xclip
 
 # Docker CE
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -116,3 +116,6 @@ sudo apt-add-repository -y ppa:brightbox/ruby-ng
 sudo apt-get update
 sudo apt-get install -y ruby-dev ruby-switch
 gem install travis -v 1.8.9 --no-rdoc --no-ri
+
+mkdir $HOME/.nvm
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash

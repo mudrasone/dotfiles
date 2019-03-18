@@ -103,7 +103,7 @@ set showcmd
 set hidden
 set wildmenu
 set wildmode=list:longest
-"set cursorline
+set cursorline
 set ttyfast
 set ruler
 set backspace=indent,eol,start
@@ -249,6 +249,7 @@ let g:solarized_termtrans = 1
 let g:solarized_termcolors = 16
 colorscheme solarized
 hi Specialkey ctermbg=8
+hi LineNr ctermbg=none
 " }
 
 " NERDTree {
@@ -256,6 +257,10 @@ map <C-n> :NERDTreeToggle<CR>
 
 let NERDTreeIgnore = ['\.pyc$']
 let NERDTreeShowHidden = 1
+let NERDTreeQuitOnOpen = 1
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 " }
 
 " FZF {
@@ -324,4 +329,12 @@ noremap <C-l> :Autoformat<CR>
 
 " Emmet {
 let g:user_emmet_expandabbr_key='<Tab>'
+" }
+
+" Python {
+let g:pymode_python = 'python3'
+let g:pymode_options_colorcolumn = 0
+let g:pymode_folding = 1
+" let g:pymode_lint_checker = 'pyflakes,pep8'
+let g:pymode_lint_checker = 'mypy'
 " }
