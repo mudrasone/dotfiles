@@ -72,23 +72,27 @@ set undodir=$HOME/.vim/.undo//
 set undofile
 " }
 
-" Set proper tab / whitespace handling for a given programming language {
+" Set proper tab and whitespace handling for a given programming language {
 if has("autocmd")
     " Enable file type search
     filetype plugin indent on
     " Consistent with the Linux Kernel Coding Style Guidelines
-    autocmd FileType c,cpp,opencl set expandtab tabstop=4 shiftwidth=4 textwidth=80
-    autocmd FileType python,html,css set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79
-    autocmd FileType jade,sass,yaml set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79
+    autocmd FileType c,cpp,opencl set expandtab tabstop=4 shiftwidth=4 textwidth=80 rnu
+    autocmd FileType python,html,css,vimrc set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79 rnu
+    autocmd FileType jade,sass,yaml set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79 rnu
+    autocmd FileType Makefile set rnu
+    autocmd FileType Dockerfile set rnu
     autocmd BufNewFile,BufRead Dockerfile.* set filetype=dockerfile
-    autocmd BufNewFile,BufRead *.html set filetype=htmldjango
+    autocmd FileType loclist,qf set nornu nonu
 endif
 " }
 
 " General settings {
 syntax on
 
-set nu
+let mapleader = ','
+
+set nonu
 set updatetime=500
 
 set tabstop=4
@@ -162,10 +166,9 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-"let g:syntastic_python_checkers = ['mypy']
 let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_python_checker_args="--ignore=E501,W601"
-let g:syntastic_python_flake8_args="--ignore=E501,W601,W504"
+let g:syntastic_python_checker_args = '--ignore=E501,W601'
+let g:syntastic_python_flake8_args = '--ignore=E501,W601,W504'
 
 let g:syntastic_haskell_checkers = ['ghc-mod', 'hlint -i "Reduce duplication"']
 
@@ -245,11 +248,15 @@ let g:tagbar_type_go = {
 
 " Color {
 set background=dark
+
 let g:solarized_termtrans = 1
 let g:solarized_termcolors = 16
+
 colorscheme solarized
+
 hi Specialkey ctermbg=8
 hi LineNr ctermbg=none
+hi CursorLineNr ctermfg=grey
 " }
 
 " NERDTree {
@@ -309,7 +316,7 @@ let g:ycm_semantic_triggers = {
 " }
 
 " FAR {
-let g:far#source = "ag"
+let g:far#source = 'ag'
 " }
 
 " Cool {
@@ -320,21 +327,27 @@ let g:CoolTotalMatches = 1
 noremap <C-l> :Autoformat<CR>
 " }
 
-" Gutentags {
-" set statusline+=%{gutentags#statusline()}
-" }
-
-" BufSurf {
-" }
-
 " Emmet {
-let g:user_emmet_expandabbr_key='<Tab>'
+let g:user_emmet_expandabbr_key = '<Tab>'
 " }
 
 " Python {
 let g:pymode_python = 'python3'
 let g:pymode_options_colorcolumn = 0
 let g:pymode_folding = 1
-" let g:pymode_lint_checker = 'pyflakes,pep8'
-let g:pymode_lint_checker = 'mypy'
+let g:pymode_link_checkers = []
+let g:pymode_lint_on_fly = 0
+let g:pymode_lint = 0
+let g:pymode_lint_on_write = 0
+let g:pymode_lint_cwindow = 0
+let g:pymode_lint_checkers = []
+" }
+
+" Numbers {
+let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'quickfix', 'locationlist']
+" }
+
+" EasyGrep {
+let g:EasyGrepRoot = 'repository'
+let g:EasyGrepFilesToExclude = '.svn,.git,tags'
 " }

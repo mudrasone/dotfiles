@@ -65,6 +65,7 @@ ZSH_THEME="crcandy"
 plugins=(
   git
   zsh-completions
+  zsh-autosuggestions
 )
 
 autoload -Uz compinit && compinit
@@ -131,7 +132,7 @@ export JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
 export GOPATH=$HOME/go
 
 # Path
-export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin:/usr/lib/cuda-10.0
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin:/usr/lib/cuda-10.0:$HOME/.npm-global/bin
 
 # Dapp Tools
 . $HOME/.nix-profile/etc/profile.d/nix.sh
@@ -163,4 +164,9 @@ export VIRTUALENVWRAPPER_PYTHON=$PYTHONPATH
 source $HOME/.local/bin/virtualenvwrapper.sh
 
 # Docker
-alias drmi='docker rmi $(docker images | grep "^<none>" | awk "{print $3}")'
+function dclean() {
+    docker rmi -f $(docker images | grep "^<none>" | awk "{print $3}")
+    docker rmi -f $(docker images -f "dangling=true" -q)
+}
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

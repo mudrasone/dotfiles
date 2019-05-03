@@ -82,6 +82,10 @@ git clone git@github.com:chr4/nginx.vim.git
 git clone git@github.com:ludovicchabant/vim-gutentags.git
 git clone git@github.com:Chiel92/vim-autoformat.git
 git clone git@github.com:airblade/vim-gitgutter.git
+git clone git@github.com:myusuf3/numbers.vim.git
+git clone git@github.com:vim-airline/vim-airline.git
+git clone git@github.com:vim-airline/vim-airline-themes.git
+git clone git@github.com:mxw/vim-jsx.git
 
 # YCM
 cd $HOME/.vim/bundle/YouCompleteMe
