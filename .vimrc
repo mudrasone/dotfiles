@@ -78,12 +78,12 @@ if has("autocmd")
     filetype plugin indent on
     " Consistent with the Linux Kernel Coding Style Guidelines
     autocmd FileType c,cpp,opencl set expandtab tabstop=4 shiftwidth=4 textwidth=80 rnu
-    autocmd FileType css,vimrc set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79 rnu
-    autocmd FileType python set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79 foldmethod=indent rnu
+    autocmd FileType python,css,vimrc set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79 rnu
     autocmd FileType jade,sass,yaml set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79 rnu
     autocmd FileType Makefile set rnu
     autocmd FileType Dockerfile set rnu
     autocmd FileType loclist,qf set nornu nonu
+    autocmd BufNewFile,BufRead *.py set foldmethod=indent
     autocmd BufNewFile,BufRead *.html set filetype=htmldjango
     autocmd BufNewFile,BufRead Dockerfile.* set filetype=dockerfile
 endif
@@ -163,8 +163,8 @@ execute pathogen#infect()
 execute pathogen#helptags()
 
 " Syntastic {
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
@@ -175,9 +175,6 @@ let g:syntastic_python_flake8_args = '--ignore=E501,W601,W504'
 let g:syntastic_haskell_checkers = ['ghc-mod', 'hlint -i "Reduce duplication"']
 
 let g:syntastic_check_on_wq = 0
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_enable_signs = 0
 
@@ -358,4 +355,8 @@ let g:EasyGrepFilesToExclude = '.svn,.git,tags'
 " Emmet {
 let g:user_emmet_expandabbr_key = '<Tab>'
 imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+" }
+
+" Gutentag {
+let g:gutentags_exclude_filetypes = ['css', 'scss', 'html']
 " }
