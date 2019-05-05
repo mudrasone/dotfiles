@@ -161,6 +161,7 @@ eval `dircolors /home/pindaroso/.dir_colors/dircolors`
 # Virtualenv
 export PYTHONPATH=/usr/bin/python3
 export VIRTUALENVWRAPPER_PYTHON=$PYTHONPATH
+export VIRTUALENV_PYTHON=/usr/bin/python3
 source $HOME/.local/bin/virtualenvwrapper.sh
 
 # Docker

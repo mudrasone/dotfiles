@@ -86,6 +86,7 @@ git clone git@github.com:myusuf3/numbers.vim.git
 git clone git@github.com:vim-airline/vim-airline.git
 git clone git@github.com:vim-airline/vim-airline-themes.git
 git clone git@github.com:mxw/vim-jsx.git
+git clone git@github.com:mattn/emmet-vim.git
 
 # YCM
 cd $HOME/.vim/bundle/YouCompleteMe

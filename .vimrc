@@ -78,12 +78,14 @@ if has("autocmd")
     filetype plugin indent on
     " Consistent with the Linux Kernel Coding Style Guidelines
     autocmd FileType c,cpp,opencl set expandtab tabstop=4 shiftwidth=4 textwidth=80 rnu
-    autocmd FileType python,html,css,vimrc set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79 rnu
+    autocmd FileType css,vimrc set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79 rnu
+    autocmd FileType python set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79 foldmethod=indent rnu
     autocmd FileType jade,sass,yaml set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79 rnu
     autocmd FileType Makefile set rnu
     autocmd FileType Dockerfile set rnu
-    autocmd BufNewFile,BufRead Dockerfile.* set filetype=dockerfile
     autocmd FileType loclist,qf set nornu nonu
+    autocmd BufNewFile,BufRead *.html set filetype=htmldjango
+    autocmd BufNewFile,BufRead Dockerfile.* set filetype=dockerfile
 endif
 " }
 
@@ -313,6 +315,7 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_semantic_triggers = {
      \ 'elm' : ['.'],
      \ }
+let g:ycm_confirm_extra_conf = 0
 " }
 
 " FAR {
@@ -350,4 +353,9 @@ let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'quickfix
 " EasyGrep {
 let g:EasyGrepRoot = 'repository'
 let g:EasyGrepFilesToExclude = '.svn,.git,tags'
+" }
+
+" Emmet {
+let g:user_emmet_expandabbr_key = '<Tab>'
+imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 " }
