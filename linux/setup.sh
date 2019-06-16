@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -x
-# set -e
 
 # Debian"
 sudo apt-get update -y

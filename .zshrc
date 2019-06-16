@@ -101,6 +101,12 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+uname="$(uname -s)"
+case "${uname}" in
+    Linux*) machine=Linux;;
+    Darwin*) machine=Mac;;
+esac
+
 function glz () {
     git add .
     cmt "$1"
@@ -117,12 +123,14 @@ alias v="vim"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # CUDA
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/cuda-10.0/lib64:/usr/lib/cuda-10.0/extras/CUPTI/lib64"
-export CUDA_HOME=/usr/lib/cuda
+if [ $machine = "Linux" ]; then
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/cuda-10.0/lib64:/usr/lib/cuda-10.0/extras/CUPTI/lib64"
+    export CUDA_HOME=/usr/lib/cuda
 
-# Python Numba
-export NUMBAPRO_LIBDEVICE=/usr/lib/cuda-10.0/nvvm/libdevice/
-export NUMBAPRO_NVVM=/usr/lib/cuda-10.0/nvvm/lib64/libnvvm.so
+    # Python Numba
+    export NUMBAPRO_LIBDEVICE=/usr/lib/cuda-10.0/nvvm/libdevice/
+    export NUMBAPRO_NVVM=/usr/lib/cuda-10.0/nvvm/lib64/libnvvm.so
+fi
 
 # Java
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle
@@ -145,7 +153,9 @@ export WORKSPACE="$HOME/code"
 alias ws='cd $WORKSPACE && ls -la'
 
 # Completion for kitty
-kitty + complete setup zsh | source /dev/stdin
+if command -v kitty; then
+    kitty + complete setup zsh | source /dev/stdin
+fi
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
@@ -156,13 +166,22 @@ export NVM_DIR="$HOME/.nvm"
 # added by travis gem
 [ -f /home/pindaroso/.travis/travis.sh ] && source /home/pindaroso/.travis/travis.sh
 
-eval `dircolors /home/pindaroso/.dir_colors/dircolors`
+if command -v dircolors; then
+    eval `dircolors /home/pindaroso/.dir_colors/dircolors`
+fi
 
 # Virtualenv
-export PYTHONPATH=/usr/bin/python3
-export VIRTUALENVWRAPPER_PYTHON=$PYTHONPATH
-export VIRTUALENV_PYTHON=/usr/bin/python3
-source $HOME/.local/bin/virtualenvwrapper.sh
+if [ $machine = "Linux" ]; then
+    export PYTHONPATH=/usr/bin/python3
+    export VIRTUALENVWRAPPER_PYTHON=$PYTHONPATH
+    export VIRTUALENV_PYTHON=/usr/bin/python3
+    source $HOME/.local/bin/virtualenvwrapper.sh
+else
+    export PYTHONPATH=/usr/local/bin/python3
+    export VIRTUALENVWRAPPER_PYTHON=$PYTHONPATH
+    export VIRTUALENV_PYTHON=/usr/local/bin/python3
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
 
 # Docker
 function dclean() {
