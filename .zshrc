@@ -153,8 +153,8 @@ export WORKSPACE="$HOME/code"
 alias ws='cd $WORKSPACE && ls -la'
 
 # Completion for kitty
-if command -v kitty; then
-    kitty + complete setup zsh | source /dev/stdin
+if command -v kitty &> /dev/null; then
+    kitty + complete setup zsh | source /dev/stdin &> /dev/null
 fi
 
 # NVM
@@ -166,7 +166,7 @@ export NVM_DIR="$HOME/.nvm"
 # added by travis gem
 [ -f /home/pindaroso/.travis/travis.sh ] && source /home/pindaroso/.travis/travis.sh
 
-if command -v dircolors; then
+if command -v dircolors &> /dev/null; then
     eval `dircolors /home/pindaroso/.dir_colors/dircolors`
 fi
 
