@@ -4,6 +4,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -63,11 +64,10 @@ ZSH_THEME="crcandy"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  zsh-completions
-  zsh-autosuggestions
+    git
+#   zsh-completions
 )
-
+# 
 autoload -Uz compinit && compinit
 
 source $ZSH/oh-my-zsh.sh
@@ -133,14 +133,14 @@ if [ $machine = "Linux" ]; then
 fi
 
 # Java
-export JAVA_HOME=/usr/lib/jvm/java-8-oracle
-export JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export JRE_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
 
 # Go
 export GOPATH=$HOME/go
 
 # Path
-export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin:/usr/lib/cuda-10.0:$HOME/.npm-global/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin:/usr/lib/cuda-10.0:$HOME/.npm-global/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$JAVA_HOME
 
 # Dapp Tools
 . $HOME/.nix-profile/etc/profile.d/nix.sh
@@ -188,3 +188,7 @@ function dclean() {
     docker rmi -f $(docker images | grep "^<none>" | awk "{print $3}")
     docker rmi -f $(docker images -f "dangling=true" -q)
 }
+
+source ~/code/creative/.functionsrc
+
+export TERM=xterm-256color
