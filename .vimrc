@@ -94,7 +94,7 @@ syntax on
 
 let mapleader = ','
 
-set nonu
+set rnu
 set updatetime=500
 
 set tabstop=4
@@ -103,13 +103,14 @@ set softtabstop=4
 set expandtab
 
 set encoding=utf-8
+set fillchars=vert:│
 set scrolloff=3
 set showmode
 set showcmd
 set hidden
 set wildmenu
 set wildmode=list:longest
-set cursorline
+" set cursorline
 set ttyfast
 set ruler
 set backspace=indent,eol,start
@@ -256,6 +257,7 @@ colorscheme solarized
 hi Specialkey ctermbg=8
 hi LineNr ctermbg=none
 hi CursorLineNr ctermfg=grey
+hi VertSplit ctermbg=NONE
 " }
 
 " NERDTree {
@@ -270,7 +272,7 @@ let NERDTreeDirArrows = 1
 " }
 
 " FZF {
-set rtp+=$HOME/.fzf
+set rtp+=/usr/local/opt/fzf 
 
 map <C-h> :History<CR>
 map <C-b> :Buffers<CR>

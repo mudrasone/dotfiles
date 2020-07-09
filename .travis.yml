@@ -2,4 +2,3 @@ sudo: false
 
 script:
   echo "Skipping..."
-  #- docker build .

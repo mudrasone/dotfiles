@@ -1,5 +1,5 @@
 all:
-	@cp ~/.tmux.conf ~/.zshrc ~/.vimrc ~/.config/kitty/kitty.conf .
+	@cp ~/.tmux.conf ~/.zshrc ~/.vimrc .
 
 osx:
 	@brew list > .brew

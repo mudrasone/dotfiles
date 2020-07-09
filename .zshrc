@@ -9,7 +9,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="crcandy"
+ZSH_THEME="cypher"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -64,8 +64,7 @@ ZSH_THEME="crcandy"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
-#   zsh-completions
+   git
 )
 # 
 autoload -Uz compinit && compinit
@@ -101,94 +100,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-uname="$(uname -s)"
-case "${uname}" in
-    Linux*) machine=Linux;;
-    Darwin*) machine=Mac;;
-esac
-
-function glz () {
-    git add .
-    cmt "$1"
-    git push
-}
-
 alias c="clear"
 alias v="vim"
 
 # Z
-. $HOME/.local/bin/z.sh
+source $HOME/.z.sh
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# CUDA
-if [ $machine = "Linux" ]; then
-    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/cuda-10.0/lib64:/usr/lib/cuda-10.0/extras/CUPTI/lib64"
-    export CUDA_HOME=/usr/lib/cuda
-
-    # Python Numba
-    export NUMBAPRO_LIBDEVICE=/usr/lib/cuda-10.0/nvvm/libdevice/
-    export NUMBAPRO_NVVM=/usr/lib/cuda-10.0/nvvm/lib64/libnvvm.so
-fi
-
-# Java
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-export JRE_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
-
-# Go
-export GOPATH=$HOME/go
-
-# Path
-export PATH=$PATH:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:/usr/local/go/bin:/usr/lib/cuda-10.0:$HOME/.npm-global/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$JAVA_HOME
-
-# Dapp Tools
-. $HOME/.nix-profile/etc/profile.d/nix.sh
-
-export GLUE_DIR=$HOME/code/glue/data
-export BERT_BASE_DIR=$HOME/code/BERT-Base/multi_cased_L-12_H-768_A-12
-
-export WORKSPACE="$HOME/code"
-
-alias ws='cd $WORKSPACE && ls -la'
-
-# Completion for kitty
-if command -v kitty &> /dev/null; then
-    kitty + complete setup zsh | source /dev/stdin &> /dev/null
-fi
-
-# NVM
-export NVM_DIR="$HOME/.nvm"
-
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# added by travis gem
-[ -f /home/pindaroso/.travis/travis.sh ] && source /home/pindaroso/.travis/travis.sh
-
-if command -v dircolors &> /dev/null; then
-    eval `dircolors /home/pindaroso/.dir_colors/dircolors`
-fi
-
-# Virtualenv
-if [ $machine = "Linux" ]; then
-    export PYTHONPATH=/usr/bin/python3
-    export VIRTUALENVWRAPPER_PYTHON=$PYTHONPATH
-    export VIRTUALENV_PYTHON=/usr/bin/python3
-    source $HOME/.local/bin/virtualenvwrapper.sh
-else
-    export PYTHONPATH=/usr/local/bin/python3
-    export VIRTUALENVWRAPPER_PYTHON=$PYTHONPATH
-    export VIRTUALENV_PYTHON=/usr/local/bin/python3
-    source /usr/local/bin/virtualenvwrapper.sh
-fi
-
-# Docker
-function dclean() {
-    docker rmi -f $(docker images | grep "^<none>" | awk "{print $3}")
-    docker rmi -f $(docker images -f "dangling=true" -q)
-}
-
-source ~/code/creative/.functionsrc
-
-export TERM=xterm-256color

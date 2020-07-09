@@ -2,12 +2,6 @@
 
 # dotfiles
 
-*An opinionated tooling guide for software development*
-
-![Screenshot](https://raw.githubusercontent.com/pindaroso/dotfiles/master/images/ss.png)
-
-**Vim**
-
 ## Setup
 
 **Keyboard**
@@ -19,7 +13,3 @@
 ### Tmux
 
 Terminal multiplexer. See `.tmux.conf` for full configuration details. Prefix is `<C-a>`.
-
-**NOTES**
-
-Requires OSX updates
