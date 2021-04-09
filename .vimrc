@@ -79,8 +79,9 @@ if has("autocmd")
     " Consistent with the Linux Kernel Coding Style Guidelines
     autocmd FileType c,cpp,opencl set expandtab tabstop=4 shiftwidth=4 textwidth=80 rnu
     autocmd FileType python,css,vimrc set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79 rnu
-    autocmd FileType jade,sass,yaml set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79 rnu
+    autocmd FileType jade,sass,yaml,sol set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79 rnu
     autocmd FileType Makefile set rnu
+    autocmd FileType md set wrap
     autocmd FileType Dockerfile set rnu
     autocmd FileType loclist,qf set nornu nonu
     autocmd BufNewFile,BufRead *.py set foldmethod=indent
@@ -95,7 +96,7 @@ syntax on
 let mapleader = ','
 
 set rnu
-set updatetime=500
+set updatetime=300
 
 set tabstop=4
 set shiftwidth=4
@@ -110,13 +111,13 @@ set showcmd
 set hidden
 set wildmenu
 set wildmode=list:longest
-" set cursorline
 set ttyfast
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
 
-set list listchars=tab:∙\ ,trail:·,precedes:←,extends:→,eol:¬,nbsp:␣
+" set list listchars=tab:∙\ ,trail:·,precedes:←,extends:→,eol:¬,nbsp:␣
+set list listchars=tab:∙\ ,trail:·,precedes:←,extends:→,nbsp:␣
 
 set autoindent
 set smartindent
@@ -169,7 +170,7 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_checkers = ['/usr/local/bin/flake8']
 let g:syntastic_python_checker_args = '--ignore=E501,W601'
 let g:syntastic_python_flake8_args = '--ignore=E501,W601,W504'
 
@@ -329,10 +330,6 @@ let g:CoolTotalMatches = 1
 noremap <C-l> :Autoformat<CR>
 " }
 
-" Emmet {
-let g:user_emmet_expandabbr_key = '<Tab>'
-" }
-
 " Python {
 let g:pymode_python = 'python3'
 let g:pymode_options_colorcolumn = 0
@@ -355,10 +352,12 @@ let g:EasyGrepFilesToExclude = '.svn,.git,tags'
 " }
 
 " Emmet {
-let g:user_emmet_expandabbr_key = '<Tab>'
-imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+"let g:user_emmet_expandabbr_key = '<Tab>'
+"imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 " }
 
 " Gutentag {
 let g:gutentags_exclude_filetypes = ['css', 'scss', 'html']
 " }
+
+hi StatusLine ctermbg=blue ctermfg=black

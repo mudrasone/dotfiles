@@ -9,7 +9,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="cypher"
+ZSH_THEME="Soliah"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -66,7 +66,7 @@ ZSH_THEME="cypher"
 plugins=(
    git
 )
-# 
+#
 autoload -Uz compinit && compinit
 
 source $ZSH/oh-my-zsh.sh
@@ -102,9 +102,13 @@ source $ZSH/oh-my-zsh.sh
 
 alias c="clear"
 alias v="vim"
+alias k="kubectl"
+alias j="jupyter lab --ContentsManager.allow_hidden=True"
 
 # Z
 source $HOME/.z.sh
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+autoload -U +X bashcompinit && bashcompinit
