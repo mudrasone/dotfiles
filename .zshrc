@@ -64,7 +64,7 @@ ZSH_THEME="Soliah"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-   git
+    git
 )
 #
 autoload -Uz compinit && compinit
@@ -104,6 +104,12 @@ alias c="clear"
 alias v="vim"
 alias k="kubectl"
 alias j="jupyter lab --ContentsManager.allow_hidden=True"
+
+function ship {
+    git add -A
+    git commit -S -m "$1"
+    git push
+}
 
 # Z
 source $HOME/.z.sh

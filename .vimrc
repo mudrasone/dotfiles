@@ -115,8 +115,6 @@ set ttyfast
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
-
-" set list listchars=tab:∙\ ,trail:·,precedes:←,extends:→,eol:¬,nbsp:␣
 set list listchars=tab:∙\ ,trail:·,precedes:←,extends:→,nbsp:␣
 
 set autoindent
@@ -349,11 +347,6 @@ let g:numbers_exclude = ['tagbar', 'gundo', 'minibufexpl', 'nerdtree', 'quickfix
 " EasyGrep {
 let g:EasyGrepRoot = 'repository'
 let g:EasyGrepFilesToExclude = '.svn,.git,tags'
-" }
-
-" Emmet {
-"let g:user_emmet_expandabbr_key = '<Tab>'
-"imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 " }
 
 " Gutentag {
